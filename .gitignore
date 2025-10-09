@@ -10,3 +10,7 @@
 
 # nohup 默认会生成的输出文件
 nohup.out
+
+# 忽略所有 .bam 和 .bai 文件（大文件）
+*.bam
+*.bai
