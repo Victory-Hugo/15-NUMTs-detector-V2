@@ -18,11 +18,11 @@
 set -euo pipefail
 
 ## ===============================  配置  ==================================== ##
+MITOCHONDRIAL_CHR=chrM  # 线粒体染色体名称（MT|chrM）
+INPUT_BAM=/mnt/d/9_Reference/HG001.bam
+OUTPUT_DIR=/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-获得NUMTs分布/output/
 
-INPUT_BAM=/home/luolintao/S20_NUMTs-detection-1.0/data/Y21100000492606.deduped.bam
-OUTPUT_DIR=/home/luolintao/S20_NUMTs-detection-1.0/output
-
-BASE_DIR='/home/luolintao/S20_NUMTs-detection-1.0/' # 脚本基础目录
+BASE_DIR='/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-获得NUMTs分布/' # 脚本基础目录
 REF_GRCh38=$BASE_DIR/download/GRCh38_latest_genomic.fna
 CLUSTER_SCRIPT=$BASE_DIR/script/0_1_找聚类.py
 SAM2PSL_SCRIPT=$BASE_DIR/script/0_2_sam2psl.py  # 前面提供的脚本
@@ -47,9 +47,9 @@ ALL_PSL=${OUTPUT_DIR}/${SAMPLE_ID}_all_regions.psl
 ###############################################################################
 if [[ ! -s "$DISC_SAM" ]]; then
   echo ">>> step1  生成 disc/split SAM"
-  samtools view -@${THREADS} -m4G -h -F2 "$INPUT_BAM" \
-    | grep -e '^@' -e 'MT' \
-    | samtools sort -@${THREADS} -m4G -n - \
+  samtools view -@${THREADS} -m32G -h -F2 "$INPUT_BAM" \
+    | grep -e '^@' -e "${MITOCHONDRIAL_CHR}" \
+    | samtools sort -@${THREADS} -m32G -n - \
     | samtools view -h - \
     | samblaster --ignoreUnmated -e \
         -d "$DISC_SAM" \
@@ -132,73 +132,3 @@ grep -v '^$' "$BREAK_IN" | while IFS=$'\t' read -r sampleID cluster_no \
         "${OUTPUT_DIR}/${PREFIX}"
 done
 echo "=== PIPELINE FINISHED ==="
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # 使用制表符作为分隔符读取文件的每一行，并将其字段分配给相应的变量
-# while IFS=$'\t' read -r sampleID cluster_no disFile splitFile wgsBAM chr start end; do
-#     # 去除 chr 字段中的多余字符（如括号和引号）
-#     chr=$(echo $chr | sed "s/[(),' ]//g")
-#     # 输出当前行的各个字段，方便调试
-#     echo "$sampleID $cluster_no $disFile $splitFile $wgsBAM $chr $start $end"    
-#     # 构建区域字符串，用于 samtools 提取指定区域
-#     REGION="${chr}:${start}-${end}"    
-#     # 构建输出文件的前缀路径
-#     OUTPUT="${OUTPUT_DIR}/${sampleID}_${chr}.${start}.${end}"    
-#     #使用 samtools 从 BAM 文件中提取指定区域的数据，并保存为 SAM 格式
-#     samtools view "${wgsBAM}" "${REGION}" > "${OUTPUT}.sam"    
-#     # 使用 awk 过滤掉特定 CIGAR 值的行，并提取第1和第10列，将结果保存为 FASTA 格式
-#     awk '$6 !~ /150M|149M|148M|149S|148S/' "${OUTPUT}.sam" | cut -f1,10 > "${OUTPUT}.fasta"
-#     # 使用 perl 脚本在每行前添加 '>' 符号，符合 FASTA 格式要求
-#     perl -pi -e 's/^/>/g' "${OUTPUT}.fasta"    
-#     # 使用 perl 脚本将制表符替换为换行符，符合 FASTA 格式要求
-#     perl -pi -e 's/\t/\n/g' "${OUTPUT}.fasta"    
-#     # 使用 BLAT 工具将 FASTA 文件比对到参考基因组，结果保存为 PSL 格式
-#     /home/luolintao/S21_blat-35.1/bin/blat "${REF_GRCh38}" "${OUTPUT}.fasta" "${OUTPUT}.psl"    
-#     # 运行 Python 脚本处理 BLAT 生成的 PSL 文件，提取断点信息
-#     python3 "${BREAKPOINT_SCRIPT}" "${OUTPUT}.psl" "${sampleID}" "${chr}" "${start}" "${end}" "${OUTPUT}"
-#     # 删除临时生成的 FASTA 文件
-#     rm "${OUTPUT}.fasta"    
-#     # 删除临时生成的 SAM 文件
-#     rm "${OUTPUT}.sam"
-# done <<< "$filelines"
