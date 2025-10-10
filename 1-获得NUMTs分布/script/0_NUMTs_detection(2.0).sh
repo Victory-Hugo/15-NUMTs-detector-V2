@@ -26,7 +26,7 @@ BASE_DIR='/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V
 REF_GRCh38=$BASE_DIR/download/GRCh38_latest_genomic.fna
 CLUSTER_SCRIPT=$BASE_DIR/script/0_1_找聚类.py
 SAM2PSL_SCRIPT=$BASE_DIR/script/0_2_sam2psl.py  # 前面提供的脚本
-BREAKPOINT_SCRIPT=$BASE_DIR/script/0_2_找断点.py
+BREAKPOINT_SCRIPT=$BASE_DIR/script/0_3_找断点.py
 
 THREADS=16
 ###############################################################################

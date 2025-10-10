@@ -55,7 +55,7 @@ for INPUT_BAM in "${BAM_FILES[@]}"; do
     REF_GRCh38=$BASE_DIR/download/GRCh38_latest_genomic.fna
     CLUSTER_SCRIPT=$BASE_DIR/script/0_1_找聚类.py
     SAM2PSL_SCRIPT=$BASE_DIR/script/0_2_sam2psl.py
-    BREAKPOINT_SCRIPT=$BASE_DIR/script/0_2_找断点.py
+    BREAKPOINT_SCRIPT=$BASE_DIR/script/0_3_找断点.py
     THREADS=16
 
     DISC_SAM=${OUTPUT_DIR}/${SAMPLE_ID}.mt.disc.sam
