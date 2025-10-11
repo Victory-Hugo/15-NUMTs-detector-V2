@@ -1,0 +1,10 @@
+Parameter	Value	Description
+Total_NUMTs	5	Total number of NUMTs in the genome
+Target_Region_NUMTs	1	Number of NUMTs in target regions
+NUMT_Length_bp	1000	Average length of NUMTs
+Simulation_Runs	1000	Number of permutation simulations
+Observed_Percentage	0.2000	Observed percentage of NUMTs in target regions
+P_value_less	1.000000	Probability that random distribution has fewer overlaps
+P_value_greater	0.003996	Probability that random distribution has more overlaps
+Significance_less_than_random	No	Is target region depleted of NUMTs?
+Significance_greater_than_random	Yes	Is target region enriched for NUMTs?
