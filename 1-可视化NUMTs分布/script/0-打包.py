@@ -12,7 +12,7 @@ TSV文件合并与压缩工具 - 1-打包.py
 python 1-打包.py <输入目录> <输出目录> <压缩文件路径>
 
 示例:
-python 1-打包.py ./藏族完成1/tsv ./藏族完成1/merged_output ./藏族完成1/original_files.tar.gz
+python 1-打包.py ./完成1/tsv ./完成1/merged_output ./完成1/original_files.tar.gz
 """
 
 import os
