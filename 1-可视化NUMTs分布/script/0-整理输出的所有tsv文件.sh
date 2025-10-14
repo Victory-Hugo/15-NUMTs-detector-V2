@@ -5,10 +5,10 @@
 
 PYTHON3="/home/luolintao/miniconda3/envs/pyg/bin/python3" #* 请根据实际情况修改为你的Python3路径
 PYTHON_SCRIPT="/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-汇总NUMTs分布/script/0-打包.py"
+PREPARE_CIRCOS_SCRIPT="/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-可视化NUMTs分布/script/1-准备NUMTs可视化.py" #* 用于转换为circos输入格式的脚本路径
 INPUT_CSV_DIR="/mnt/c/Users/Administrator/Desktop/download" #* 里面存放了所有的tsv文件: *.mt.disc.sam.breakpointINPUT.tsv / *.mt.disc.sam.cluster.summary.tsv / *.mt.disc.sam.cluster.tsv / *.Breakpoints.tsv
 OUTPUT_DIR="/mnt/c/Users/Administrator/Desktop/藏族_甘肃完成_output" #* 输出目录，存放合并后的tsv文件
 TAR_GZ_PATH="/mnt/c/Users/Administrator/Desktop/藏族_甘肃完成.tar.gz" #* 输出的tar.gz压缩文件路径
-
 
 ${PYTHON3} \
     ${PYTHON_SCRIPT} \
@@ -16,6 +16,10 @@ ${PYTHON3} \
     ${OUTPUT_DIR} \
     ${TAR_GZ_PATH}
 
+${PYTHON3} \
+    ${PREPARE_CIRCOS_SCRIPT} \
+    ${OUTPUT_DIR}/all_individuals_mt.disc.sam.cluster.tsv \
+    ${OUTPUT_DIR}/circos.txt
 
 echo "==============================================="
 echo "   TSV文件合并与压缩工具使用示例"
