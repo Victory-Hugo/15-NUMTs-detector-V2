@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# 使用示例 - 1-打包.py
-# 这个脚本展示了如何使用 1-打包.py 工具
+# 使用示例 - 0-打包.py
+# 这个脚本展示了如何使用 0-打包.py 工具
 
-PYTHON3="/home/luolintao/miniconda3/envs/pyg/bin/python3"
+PYTHON3="/home/luolintao/miniconda3/envs/pyg/bin/python3" #* 请根据实际情况修改为你的Python3路径
 PYTHON_SCRIPT="/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-汇总NUMTs分布/script/0-打包.py"
-INPUT_CSV_DIR="/mnt/c/Users/Administrator/Desktop/download"
-OUTPUT_DIR="/mnt/c/Users/Administrator/Desktop/藏族_甘肃完成_output"
-TAR_GZ_PATH="/mnt/c/Users/Administrator/Desktop/藏族_甘肃完成.tar.gz"
+INPUT_CSV_DIR="/mnt/c/Users/Administrator/Desktop/download" #* 里面存放了所有的tsv文件: *.mt.disc.sam.breakpointINPUT.tsv / *.mt.disc.sam.cluster.summary.tsv / *.mt.disc.sam.cluster.tsv / *.Breakpoints.tsv
+OUTPUT_DIR="/mnt/c/Users/Administrator/Desktop/藏族_甘肃完成_output" #* 输出目录，存放合并后的tsv文件
+TAR_GZ_PATH="/mnt/c/Users/Administrator/Desktop/藏族_甘肃完成.tar.gz" #* 输出的tar.gz压缩文件路径
 
 
 ${PYTHON3} \
