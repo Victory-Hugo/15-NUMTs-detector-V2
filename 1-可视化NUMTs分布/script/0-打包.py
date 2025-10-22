@@ -3,7 +3,7 @@
 TSV文件合并与压缩工具 - 1-打包.py
 
 该脚本将合并指定目录下的TSV文件并压缩原始文件：
-1. *.Breakpoints.tsv - 所有个体的断点文件
+1. *.Breakpoints.tsv - 所有个体的可信断点文件 (输出为: all_individuals_ConfidentBreakpoints.tsv)
 2. *.mt.disc.sam.breakpointINPUT.tsv - 所有个体的断点输入文件  
 3. *.mt.disc.sam.cluster.summary.tsv - 所有个体的聚类摘要文件
 4. *.mt.disc.sam.cluster.tsv - 所有个体的聚类详细文件
@@ -220,7 +220,7 @@ def merge_files_by_type(input_dir, output_dir):
     file_patterns = {
         'breakpoints': {
             'pattern': '*.Breakpoints.tsv',
-            'output': 'all_individuals_Breakpoints.tsv',
+            'output': 'all_individuals_ConfidentBreakpoints.tsv',
             'has_header': False
         },
         'breakpoint_input': {
