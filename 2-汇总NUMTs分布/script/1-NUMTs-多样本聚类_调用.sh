@@ -4,7 +4,17 @@
 ## 多样本 NUMTs 聚类分析调用脚本
 ## 功能：合并多个样本的 breakpointINPUT.tsv 文件，进行跨样本聚类分析
 ################################################################################
-
+# ./
+# ├── arc
+# │   └── SLE完成.tar.gz
+# ├── data
+# │   ├── all_individuals_AllBreakpoints.tsv
+# │   ├── all_individuals_ConfidentBreakpoints.tsv
+# │   ├── all_individuals_mt.disc.sam.breakpointINPUT.tsv
+# │   ├── all_individuals_mt.disc.sam.cluster.summary.tsv
+# │   └── all_individuals_mt.disc.sam.cluster.tsv
+# └── output
+#     └── circos.txt
 # 设置脚本在遇到错误时停止执行
 set -e
 
@@ -14,7 +24,7 @@ set -e
 # OUTPUT_DIR="${BASE_DIR}/2-汇总NUMTs分布/output"
 # SCRIPT_PATH="${BASE_DIR}/2-汇总NUMTs分布/script/1-NUMTs-多样本聚类.py"
 
-BASE_DIR="/mnt/f/12_甘肃藏族_NUMT/1-所有的NUMTs/"
+BASE_DIR="/mnt/f/13_SLE_NUMT/1-所有的NUMTs/"
 INPUT_DIR="${BASE_DIR}/data"
 OUTPUT_DIR="${BASE_DIR}/output"
 SCRIPT_PATH="/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-汇总NUMTs分布/script/1-NUMTs-多样本聚类.py"
