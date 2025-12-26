@@ -286,8 +286,8 @@ process_sample() {
 SCRIPT_CONFIG
 
     # 添加样本处理调用
-    for (( i=START_IDX; i<END_IDX && i<TOTAL_SAMPLES; i++ )); do
-        IFS=$'\t' read -r BAM_PATH SAMPLE_NAME <<< "${SAMPLES[$i]}"
+    for (( idx=START_IDX; idx<END_IDX && idx<TOTAL_SAMPLES; idx++ )); do
+        IFS=$'\t' read -r BAM_PATH SAMPLE_NAME <<< "${SAMPLES[$idx]}"
         echo "process_sample \"$BAM_PATH\" \"$SAMPLE_NAME\"" >> "$SCRIPT_FILE"
     done
     
