@@ -9,6 +9,8 @@ produces summary statistics, and defines breakpoint regions.
 
 import sys
 import csv
+import json
+import os
 import numpy as np
 import pandas as pd
 
@@ -27,8 +29,33 @@ COLUMNS = [
     'OC', 'ZX', 'ZY', 'SA'
 ]
 
-# Valid chromosomes
-VALID_CHROMS = {str(i) for i in range(1, 23)} | {'X', 'Y', 'MT'}
+def load_config():
+    cfg_path = os.environ.get("NUMTS_CONFIG")
+    if not cfg_path:
+        conf_dir = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "..", "confs")
+        )
+        preferred = os.path.join(conf_dir, "GRCH38.json")
+        fallback = os.path.join(conf_dir, "numts_config.json")
+        cfg_path = preferred if os.path.exists(preferred) else fallback
+    try:
+        with open(cfg_path, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        sys.exit(f"❌ 找不到配置文件: {cfg_path}")
+    except json.JSONDecodeError as exc:
+        sys.exit(f"❌ 配置文件 JSON 解析失败: {cfg_path} ({exc})")
+
+
+cfg = load_config().get("cluster", {})
+VALID_CHROMS = set(cfg.get("valid_chroms", []))
+MT_CHR = cfg.get("mt_chrom")
+CHROM_ALIASES = cfg.get("chrom_aliases", {})
+
+if not VALID_CHROMS or not MT_CHR:
+    sys.exit("❌ 配置缺少 cluster.valid_chroms 或 cluster.mt_chrom")
+if MT_CHR not in VALID_CHROMS:
+    sys.exit("❌ 配置错误：cluster.mt_chrom 不在 cluster.valid_chroms 中")
 
 
 def read_and_filter(path: str) -> pd.DataFrame:
@@ -43,20 +70,23 @@ def read_and_filter(path: str) -> pd.DataFrame:
         low_memory=False,
         dtype={'RNAME': str, 'RNEXT': str}
     )
+    if CHROM_ALIASES:
+        df['RNAME'] = df['RNAME'].map(CHROM_ALIASES).fillna(df['RNAME'])
+        df['RNEXT'] = df['RNEXT'].map(CHROM_ALIASES).fillna(df['RNEXT'])
     # Keep only valid chromosomes
     return df[df['RNAME'].isin(VALID_CHROMS)]
 
 
 def fix_rnext(df: pd.DataFrame) -> pd.DataFrame:
     mask_eq  = df['RNEXT'] == '='
-    mask_chr = df['RNAME'].isin(VALID_CHROMS - {'MT'})
+    mask_chr = df['RNAME'].isin(VALID_CHROMS - {MT_CHR})
     # 两种子掩码
     mask1 = mask_eq & mask_chr
     mask2 = mask_eq & ~mask_chr
 
     # 对子掩码分别赋值
     df.loc[mask1, 'RNEXT'] = df.loc[mask1, 'RNAME']
-    df.loc[mask2, 'RNEXT'] = 'MT'
+    df.loc[mask2, 'RNEXT'] = MT_CHR
     return df
 
 
@@ -66,9 +96,9 @@ def select_discordant(df: pd.DataFrame) -> pd.DataFrame:
     Keep only reads where one end maps to MT and the other to a nuclear chromosome.
     """
     mask = (
-        (df['RNAME'] != 'MT') & (df['RNEXT'] == 'MT')
+        (df['RNAME'] != MT_CHR) & (df['RNEXT'] == MT_CHR)
     ) | (
-        (df['RNAME'] == 'MT') & (df['RNEXT'] != 'MT')
+        (df['RNAME'] == MT_CHR) & (df['RNEXT'] != MT_CHR)
     )
     return df[mask].copy()
 
@@ -91,7 +121,7 @@ def extract_regions(df: pd.DataFrame) -> list:
     """
     regions = []
     for chrom in sorted(df['RNAME'].unique()):
-        if chrom == 'MT':
+        if chrom == MT_CHR:
             continue
         sub = df[df['RNAME'] == chrom]
         clusters = cluster_positions(sub['POS'].astype(int).tolist())
@@ -118,15 +148,15 @@ def annotate_mt_positions(df: pd.DataFrame, regions: list) -> None:
         subset = df[
             (df['RNAME'] == r['chr']) &
             (df['POS'].between(r['start'], r['end'])) &
-            (df['RNEXT'] == 'MT')
+            (df['RNEXT'] == MT_CHR)
         ]
         r['mt_positions'] = subset['PNEXT'].astype(int).tolist()
         r['subCluster_No'] = len(r['mt_positions'])
         if r['mt_positions']:
             r['Cluster_ID'] = f"{r['chr']}_{r['start']+500}_{r['end']-500}" \
-                              f"_MTboth_{min(r['mt_positions'])}_{max(r['mt_positions'])}"
+                              f"_{MT_CHR}both_{min(r['mt_positions'])}_{max(r['mt_positions'])}"
         else:
-            r['Cluster_ID'] = f"{r['chr']}_{r['start']+500}_{r['end']-500}_MTboth_None_None"
+            r['Cluster_ID'] = f"{r['chr']}_{r['start']+500}_{r['end']-500}_{MT_CHR}both_None_None"
 
 
 def make_breakpoint_df(regions: list) -> pd.DataFrame:
