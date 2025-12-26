@@ -1,0 +1,2 @@
+/mnt/d/5-NCBI-Reference/3-Human/example/HG001.bam	HG001
+/mnt/d/5-NCBI-Reference/3-Human/example/HG002_5X.bam	HG002
