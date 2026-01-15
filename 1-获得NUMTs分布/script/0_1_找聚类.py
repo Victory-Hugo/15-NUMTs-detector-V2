@@ -67,8 +67,10 @@ def read_and_filter(path: str) -> pd.DataFrame:
         sep="\t",
         names=COLUMNS,
         comment="@",
-        low_memory=False,
-        dtype={'RNAME': str, 'RNEXT': str}
+        dtype={'RNAME': str, 'RNEXT': str},
+        engine="python",
+        quoting=csv.QUOTE_NONE,
+        escapechar="\\"
     )
     if CHROM_ALIASES:
         df['RNAME'] = df['RNAME'].map(CHROM_ALIASES).fillna(df['RNAME'])
@@ -194,6 +196,29 @@ def main():
     annotate_mt_positions(df, regions)
     for r in regions:
         r['IndividualID'] = SAMPLE_ID
+    if not regions:
+        pd.DataFrame(columns=[
+            'IndividualID', 'Cluster_No', 'disFile',
+            'splitFile', 'wgsBAM', 'chr', 'start', 'end'
+        ]).to_csv(f"{INPUT_DISC}.breakpointINPUT.tsv",
+                  sep='\t', header=False, index=False)
+        pd.DataFrame(columns=[
+            'IndividualID', 'Cluster_ID', 'Cluster_No',
+            'subCluster_No', 'size'
+        ]).to_csv(f"{INPUT_DISC}.cluster.summary.tsv",
+                  sep='\t', header=False, index=True)
+        pd.DataFrame(columns=[
+            'chr', 'start', 'end', 'Cluster_No', 'reads',
+            'mt_positions', 'subCluster_No', 'Cluster_ID',
+            'IndividualID'
+        ]).to_csv(f"{INPUT_DISC}.cluster.tsv",
+                  sep='\t', header=True, index=False)
+
+        print("输出完成：")
+        print(f"  - {INPUT_DISC}.cluster.tsv")
+        print(f"  - {INPUT_DISC}.cluster.summary.tsv")
+        print(f"  - {INPUT_DISC}.breakpointINPUT.tsv")
+        return
     # Step 3: Build DataFrames
     df_break = make_breakpoint_df(regions)
     df_all = pd.DataFrame(regions)
