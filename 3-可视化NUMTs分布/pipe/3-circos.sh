@@ -1,15 +1,16 @@
 #!/bin/bash
 #* 需要先安装Circos工具,可以使用conda或者下载安装
+#* conda install -c conda-forge libjpeg-turbo perl-gd
 #* conda install -c bioconda circos
 
 # 切换到配置文件目录（因为配置文件中使用相对路径）
-SCRIPT_DIR="/mnt/f/OneDrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-可视化NUMTs分布"
+SCRIPT_DIR="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/3-可视化NUMTs分布"
 
 #! 使用相对路径，因为circos配置太难了
 cd ${SCRIPT_DIR}/conf/
 
 # 执行前配置好conf文件
-circos -conf circos_allNUMTs.conf
+circos -conf circos_allNUMTs-10K.conf
 
 # 绿色输出：成功提示
 echo -e "\e[32m===============================================\e[0m"
