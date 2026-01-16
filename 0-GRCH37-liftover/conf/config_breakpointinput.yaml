@@ -1,0 +1,29 @@
+project:
+  name: numts_liftover_grch37_to_grch38
+
+liftover:
+  bin: "/home/luolintao/miniconda3/envs/BigLin/bin/liftOver"
+  chain: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/0-GRCH37-liftover/data/hg19ToHg38.over.chain.gz"
+  min_match: 0.95
+
+input:
+  path: "/mnt/l/20-NUMTs/1-原始结果/data/1-10K/all_individuals_mt.disc.sam.breakpointINPUT.concat.tsv"
+  delimiter: "\t"
+  has_header: false
+  chr_prefix: "chr"
+  mt_chroms:
+    - "MT"
+    - "M"
+    - "chrM"
+    - "chrMT"
+  chr_col_index_from_end: 3
+  start_col_index_from_end: 2
+  end_col_index_from_end: 1
+
+output:
+  path: "/mnt/l/20-NUMTs/1-原始结果/data/1-10K/all_individuals_mt.disc.sam.breakpointINPUT.GRCH38.concat.tsv"
+  on_fail: "keep"  # keep|drop|na
+
+runtime:
+  threads: 4
+  tmp_dir: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/0-GRCH37-liftover/tmp"

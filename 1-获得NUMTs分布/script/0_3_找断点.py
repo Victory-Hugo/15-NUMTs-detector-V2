@@ -115,6 +115,14 @@ def unify_pos(x):
     """统一取 Tend 或 Tstart 作为断点位置。"""
     return x.Tend if pd.notna(x.Tend) else x.Tstart
 
+def legacy_group_label(row):
+    """Legacy group label behavior."""
+    return 'mtLeft' if 'left' in str(row.get('pointGroup', '')) else 'mtRight'
+
+def legacy_mt_chr(x):
+    """Legacy MT chromosome label."""
+    return 'MT' if str(x) == str(MT_CHR) else x
+
 ###############################################################################
 # ------------------------------- 数据读取 ---------------------------------- #
 ###############################################################################
@@ -171,13 +179,16 @@ for CHR in chr_list:
     mt_both   = pd.concat([mt_tend, mt_tstart], ignore_index=True)
 
     # 4) 跨映射线粒体断点 (mt_confident)
-    mt_conf   = mt_df[mt_df.Qname.isin(nu_df.Qname)]
-    mt_conf_l = group_and_count(mt_conf[mt_conf.pointGroup=="mt_Tstart"],
+    mt_conf_raw = mt_df[mt_df.Qname.isin(nu_df.Qname)]
+    mt_conf_l = group_and_count(mt_conf_raw[mt_conf_raw.pointGroup=="mt_Tstart"],
                                 ['pointGroup','chr','Tstart','strand'])
-    mt_conf_r = group_and_count(mt_conf[mt_conf.pointGroup=="mt_Tend"  ],
+    mt_conf_r = group_and_count(mt_conf_raw[mt_conf_raw.pointGroup=="mt_Tend"  ],
                                 ['pointGroup','chr','Tend'  ,'strand'])
     mt_conf   = pd.concat([mt_conf_l, mt_conf_r], ignore_index=True) \
                  .assign(Group='mt_confident')
+    mt_conf_old = pd.concat([mt_conf_l, mt_conf_r], ignore_index=True)
+    if not mt_conf_old.empty:
+        mt_conf_old['Group'] = mt_conf_old.apply(legacy_group_label, axis=1)
 
     # 合并 & 输出
     all_breaks = (
@@ -196,10 +207,26 @@ for CHR in chr_list:
     # 文件名包含染色体
     all_path  = f"{OUTPUT_PREFIX}.{CHR}.AllBreakpoints.tsv"
     conf_path = f"{OUTPUT_PREFIX}.{CHR}.ConfidentBreakpoints.tsv"
+    legacy_path = f"{OUTPUT_PREFIX}.Breakpoints.old.tsv"
 
     all_breaks .to_csv(all_path , sep='\t', index=False)
     conf_breaks.to_csv(conf_path, sep='\t', index=False)
 
+    # Legacy confident breakpoints (old format)
+    legacy_conf = pd.concat([nu_mt_both, mt_conf_old], ignore_index=True)
+    if 'Tstart' not in legacy_conf.columns:
+        legacy_conf['Tstart'] = pd.NA
+    if 'Tend' not in legacy_conf.columns:
+        legacy_conf['Tend'] = pd.NA
+    legacy_conf['sampleID'] = SAMPLEID
+    legacy_conf['chr'] = legacy_conf['chr'].map(legacy_mt_chr)
+    legacy_conf['Tstart'] = legacy_conf['Tstart'].fillna(-1).astype(int)
+    legacy_conf['Tend'] = legacy_conf['Tend'].fillna(-1).astype(int)
+    legacy_cols = ['pointGroup', 'Group', 'chr', 'Tend', 'strand', 'readsCount', 'Tstart', 'sampleID']
+    legacy_conf = legacy_conf[legacy_cols]
+    legacy_conf.to_csv(legacy_path, sep='\t', header=False, index=False)
+
     print(f"✅ 完成 {SAMPLEID} {CHR}:")
     print(f"   → {all_path}")
     print(f"   → {conf_path}")
+    print(f"   → {legacy_path}")

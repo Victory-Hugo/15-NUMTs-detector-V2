@@ -8,7 +8,7 @@ LOG_FILE="$LOG_DIR/${SCRIPT_NAME}.log"
 
 mkdir -p "$LOG_DIR"
 
-INPUT_FILE="/mnt/l/20-NUMTs/1-原始结果/data/1-10K/mt.disc.sam.cluster.concat.tsv"
+INPUT_FILE="/mnt/l/20-NUMTs/1-原始结果/data/1-10K/all_individuals_mt.disc.sam.cluster.GRCH38.concat.tsv"
 OUTPUT_DIR="/mnt/l/20-NUMTs/1-原始结果/data/1-10K"
 OUTPUT_FILE="$OUTPUT_DIR/mt.disc.sam.cluster.concat.circos.txt"
 FORCE=0

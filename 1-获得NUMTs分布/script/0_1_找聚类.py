@@ -29,6 +29,13 @@ COLUMNS = [
     'OC', 'ZX', 'ZY', 'SA'
 ]
 
+def legacy_mt_names(mt_chr: str, aliases: dict) -> set:
+    """Collect MT chromosome names for legacy filtering."""
+    mt_names = {mt_chr} if mt_chr else set()
+    if aliases:
+        mt_names.update({k for k, v in aliases.items() if v == mt_chr})
+    return mt_names
+
 def load_config():
     cfg_path = os.environ.get("NUMTS_CONFIG")
     if not cfg_path:
@@ -103,6 +110,69 @@ def select_discordant(df: pd.DataFrame) -> pd.DataFrame:
         (df['RNAME'] == MT_CHR) & (df['RNEXT'] != MT_CHR)
     )
     return df[mask].copy()
+
+def read_legacy_df(path: str) -> pd.DataFrame:
+    """
+    Read SAM-like file using the legacy filtering rules.
+    """
+    df0 = pd.read_csv(
+        path,
+        sep="\t",
+        names=COLUMNS,
+        comment="@",
+        dtype={'RNAME': str, 'RNEXT': str},
+        engine="python",
+        quoting=csv.QUOTE_NONE,
+        escapechar="\\"
+    )
+    df0['RNAME'] = df0['RNAME'].fillna('')
+    # Legacy: drop Un_/random/./ contigs
+    df = df0[~df0.RNAME.str.contains(r"Un_|random|\.", regex=True)]
+    return df
+
+def legacy_cluster_outputs(path: str, sample_id: str) -> pd.DataFrame:
+    """
+    Reproduce the legacy read-level cluster output.
+    """
+    df = read_legacy_df(path)
+    mt_names = legacy_mt_names(MT_CHR, CHROM_ALIASES)
+
+    df1 = df[
+        (df["MAPQ"].astype(int) > 0) &
+        (df['RNAME'].isin(mt_names) | df['RNEXT'].isin(mt_names))
+    ]
+    df3 = df1[~df1.RNAME.isin(mt_names)]
+    df3 = df3.sort_values(['RNAME', 'POS'])
+
+    output1 = pd.DataFrame([])
+    df_chr = df3.groupby(['RNAME'])
+    for clusterID, myclusters in df_chr:
+        myclusters['POS'] = myclusters['POS'].astype(int)
+        sub_cluster = cluster_positions(myclusters['POS'].tolist(), maxgap=500)
+        for x in sub_cluster:
+            if len(x) >= 2:
+                mycluster = x
+                df_cluster = df3[df3.POS.isin(mycluster)]
+                df_cluster_pairMT = df[df.QNAME.isin(df_cluster['QNAME'])]
+                mt_cluster = cluster_positions(df_cluster['PNEXT'].tolist(), maxgap=500)
+                output = pd.DataFrame()
+                for y in mt_cluster:
+                    df_cluster_pairMT_out = df_cluster_pairMT[df_cluster_pairMT.PNEXT.isin(y)]
+                    df_cluster_pairMT_out = df_cluster_pairMT_out.assign(
+                        subCluster_No=len(y),
+                        Cluster_No=len(x),
+                        Cluster_ID=f"{clusterID}_{min(df_cluster['POS'])}_{max(df_cluster['POS'])}_MTboth_{min(df_cluster_pairMT_out['PNEXT'])}_{max(df_cluster_pairMT_out['PNEXT'])}"
+                    )
+                    output = pd.concat([pd.DataFrame(), df_cluster_pairMT_out], ignore_index=True)
+
+                output1 = pd.concat([output1, output])
+                output1["IndividualID"] = sample_id
+                if len(output1) != 0:
+                    output1['clusterID'] = output1['RNAME'].astype(str) + "_" + output1['Cluster_No'].astype(str)
+                else:
+                    continue
+
+    return output1
 
 #! 这里指定相邻读段最远的距离，默认上下各自500bp。
 def cluster_positions(positions: list, maxgap: int = 500) -> list:
@@ -197,6 +267,15 @@ def main():
     for r in regions:
         r['IndividualID'] = SAMPLE_ID
     if not regions:
+        legacy_out = legacy_cluster_outputs(INPUT_DISC, SAMPLE_ID)
+        if legacy_out.empty:
+            legacy_cols = COLUMNS + ['subCluster_No', 'Cluster_No', 'Cluster_ID', 'IndividualID', 'clusterID']
+            pd.DataFrame(columns=legacy_cols).to_csv(f"{INPUT_DISC}.cluster.old.tsv",
+                                                    sep='\t', header=True, index=False)
+        else:
+            legacy_out.to_csv(f"{INPUT_DISC}.cluster.old.tsv",
+                              sep='\t', header=True, index=False)
+
         pd.DataFrame(columns=[
             'IndividualID', 'Cluster_No', 'disFile',
             'splitFile', 'wgsBAM', 'chr', 'start', 'end'
@@ -218,6 +297,7 @@ def main():
         print(f"  - {INPUT_DISC}.cluster.tsv")
         print(f"  - {INPUT_DISC}.cluster.summary.tsv")
         print(f"  - {INPUT_DISC}.breakpointINPUT.tsv")
+        print(f"  - {INPUT_DISC}.cluster.old.tsv")
         return
     # Step 3: Build DataFrames
     df_break = make_breakpoint_df(regions)
@@ -231,11 +311,20 @@ def main():
                   sep='\t', header=True, index=False)
     df_summary.to_csv(f"{INPUT_DISC}.cluster.summary.tsv",
                       sep='\t', header=False, index=True)
+    legacy_out = legacy_cluster_outputs(INPUT_DISC, SAMPLE_ID)
+    if legacy_out.empty:
+        legacy_cols = COLUMNS + ['subCluster_No', 'Cluster_No', 'Cluster_ID', 'IndividualID', 'clusterID']
+        pd.DataFrame(columns=legacy_cols).to_csv(f"{INPUT_DISC}.cluster.old.tsv",
+                                                sep='\t', header=True, index=False)
+    else:
+        legacy_out.to_csv(f"{INPUT_DISC}.cluster.old.tsv",
+                          sep='\t', header=True, index=False)
 
     print("输出完成：")
     print(f"  - {INPUT_DISC}.cluster.tsv")
     print(f"  - {INPUT_DISC}.cluster.summary.tsv")
     print(f"  - {INPUT_DISC}.breakpointINPUT.tsv")
+    print(f"  - {INPUT_DISC}.cluster.old.tsv")
 
 
 if __name__ == '__main__':
