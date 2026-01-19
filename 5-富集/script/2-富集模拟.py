@@ -56,7 +56,7 @@ def overlap_count_pandas(df1, df2):
                 break  # 一个NUMT只计算一次重叠
     return overlap_count
 
-simuRuns = 1001 #number of simulation
+simuRuns = 10000 #number of simulation
 numtsTargetPerc = numtsTargetNo/numtsNo
 df_ref = pd.read_csv(input1, sep="\t") #bedfile of target/testing regions
 df_ref['chr'] = 'chr'
@@ -76,7 +76,8 @@ elif USE_PYBEDTOOLS:
 freq_list=list()
 for i in range(1, simuRuns):
     # 使用核基因组范围进行随机采样
-    randomStart = random.sample(range(1, 2937639397), numtsNo) # nuclear genome    
+    # GRCh38 (chr1-22, X, Y) total length: 3,088,269,832
+    randomStart = random.sample(range(1, 3088269832), numtsNo) # nuclear genome (GRCh38)
     # 注释：如果要使用线粒体基因组，取消下一行注释并注释上一行
     # randomStart = random.sample(range(1, 16570), numtsNo) # for mtDNA genome
 

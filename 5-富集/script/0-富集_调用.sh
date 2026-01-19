@@ -23,7 +23,7 @@ TARGET_REGIONS_BED="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-
 OUTPUT_DIR="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/5-富集/output"
 
 # NUMT平均长度 - NUMTs的平均长度 (bp)
-NUMT_LENGTH=1000
+NUMT_LENGTH=500 #? 1000
 
 # 脚本目录 - Python脚本所在目录
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
@@ -63,12 +63,12 @@ mkdir -p "$OUTPUT_DIR"
 
 echo "正在生成NUMTs区域BED文件..."
 tail -n +2 "$NUMTS_CLUSTER_FILE" | awk -F'\t' '{
-    chr = $5      # CHR列是第5列
+    chr = $5      # CHR列（5）
     pos = ($6 + $7) / 2  # 使用min和max的中点作为位置
     start = int(pos - 500)
     end = int(pos + 500)
     if (start < 0) start = 0
-    print "chr" chr "\t" start "\t" end
+    print chr "\t" start "\t" end
 }' > "$NUMTS_BED_FILE"
 
 echo "NUMTs区域BED文件已生成: $NUMTS_BED_FILE"

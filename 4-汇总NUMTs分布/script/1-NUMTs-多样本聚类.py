@@ -121,12 +121,20 @@ else:
     output1 = pd.DataFrame(columns=['GroupID','Index','POS','CHR'])
 output1["mergedClusterID"] = output1['GroupID'].astype(str) + "_" +  output1['CHR'].astype(str)
 
-output2_1 = output1.groupby(['mergedClusterID']).count().reset_index()
-output2_2 = output1.groupby(['mergedClusterID']).POS.agg(['min','max']).reset_index()
-output2_1 = pd.DataFrame(output2_1)
-output2_2 = pd.DataFrame(output2_2)
-output2 = pd.merge(output2_1, output2_2, how='outer', left_on=["mergedClusterID"], right_on=["mergedClusterID"])
+output2 = (
+    output1.groupby('mergedClusterID', as_index=False)
+    .agg(
+        GroupID=('GroupID', 'first'),
+        Index=('Index', 'first'),
+        POS=('POS', 'count'),
+        CHR=('CHR', 'first'),
+        min=('POS', 'min'),
+        max=('POS', 'max')
+    )
+)
 
 output1.to_csv(input1 + '.allCluster.tsv', sep="\t", header=True, index=False)
-output2.to_csv(input1 + '.allCluster.sum.tsv', sep="\t", header=True, index=True)
+output2[['mergedClusterID', 'GroupID', 'Index', 'POS', 'CHR', 'min', 'max']].to_csv(
+    input1 + '.allCluster.sum.tsv', sep="\t", header=True, index=False
+)
 
