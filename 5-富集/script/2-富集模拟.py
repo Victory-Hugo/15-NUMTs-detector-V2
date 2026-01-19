@@ -13,19 +13,10 @@ import numpy as np
 import random
 try:
     import pyranges as pr
-    USE_PYRANGES = True
-    print("使用PyRanges进行高效区间重叠计算")
 except ImportError:
-    USE_PYRANGES = False
-    try:
-        import pybedtools 
-        from pybedtools import BedTool
-        USE_PYBEDTOOLS = True
-        print("使用pybedtools进行区间重叠计算")
-    except ImportError:
-        USE_PYBEDTOOLS = False
-        print("Warning: pyranges和pybedtools都未安装。使用pandas实现（速度较慢）。")
-        print("建议安装: pip install pyranges  或  conda install -c bioconda pyranges")
+    print("Error: 未安装pyranges，请先安装后再运行。")
+    sys.exit(1)
+print("使用PyRanges进行高效区间重叠计算")
 
 if len(sys.argv) < 6 or len(sys.argv) > 7:
     print("Usage: python enrichment_simulation.py inputFile numtsNo numtsTargetNo numtsLength outputPrefix [outputDir]")
@@ -62,16 +53,13 @@ df_ref = pd.read_csv(input1, sep="\t") #bedfile of target/testing regions
 df_ref['chr'] = 'chr'
 df_ref = df_ref[['chr','refStart_noChr','refEnd_noChr']]
 
-if USE_PYRANGES:
-    # PyRanges需要特定的列名：Chromosome, Start, End
-    df_ref_pr = df_ref.rename(columns={
-        'chr': 'Chromosome',
-        'refStart_noChr': 'Start',
-        'refEnd_noChr': 'End'
-    })
-    df_ref_pr = pr.PyRanges(df_ref_pr)
-elif USE_PYBEDTOOLS:
-    df_ref = pybedtools.BedTool.from_dataframe(df_ref)
+# PyRanges需要特定的列名：Chromosome, Start, End
+df_ref_pr = df_ref.rename(columns={
+    'chr': 'Chromosome',
+    'refStart_noChr': 'Start',
+    'refEnd_noChr': 'End'
+})
+df_ref_pr = pr.PyRanges(df_ref_pr)
 
 freq_list=list()
 for i in range(1, simuRuns):
@@ -87,21 +75,15 @@ for i in range(1, simuRuns):
     randomNUMTs['chr'] = "chr"
     randomNUMTs = randomNUMTs[['chr','randomStart','randomEnd']]
     
-    if USE_PYRANGES:
-        # PyRanges实现（最快）
-        randomNUMTs_pr = randomNUMTs.rename(columns={
-            'chr': 'Chromosome',
-            'randomStart': 'Start',
-            'randomEnd': 'End'
-        })
-        randomNUMTs_pr = pr.PyRanges(randomNUMTs_pr)
-        # 计算重叠的唯一NUMTs数量
-        overlap_count = len(randomNUMTs_pr.join(df_ref_pr).df.drop_duplicates(subset=['Start', 'End']))
-    elif USE_PYBEDTOOLS:
-        randomNUMTs_bed = pybedtools.BedTool.from_dataframe(randomNUMTs)
-        overlap_count = (randomNUMTs_bed + df_ref).count()
-    else:
-        overlap_count = overlap_count_pandas(randomNUMTs, df_ref)
+    # PyRanges实现（最快）
+    randomNUMTs_pr = randomNUMTs.rename(columns={
+        'chr': 'Chromosome',
+        'randomStart': 'Start',
+        'randomEnd': 'End'
+    })
+    randomNUMTs_pr = pr.PyRanges(randomNUMTs_pr)
+    # 计算重叠的唯一NUMTs数量
+    overlap_count = len(randomNUMTs_pr.join(df_ref_pr).df.drop_duplicates(subset=['Start', 'End']))
     
     overlap_freq = overlap_count / numtsNo
     freq_list.append(overlap_freq)

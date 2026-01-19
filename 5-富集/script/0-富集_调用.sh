@@ -23,6 +23,7 @@ TARGET_REGIONS_BED="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-
 OUTPUT_DIR="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/5-富集/output"
 
 # NUMT平均长度 - NUMTs的平均长度 (bp)
+# 将在后面根据min/max自动计算并覆盖
 NUMT_LENGTH=500 #? 1000
 
 # 脚本目录 - Python脚本所在目录
@@ -57,21 +58,40 @@ echo "=== 正在分析NUMTs数据 ==="
 NUMTS_TOTAL=$(tail -n +2 "$NUMTS_CLUSTER_FILE" | wc -l)
 echo "检测到NUMTs总数: $NUMTS_TOTAL"
 
-# 生成NUMTs区域BED文件
+# 生成NUMTs区域BED文件（使用真实min/max区间）
 NUMTS_BED_FILE="$OUTPUT_DIR/detected_numts_regions.bed"
 mkdir -p "$OUTPUT_DIR"
 
 echo "正在生成NUMTs区域BED文件..."
 tail -n +2 "$NUMTS_CLUSTER_FILE" | awk -F'\t' '{
     chr = $5      # CHR列（5）
-    pos = ($6 + $7) / 2  # 使用min和max的中点作为位置
-    start = int(pos - 500)
-    end = int(pos + 500)
+    start = $6    # min列（6）
+    end = $7      # max列（7）
     if (start < 0) start = 0
+    if (end < start) { tmp = end; end = start; start = tmp }
     print chr "\t" start "\t" end
 }' > "$NUMTS_BED_FILE"
 
 echo "NUMTs区域BED文件已生成: $NUMTS_BED_FILE"
+
+# 根据真实区间计算NUMT平均长度（用于模拟）
+NUMT_LENGTH=$(tail -n +2 "$NUMTS_CLUSTER_FILE" | awk -F'\t' '{
+    len = $7 - $6;
+    if (len < 0) len = -len;
+    sum += len;
+    count += 1;
+}
+END {
+    if (count > 0) {
+        printf("%d\n", sum / count);
+    } else {
+        printf("0\n");
+    }
+}')
+if [[ "$NUMT_LENGTH" -le 0 ]]; then
+    echo "错误: 计算得到的NUMT平均长度无效: $NUMT_LENGTH"
+    exit 1
+fi
 
 # 计算与目标区域的重叠（简单计算，实际分析在后面的步骤中）
 # 这里只是给出估算值
@@ -152,31 +172,25 @@ echo "" | tee -a "$LOG_FILE"
 echo "步骤1.5: 计算NUMTs与目标区域的重叠..." | tee -a "$LOG_FILE"
 
 # 使用bedtools进行高效的重叠计算
-if command -v bedtools &> /dev/null; then
-    echo "使用bedtools进行快速重叠计算..." | tee -a "$LOG_FILE"
-    
-    # 对BED文件排序（bedtools要求）
-    NUMTS_SORTED="$OUTPUT_DIR/detected_numts_regions.sorted.bed"
-    TARGET_SORTED="$OUTPUT_DIR/target_regions.sorted.bed"
-    
-    sort -k1,1 -k2,2n "$NUMTS_BED_FILE" > "$NUMTS_SORTED"
-    sort -k1,1 -k2,2n "$TARGET_REGIONS_BED" > "$TARGET_SORTED"
-    
-    # 使用bedtools intersect计算重叠（只统计每个NUMT一次）
-    NUMTS_TARGET=$(bedtools intersect -a "$NUMTS_SORTED" -b "$TARGET_SORTED" -u | wc -l)
-    
-    rm -f "$NUMTS_SORTED" "$TARGET_SORTED"
-    
-    echo "使用bedtools计算完成" | tee -a "$LOG_FILE"
-else
-    echo "警告: 未安装bedtools，使用快速估算方法..." | tee -a "$LOG_FILE"
-    # 使用保守估计：假设30%的NUMTs与目标区域重叠
-    NUMTS_TARGET=$((NUMTS_TOTAL * 30 / 100))
-    echo "注意: 这是估算值。建议安装bedtools以获得精确计算：" | tee -a "$LOG_FILE"
-    echo "  Ubuntu/Debian: sudo apt-get install bedtools" | tee -a "$LOG_FILE"
-    echo "  CentOS/RHEL: sudo yum install BEDTools" | tee -a "$LOG_FILE"
-    echo "  或使用conda: conda install -c bioconda bedtools" | tee -a "$LOG_FILE"
+if ! command -v bedtools &> /dev/null; then
+    echo "错误: 未安装bedtools，请先安装后再运行。" | tee -a "$LOG_FILE"
+    exit 1
 fi
+echo "使用bedtools进行快速重叠计算..." | tee -a "$LOG_FILE"
+
+# 对BED文件排序（bedtools要求）
+NUMTS_SORTED="$OUTPUT_DIR/detected_numts_regions.sorted.bed"
+TARGET_SORTED="$OUTPUT_DIR/target_regions.sorted.bed"
+
+sort -k1,1 -k2,2n "$NUMTS_BED_FILE" > "$NUMTS_SORTED"
+sort -k1,1 -k2,2n "$TARGET_REGIONS_BED" > "$TARGET_SORTED"
+
+# 使用bedtools intersect计算重叠（只统计每个NUMT一次）
+NUMTS_TARGET=$(bedtools intersect -a "$NUMTS_SORTED" -b "$TARGET_SORTED" -u | wc -l)
+
+rm -f "$NUMTS_SORTED" "$TARGET_SORTED"
+
+echo "使用bedtools计算完成" | tee -a "$LOG_FILE"
 
 echo "计算得到的重叠NUMTs数量: $NUMTS_TARGET" | tee -a "$LOG_FILE"
 echo "" | tee -a "$LOG_FILE"
@@ -223,13 +237,21 @@ if [[ -n "$PVALUE_LINE" ]]; then
     echo "" | tee -a "$LOG_FILE"
     echo "结果解释:" | tee -a "$LOG_FILE"
     
-    if (( $(echo "$PVALUE_LESS < 0.05" | bc -l) )); then
-        echo "  - P值(less) < 0.05: 目标区域中的NUMTs显著少于随机分布" | tee -a "$LOG_FILE"
-    elif (( $(echo "$PVALUE_GREATER < 0.05" | bc -l) )); then
-        echo "  - P值(greater) < 0.05: 目标区域中的NUMTs显著多于随机分布" | tee -a "$LOG_FILE"
-    else
-        echo "  - 两个P值都 > 0.05: NUMTs分布与随机分布无显著差异" | tee -a "$LOG_FILE"
-    fi
+    INTERPRETATION=$(PVALUE_LESS="$PVALUE_LESS" PVALUE_GREATER="$PVALUE_GREATER" python3 - <<'PY'
+import os
+
+p_less = float(os.environ["PVALUE_LESS"])
+p_greater = float(os.environ["PVALUE_GREATER"])
+
+if p_less < 0.05:
+    print("  - P值(less) < 0.05: 目标区域中的NUMTs显著少于随机分布")
+elif p_greater < 0.05:
+    print("  - P值(greater) < 0.05: 目标区域中的NUMTs显著多于随机分布")
+else:
+    print("  - 两个P值都 > 0.05: NUMTs分布与随机分布无显著差异")
+PY
+)
+    echo "$INTERPRETATION" | tee -a "$LOG_FILE"
 fi
 
 echo "" | tee -a "$LOG_FILE"
