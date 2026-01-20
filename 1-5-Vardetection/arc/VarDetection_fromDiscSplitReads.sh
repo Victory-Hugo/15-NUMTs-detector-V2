@@ -48,7 +48,7 @@ for line in $filelines ; do
     clustalo -i ${contigINPUT}.humanchimpMT.fasta  -o ${alnHumanChimp}.humanchimpMTaln.fa --outfmt=fa --force
 
     ### variant detection ###
-    numts_bed="./reference/numts.bed"
+    numts_bed="./reference/numts.bed"   #! 这不是准备好的文件，而是针对每个样本的输出的`*_all_regions.psl`产生的
     pyHumanChimp="./generateVariantTable.HumanChimp.py"
     pyHuman="./generateVariantTable.Human.py"
     python ${pyHuman} ${alnHumanChimp}.humanMTaln.fa ${numts_bed}

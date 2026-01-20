@@ -1,0 +1,390 @@
+Number of segment pairs = 6006; number of pairwise comparisons = 239
+'+' means given segment; '-' means reverse complement
+
+Overlaps            Containments  No. of Constraints Supporting Overlap
+
+******************* Contig 1 ********************
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:110+
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:120+
+******************* Contig 2 ********************
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:211+
+                    HG002_chr1.633402.634418|HISEQ1:19:H8VDAADXX:1:111+ is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:211+
+HG002_chr1.633402.634418|HISEQ1:20:H9V1RADXX:2:121+
+                    HG002_chr1.633402.634418|HISEQ1:19:H8VDAADXX:1:111+ is in HG002_chr1.633402.634418|HISEQ1:20:H9V1RADXX:2:121+
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:111+
+                    HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:110+ is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:111+
+                    HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:110- is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:111+
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:110+
+                    HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:221+ is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:110+
+                    HG002_chr1.633402.634418|HISEQ1:19:H8VDAADXX:2:120+ is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:221+
+                    HG002_chr1.633402.634418|HISEQ1:19:H8VDAADXX:2:120- is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:221+
+                    HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:221+ is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:110+
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:110+
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:110+
+HG002_chr1.633402.634418|HISEQ1:19:H8VDAADXX:1:110+
+HG002_chr1.633402.634418|HISEQ1:19:H8VDAADXX:1:110+
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:110+
+                    HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:2:211+ is in HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:110+
+HG002_chr1.633402.634418|HISEQ1:18:H8VC6ADXX:1:121+
+HG002_chr1.633402.634418|HISEQ1:20:H9V1RADXX:1:110+
+HG002_chr1.633402.634418|HISEQ1:19:H8VDAADXX:1:121+
+******************* Contig 3 ********************
+HG002_chr11.49861520.49862789|HISEQ1:20:H9V1RADXX:+
+HG002_chr11.49861520.49862789|HISEQ1:19:H8VDAADXX:+
+HG002_chr11.49861520.49862789|HISEQ1:19:H8VDAADXX:+
+******************* Contig 4 ********************
+HG002_chr11.49861520.49862789|HISEQ1:19:H8VDAADXX:-
+HG002_chr11.49861520.49862789|HISEQ1:18:H8VC6ADXX:+
+******************* Contig 5 ********************
+HG002_chr11.49861520.49862789|HISEQ1:20:H9V1RADXX:+
+HG002_chr11.49861520.49862789|HISEQ1:19:H8VDAADXX:+
+HG002_chr11.49861520.49862789|HISEQ1:19:H8VDAADXX:+
+******************* Contig 6 ********************
+HG002_chr5.32337782.32339138|HISEQ1:19:H8VDAADXX:2+
+HG002_chr5.32337782.32339138|HISEQ1:18:H8VC6ADXX:1-
+******************* Contig 7 ********************
+HG002_chr5.32337782.32339138|HISEQ1:18:H8VC6ADXX:2+
+HG002_chr5.32337782.32339138|HISEQ1:18:H8VC6ADXX:1+
+HG002_chr5.32337782.32339138|HISEQ1:19:H8VDAADXX:2+
+HG002_chr5.32337782.32339138|HISEQ1:19:H8VDAADXX:2+
+HG002_chr5.32337782.32339138|HISEQ1:20:H9V1RADXX:1+
+HG002_chr5.32337782.32339138|HISEQ1:18:H8VC6ADXX:1+
+HG002_chr5.32337782.32339138|HISEQ1:19:H8VDAADXX:1+
+******************* Contig 8 ********************
+HG002_chr5.32337782.32339138|HISEQ1:19:H8VDAADXX:2-
+HG002_chr5.32337782.32339138|HISEQ1:18:H8VC6ADXX:1+
+******************* Contig 9 ********************
+HG002_chr9.129055.130496|HISEQ1:20:H9V1RADXX:2:221+
+HG002_chr9.129055.130496|HISEQ1:19:H8VDAADXX:2:120+
+HG002_chr9.129055.130496|HISEQ1:19:H8VDAADXX:2:220+
+******************* Contig 10 ********************
+HG002_chr9.129055.130496|HISEQ1:18:H8VC6ADXX:1:120-
+HG002_chr9.129055.130496|HISEQ1:19:H8VDAADXX:2:220+
+
+DETAILED DISPLAY OF CONTIGS
+******************* Contig 1 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ ATTCCCCTAAAAATCTTTGAAATAGGGCCCGTATTTACCCTATAGCACCCCCTCTACCCC
+HG002_chr1.633402.63+                       TAGGGCCCGTATTTACCCTATAGCACCCCCTCTACCCC
+                      ____________________________________________________________
+consensus             ATTCCCCTAAAAATCTTTGAAATAGGGCCCGTATTTACCCTATAGCACCCCCTCTACCCC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ CTCTAGAGCCCACTGTAAAGCTAACTTAGCATTAACCTTTTAAGTTAAAGATTAAGAGAA
+HG002_chr1.633402.63+ CTCTAGAGCCCACTGTAAAGCTAACTTAGCATTAACCTTTTAAGTTAAAGATTAAGAGAA
+                      ____________________________________________________________
+consensus             CTCTAGAGCCCACTGTAAAGCTAACTTAGCATTAACCTTTTAAGTTAAAGATTAAGAGAA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ CCAACACCTCTTTACAGTGAAATTCCCC                      
+HG002_chr1.633402.63+ CCAACACCTCTTTACAGTGAAATGCCCCAACTAAATACTACCGTATGGCC
+                      ____________________________________________________________
+consensus             CCAACACCTCTTTACAGTGAAATGCCCCAACTAAATACTACCGTATGGCC
+
+******************* Contig 2 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ AAAGGACGAACCTGATCTCTTATACTAGTATCCTTAATCATTTTTATTGCCACAACTAAC
+HG002_chr1.633402.63+                          TAGTATCCTTAATCATTTTTATTGCCACAACTAAC
+HG002_chr1.633402.63+                          TAGTATCCTTAATCATTTTTATTGCCACAACTAAC
+HG002_chr1.633402.63+                          TAGTATCCTTAATCATTTTTATTGCCACAACTAAC
+HG002_chr1.633402.63+                          TAGTATCCTTAATCATTTTTATTGCCACAACTAAC
+HG002_chr1.633402.63+                                         TTTTTATTGCCACAACTAAC
+HG002_chr1.633402.63-                                         TTTTTATTGCCACAACTAAC
+HG002_chr1.633402.63+                                          TTTTATTGCCTCAACAAAC
+HG002_chr1.633402.63+                                                       ACTAAC
+HG002_chr1.633402.63+                                                       ACTAAC
+                      ____________________________________________________________
+consensus             AAAGGACGAACCTGATCTCTTATACTAGTATCCTTAATCATTTTTATTGCCACAACTAAC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63- CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+     TCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63-     TCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+ CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCGCCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+        GACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+        GACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+          CTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+            CCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+                     CTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+                     CTCATTTACACCAACCACCCAACAATCTATAAACCTAGCC
+HG002_chr1.633402.63+                      TCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+HG002_chr1.633402.63+                                      CCCAACTATCTATAAACCTAGCC
+                      ____________________________________________________________
+consensus             CTCCTCGGACTCCTGCCTCACTCATTTACACCAACCACCCAACTATCTATAAACCTAGCC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAG                                
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAG                                
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTG                              
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAG                                
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTC             
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCT              
+HG002_chr1.633402.63- ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCT              
+HG002_chr1.633402.63+ ATGGACATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63- ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGTCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+ ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+HG002_chr1.633402.63+                        CGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+                      ____________________________________________________________
+consensus             ATGGCCATCCCCTTATGAGCGGGCGCAGTGATTATAGGCTTTCGCTCTAAGATTAAAAAT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ GCCCTAG                                                     
+HG002_chr1.633402.63+ GCCC                                                        
+HG002_chr1.633402.63+ GCCC                                                        
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTA                                          
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTA                                          
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTACCACAAGGCACACCTA                          
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTACCACAAGGCACACCTA                          
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTACCACAAGGCACACCTACACCCCTTATCCC             
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTACCACAAGGCACACCTCCACCCCTTATCCC             
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTACCACAAGGCACACCTACACCCCTTATCCC             
+HG002_chr1.633402.63+ GCCCTAGCCCACTTCTTACCACAAGGCACACCTACACCCCTTATCCCTATACTAGTTATT
+HG002_chr1.633402.63+ GCCCTAGCCCTCTTCTTACCACAAGGCACACCTACACCCCTTATCCCCATACTAGTTATT
+                      ____________________________________________________________
+consensus             GCCCTAGCCCACTTCTTACCACAAGGCACACCTACACCCCTTATCCCCATACTAGTTATT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr1.633402.63+ ATCG                                               
+HG002_chr1.633402.63+ ATCGAAACCATCAGCCTACTCATTCAACCAATAGCCCTGGCCATCCCCTTA
+                      ____________________________________________________________
+consensus             ATCGAAACCATCAGCCTACTCATTCAACCAATAGCCCTGGCCATCCCCTTA
+
+******************* Contig 3 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ GCTGGGCAAGAAAGCAAGAAGAAACAAAGAATGAGAGAACGAGAGAGAGAGAGAGAAAGA
+HG002_chr11.49861520+     GGCAAGAAAGCAAGAAGAAACAAAGAATGAGAGAACGAGAGAGAGAGAGAGAAAGA
+                      ____________________________________________________________
+consensus             GCTGGGCAAGAAAGCAAGAAGAAACAAAGAATGAGAGAACGAGAGAGAGAGAGAGAAAGA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ GAGAGAAGAAAGAAAAGAAAGAAAGAAAGAAAGAAAAAAAGAAAGAAAGAAAGAAAGAAA
+HG002_chr11.49861520+ GAGAGAAGAAAGAAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAA
+HG002_chr11.49861520+              AAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAA
+                      ____________________________________________________________
+consensus             GAGAGAAGAAAGAAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAAGAAA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ GAAAAAGAGAGAGAAAAA                                          
+HG002_chr11.49861520+ GAAAGAAAGAAAGAAAAA                                          
+HG002_chr11.49861520+ GAAAAAGAGAGAGAAAAAAGAAAAAAAGGAAAGGAAAAGAAAAGAAAAGTAATGATTAGA
+                      ____________________________________________________________
+consensus             GAAAAAGAGAGAGAAAAAAGAAAAAAAGGAAAGGAAAAGAAAAGAAAAGTAATGATTAGA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ TTTATTTTTAAAGTCTTGCTTATTACAATG
+                      ____________________________________________________________
+consensus             TTTATTTTTAAAGTCTTGCTTATTACAATG
+
+******************* Contig 4 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520- CATCTGGTTCCTACTTCAGGGCCATAAAGTCTAAATAGCCCACACGTTCCCCTTAAATAA
+HG002_chr11.49861520+                                        CCACACGTTCCCCTTAAATAA
+                      ____________________________________________________________
+consensus             CATCTGGTTCCTACTTCAGGGCCATAAAGTCTAAATAGCCCACACGTTCCCCTTAAATAA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520- GACATCACGATGGATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGC
+HG002_chr11.49861520+ GACATCACGATGGATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGC
+                      ____________________________________________________________
+consensus             GACATCACGATGGATCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520- ATTTGGTATTTTCCCACAATGGAATGCT                                
+HG002_chr11.49861520+ ATTTGGTATTTTCCCACAATGGAATGCTGCTCAATCAACAAAAGAAAAAAACTAATACAT
+                      ____________________________________________________________
+consensus             ATTTGGTATTTTCCCACAATGGAATGCTGCTCAATCAACAAAAGAAAAAAACTAATACAT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ ACAATAT
+                      ____________________________________________________________
+consensus             ACAATAT
+
+******************* Contig 5 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ TTTGATGTGGATTGGGTTTTTATGTACTACAGGTGGTCAAGTATTTATGGTACTGTACAA
+HG002_chr11.49861520+                                                         ACAA
+                      ____________________________________________________________
+consensus             TTTGATGTGGATTGGGTTTTTATGTACTACAGGTGGTCAAGTATTTATGGTACTGTACAA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ TATTCATGGTGGCTGGCAGTAATGTACGAAATACTATGGATTGTTTATTCACTCTTCTGT
+HG002_chr11.49861520+ TATTCATGGTGGCTGGCAGTAATGTACGAAATACTATGGATTGTTTATTCACTCTTCTGT
+HG002_chr11.49861520+                            GAAATACTATGGATTGTTTATTCACTCTTCTGT
+                      ____________________________________________________________
+consensus             TATTCATGGTGGCTGGCAGTAATGTACGAAATACTATGGATTGTTTATTCACTCTTCTGT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ TAGAAACCTGGACTTTGTCTAATATTT                                 
+HG002_chr11.49861520+ TAGAAACCTGGACTTTGTCTAATATTTAGCTAATATAAACATGGCTGTTTTGAACAATAT
+HG002_chr11.49861520+ TAGAAACCTGGACTTTGTCTAATATTTGGCTAATATAAACATGGCTGTTTTGAACAATAT
+                      ____________________________________________________________
+consensus             TAGAAACCTGGACTTTGTCTAATATTTAGCTAATATAAACATGGCTGTTTTGAACAATAT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr11.49861520+ TGTACACGTCTTCTTGTGGGCAT                                
+HG002_chr11.49861520+ TGTACACGTCTTCTTGTGGGCATGTGCTCATCTTTCTAGAGTAAATACCCAGTAA
+                      ____________________________________________________________
+consensus             TGTACACGTCTTCTTGTGGGCATGTGCTCATCTTTCTAGAGTAAATACCCAGTAA
+
+******************* Contig 6 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ AGGTTTAAAACACTTTATATTATGCTTAACCAGTTTGACCATGAGGTGAGATTTTTATAG
+                      ____________________________________________________________
+consensus             AGGTTTAAAACACTTTATATTATGCTTAACCAGTTTGACCATGAGGTGAGATTTTTATAG
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ ACCTTTTATAACCCTTTACAATGTTTGTGAAAGATTTTTTTGAGATGGAGTTTTGCTTTT
+HG002_chr5.32337782.-             CCTTTACAATGTTTGTGAAAGATTTTTTTGAGATGGAGTTTTGCTTTT
+                      ____________________________________________________________
+consensus             ACCTTTTATAACCCTTTACAATGTTTGTGAAAGATTTTTTTGAGATGGAGTTTTGCTTTT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ GTTGCCCAGGCTGGCATGATGAAACTTC                                
+HG002_chr5.32337782.- GTTGCCCAGGCTGGCATGATGAAACTTCGGCTCACTCCTTGGCGCCTGCCTGATCCTCCA
+                      ____________________________________________________________
+consensus             GTTGCCCAGGCTGGCATGATGAAACTTCGGCTCACTCCTTGGCGCCTGCCTGATCCTCCA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.- AATCACCACAGGACTATTCCTAGCCATGCACTACTCACCA
+                      ____________________________________________________________
+consensus             AATCACCACAGGACTATTCCTAGCCATGCACTACTCACCA
+
+******************* Contig 7 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ GCTGGTCTCGAACTCCCAGCCTCAGGTGATCTGCCTGTCTTGGCCTCCCAAAGTGCTGGG
+HG002_chr5.32337782.+                         GGTGATTTGCCAGCCTTGGCCTCCCAAAGTGCTGGG
+HG002_chr5.32337782.+                                       CTTGGCCTCCCAAAGTGCTGGG
+                      ____________________________________________________________
+consensus             GCTGGTCTCGAACTCCCAGCCTCAGGTGATCTGCCAGCCTTGGCCTCCCAAAGTGCTGGG
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ ATTACAGGCATGAGCCATTGCACCCAGCTGAGTAAATCAGGTTTTTAAGAAAACCCTGTT
+HG002_chr5.32337782.+ ATTACAGGCATGAGCCATTGCACCCAGCTGAGTAAATCAGGTTTTTAAGAAAACCCTGTT
+HG002_chr5.32337782.+ ATTACAGGCATGAGCCATTGCATCCAGCTGAGTAAATCAGGTTTTTAAGAAAACCCTGTT
+HG002_chr5.32337782.+  TTACAGGCATGAGCCATTGCACCCAGCTGAGTAAATCAGGTTTTTAAGAAAACCCTGTT
+HG002_chr5.32337782.+      AGGCATGAGCCATTGCACCCAGCTGAGTAAATCAGGTTTTTAAGAAACCCCTGTT
+HG002_chr5.32337782.+               CCATTGCACCCAGCTGAGTAAATCAGGTTTTTAAGAAAACCCTGTT
+HG002_chr5.32337782.+                                              TAAGAAAACCCTGTT
+                      ____________________________________________________________
+consensus             ATTACAGGCATGAGCCATTGCACCCAGCTGAGTAAATCAGGTTTTTAAGAAAACCCTGTT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ GTGTTTTTTTTTTCGATGTTCAATTTAT                                
+HG002_chr5.32337782.+ GTGTTTTTTTTTTCGATGTTCAATTTATGGAAAACCAAATAATAACCCTTTA        
+HG002_chr5.32337782.+ GTGTTTTTTTTTTCGATGTTCAATTTATGGAAAACCAAATAATAACCCTTTAAATTTAGC
+HG002_chr5.32337782.+ GTGTTTTTTTTTTCGATGTTCAATTTATGGAAAACCAAATAATAACCCTTTAAATTTAGC
+HG002_chr5.32337782.+ GTGTTTTTTTTTTCTATGTTCAATTTATGGAAAACCAAATAATAACCCTTTAAATTTAGC
+HG002_chr5.32337782.+ GTGTTTTTTTTTTCGATGTTCAATTTATGGAAAACCAAATAATAACCCTTTAAATTTAGC
+HG002_chr5.32337782.+ GTGTTTTTTTTTTCGATGTTCAATTTATGGAAAACCAAATAATAACCCTTTAAATTTAGC
+                      ____________________________________________________________
+consensus             GTGTTTTTTTTTTCGATGTTCAATTTATGGAAAACCAAATAATAACCCTTTAAATTTAGC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ C                                                           
+HG002_chr5.32337782.+ CAGTATGTTCACACACACATTTTTTTTTT                               
+HG002_chr5.32337782.+ CAGTATGTTCAAACACACATTTTTTTTTT                               
+HG002_chr5.32337782.+ CAGTATGTTCACACACACATTTTTTTTTTGAGACAGAGTCTT                  
+HG002_chr5.32337782.+ CAGTATGTTCACACACACATTTTTTTTTTGAGACAGAGTCTTGCTCTGTTGCCCAGGCTG
+                      ____________________________________________________________
+consensus             CAGTATGTTCACACACACATTTTTTTTTTGAGACAGAGTCTTGCTCTGTTGCCCAGGCTG
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ GAGTGCAGTGGCG
+                      ____________________________________________________________
+consensus             GAGTGCAGTGGCG
+
+******************* Contig 8 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.- GGCTGAGAGGGCGTAGGAATTATATCCTTCTTGCTCATCAGTTGATGATACGCCCGAGCA
+                      ____________________________________________________________
+consensus             GGCTGAGAGGGCGTAGGAATTATATCCTTCTTGCTCATCAGTTGATGATACGCCCGAGCA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.- GACGCCAACACAGCAGCCATTCAAGCAATCCTATACAACCGTATCTCAGCCATAATTTAC
+HG002_chr5.32337782.+    GCCAACACAGCAGCCATTCAAGCAATCCTATACAACCGTATCTCAGCCATAATTTAC
+                      ____________________________________________________________
+consensus             GACGCCAACACAGCAGCCATTCAAGCAATCCTATACAACCGTATCTCAGCCATAATTTAC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.- GTCTCGAGTGATGTGGGCGATTGATGAA                                
+HG002_chr5.32337782.+ GTCTCGAGTGATGTGGGCGATTGATGAAAAGGCGGTTGAGGCGGCTGGTGAGTAGTGTAT
+                      ____________________________________________________________
+consensus             GTCTCGAGTGATGTGGGCGATTGATGAAAAGGCGGTTGAGGCGGCTGGTGAGTAGTGTAT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr5.32337782.+ GGCTAGGAATAGTCCTGGGGTGGTTTGGAGG
+                      ____________________________________________________________
+consensus             GGCTAGGAATAGTCCTGGGGTGGTTTGGAGG
+
+******************* Contig 9 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13+ CCAGTCACAGAAGGACAAATATTGCATGAATCCACTAATATCAGGTGTCTAAAACAGTGA
+                      ____________________________________________________________
+consensus             CCAGTCACAGAAGGACAAATATTGCATGAATCCACTAATATCAGGTGTCTAAAACAGTGA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13+ AACTCATCAAATCAGAAAGTAAAACGGAGGTTACCAGGGGTGAGAGGGAGACGAAAATTG
+HG002_chr9.129055.13+       TCAAATCAGAAAGTAAAACGGTGGTTACCAGGGGTGAGAGGGAGACGAAAATTG
+HG002_chr9.129055.13+                             GGTTACCAGGGGTGAGAGGGAGACGAAAATTG
+                      ____________________________________________________________
+consensus             AACTCATCAAATCAGAAAGTAAAACGGAGGTTACCAGGGGTGAGAGGGAGACGAAAATTG
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13+ GGGGGGGGCTGTTCAATGGGGATAATTT                                
+HG002_chr9.129055.13+ GGGGGGG-CTGTTCAATGGGGATAATTTCAGTCATGCAAGATGAAAAGGTCCAGAGGTCT
+HG002_chr9.129055.13+ GGGGGGG-CTGTTCAATGGGGATAATTTCAGTCATGCAAGATGAAAAGGTCCAGAGGTCT
+                      ____________________________________________________________
+consensus             GGGGGGG-CTGTTCAATGGGGATAATTTCAGTCATGCAAGATGAAAAGGTCCAGAGGTCT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13+ GCTATGTAACAATGTACAGACAGTTAACAATATTT                      
+HG002_chr9.129055.13+ GCTATGTAACAATGTACAGACAGTTAACAATATTTTTTTTGTTTTATATTGATAATT
+                      ____________________________________________________________
+consensus             GCTATGTAACAATGTACAGACAGTTAACAATATTTTTTTTGTTTTATATTGATAATT
+
+******************* Contig 10 ********************
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13- GTGCACTATCATGTTTGTATAACAACAAAATTGCCCAACAGCTCATTTCTCTTTATGTAT
+                      ____________________________________________________________
+consensus             GTGCACTATCATGTTTGTATAACAACAAAATTGCCCAACAGCTCATTTCTCTTTATGTAT
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13- CCATGACTGTATATTTTTTATTGTGGTAAAAAACACTTAACATGAGACCTACCTTCTTCC
+HG002_chr9.129055.13+                                       AACATGAGACCTACCTTCTTCC
+                      ____________________________________________________________
+consensus             CCATGACTGTATATTTTTTATTGTGGTAAAAAACACTTAACATGAGACCTACCTTCTTCC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13- ACAAATTTTTAAGGGTACAATATAGTCT                                
+HG002_chr9.129055.13+ ACAAATTTTTAAGGGTACAATATAGTCTCTCCTACTCCTGCTCGCATCTGCTATAGTGGA
+                      ____________________________________________________________
+consensus             ACAAATTTTTAAGGGTACAATATAGTCTCTCCTACTCCTGCTCGCATCTGCTATAGTGGA
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13+ GGCCTGAGCAGGAACAGGTTGAACAGTCTACCCTCCCTTAGCAGGGAACTACTCCCACCC
+                      ____________________________________________________________
+consensus             GGCCTGAGCAGGAACAGGTTGAACAGTCTACCCTCCCTTAGCAGGGAACTACTCCCACCC
+
+                          .    :    .    :    .    :    .    :    .    :    .    :
+HG002_chr9.129055.13+ TGGAGC
+                      ____________________________________________________________
+consensus             TGGAGC
+

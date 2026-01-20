@@ -1,0 +1,3 @@
+sampleID	chr	strand	pointGroup	Group	readsCount	pos	type
+HG006	chr2	+	nu_Tend_Bleft	nuleft	1	33667415.0	all
+HG006	chrM	+	mt_Tend	mt_Tend	1	14896.0	all
