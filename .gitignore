@@ -1,6 +1,6 @@
 
 # 忽略项目根下的 download 目录以及所有子文件
-1-获得NUMTs分布/download/
+1-1-获得NUMTs分布/download/
 
 # 忽略所有以 .log 结尾的日志文件（如 error.log, access.log）
 *.log

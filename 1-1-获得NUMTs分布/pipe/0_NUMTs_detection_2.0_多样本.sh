@@ -1,30 +1,18 @@
 #! /bin/bash
 #*##############################################################################
-#* 本脚本用于从全基因组测序 BAM 文件中检测 NUMTs（多样本并行）
-#* 优先使用 GNU parallel；若不可用则退回 xargs 并行
+#* 本脚本用于从全基因组测序 BAM 文件中检测 NUMTs（多样本串行）
+#* 运行该流程需要安装 samtools、samblaster 和 bwa
 #*##############################################################################
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-GENERAL_CONF="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-获得NUMTs分布/confs/0_NUMTs_detection_2.0_多样本_并行.conf"
-RUN_MODE=${1:-""}
-WORKER_INPUT_BAM=${2:-""}
-WORKER_SAMPLE_ID=${3:-""}
+GENERAL_CONF="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-1-获得NUMTs分布/confs/0_NUMTs_detection_2.0_多样本.conf"
 if [[ ! -f "$GENERAL_CONF" ]]; then
   echo "[ERROR] 未找到配置文件: $GENERAL_CONF" >&2
   exit 1
 fi
 source "$GENERAL_CONF"
-
-# Ensure a valid working directory even if the caller's cwd was deleted.
-if ! pwd >/dev/null 2>&1; then
-  if [[ -n "${BASE_DIR:-}" && -d "${BASE_DIR}" ]]; then
-    cd "$BASE_DIR"
-  else
-    cd /
-  fi
-fi
 
 ## ===============================  配置  ==================================== ##
 : "${SAMPLE_LIST:?missing SAMPLE_LIST in general.conf}"
@@ -40,7 +28,6 @@ fi
 : "${BWA_MEM_THREADS:?missing BWA_MEM_THREADS in general.conf}"
 : "${SAMTOOLS_VIEW_MEM:?missing SAMTOOLS_VIEW_MEM in general.conf}"
 : "${SAMTOOLS_SORT_MEM:?missing SAMTOOLS_SORT_MEM in general.conf}"
-: "${PARALLEL_JOBS:?missing PARALLEL_JOBS in general.conf}"
 : "${LOG_SUBDIR:?missing LOG_SUBDIR in general.conf}"
 : "${OLD_LOG_NAME:?missing OLD_LOG_NAME in general.conf}"
 ###############################################################################
@@ -49,7 +36,6 @@ export NUMTS_CONFIG="${NUMTS_CONFIG:-$DEFAULT_CONFIG}"
 echo ">>> 使用配置: $NUMTS_CONFIG"
 echo ">>> 样本列表: $SAMPLE_LIST"
 echo ">>> 输出根目录: $OUTPUT_ROOT"
-echo ">>> 并行数量: $PARALLEL_JOBS"
 
 if [[ "$LOG_SUBDIR" = /* ]]; then
   LOG_DIR="$LOG_SUBDIR"
@@ -66,16 +52,12 @@ fi
 
 SUCCESS_LOG="${LOG_DIR}/success.log"
 FAILURE_LOG="${LOG_DIR}/failure.log"
-LOCK_FILE="${LOG_DIR}/.log.lock"
 
 log_success() {
   local SAMPLE_ID=$1
   local TIMESTAMP
   TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-  (
-    flock -x 200
-    echo -e "${TIMESTAMP}\t${SAMPLE_ID}\tSUCCESS" >> "$SUCCESS_LOG"
-  ) 200>"$LOCK_FILE"
+  echo -e "${TIMESTAMP}\t${SAMPLE_ID}\tSUCCESS" >> "$SUCCESS_LOG"
 }
 
 log_failure() {
@@ -84,10 +66,7 @@ log_failure() {
   local ERROR_MSG=$3
   local TIMESTAMP
   TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-  (
-    flock -x 200
-    echo -e "${TIMESTAMP}\t${SAMPLE_ID}\tFAILED\t${STEP}\t${ERROR_MSG}" >> "$FAILURE_LOG"
-  ) 200>"$LOCK_FILE"
+  echo -e "${TIMESTAMP}\t${SAMPLE_ID}\tFAILED\t${STEP}\t${ERROR_MSG}" >> "$FAILURE_LOG"
 }
 
 log_old_status() {
@@ -96,10 +75,7 @@ log_old_status() {
   local SAMPLE_ID=$3
   local TIMESTAMP
   TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-  (
-    flock -x 200
-    echo "[${TIMESTAMP}] ${SAMPLE_ID} - ${ITEM} - ${STATUS}" >> "$OLD_LOG"
-  ) 200>"$LOCK_FILE"
+  echo "[${TIMESTAMP}] ${SAMPLE_ID} - ${ITEM} - ${STATUS}" >> "$OLD_LOG"
 }
 
 # 从配置读取线粒体染色体名称
@@ -118,13 +94,18 @@ if [[ -z "$MITOCHONDRIAL_CHR" ]]; then
   exit 1
 fi
 
+declare -A DONE_SAMPLES
+if [[ -s "$SUCCESS_LOG" ]]; then
+  while IFS=$'\t' read -r _ts _sid _status _rest; do
+    if [[ "$_status" == "SUCCESS" && -n "$_sid" ]]; then
+      DONE_SAMPLES["$_sid"]=1
+    fi
+  done < "$SUCCESS_LOG"
+fi
+
 process_sample() {
   local INPUT_BAM=$1
   local SAMPLE_ID=$2
-  if [[ -z "$INPUT_BAM" || -z "$SAMPLE_ID" ]]; then
-    echo "[WARN] 空样本行，跳过"
-    return 0
-  fi
   local OUTPUT_DIR="${OUTPUT_ROOT}/${SAMPLE_ID}"
   local CURRENT_STEP=""
 
@@ -285,85 +266,28 @@ process_sample() {
   trap - ERR
 }
 
-if [[ "$RUN_MODE" == "--worker" ]]; then
-  if [[ -z "$WORKER_INPUT_BAM" ]]; then
-    echo "[ERROR] worker 缺少 BAM 路径" >&2
-    exit 1
-  fi
-  if [[ -z "$WORKER_SAMPLE_ID" ]]; then
-    WORKER_SAMPLE_ID=${WORKER_INPUT_BAM##*/}
-    WORKER_SAMPLE_ID=${WORKER_SAMPLE_ID%.bam}
-  fi
-  process_sample "$WORKER_INPUT_BAM" "$WORKER_SAMPLE_ID"
-  exit $?
-fi
-
-PENDING_LIST=$(mktemp)
-trap 'rm -f "$PENDING_LIST"' EXIT
-
-if [[ ! -s "$SAMPLE_LIST" ]]; then
+mapfile -t SAMPLES < <(grep -v '^#' "$SAMPLE_LIST" | grep -v '^$')
+if [[ ${#SAMPLES[@]} -eq 0 ]]; then
   echo "[ERROR] 样本列表为空: $SAMPLE_LIST" >&2
   exit 1
 fi
 
-if [[ -s "$SUCCESS_LOG" ]]; then
-  awk -F'\t' '
-    NR==FNR {
-      if ($3=="SUCCESS" && $2!="") done[$2]=1
-      next
-    }
-    $0!~/^#/ && $0!~/^$/ {
-      line=$0
-      sub(/\r$/, "", line)
-      n=split(line, a, "\t")
-      bam=a[1]; sid=a[2]
-      sub(/\r/, "", bam)
-      sub(/\r/, "", sid)
-      if (bam=="") next
-      if (sid=="") {
-        sid=bam
-        sub(/^.*\//, "", sid)
-        sub(/\.bam$/, "", sid)
-      }
-      if (!done[sid]) print bam "\t" sid
-    }
-  ' "$SUCCESS_LOG" "$SAMPLE_LIST" > "$PENDING_LIST"
-else
-  awk -F'\t' '
-    $0!~/^#/ && $0!~/^$/ {
-      line=$0
-      sub(/\r$/, "", line)
-      n=split(line, a, "\t")
-      bam=a[1]; sid=a[2]
-      sub(/\r/, "", bam)
-      sub(/\r/, "", sid)
-      if (bam=="") next
-      if (sid=="") {
-        sid=bam
-        sub(/^.*\//, "", sid)
-        sub(/\.bam$/, "", sid)
-      }
-      print bam "\t" sid
-    }
-  ' "$SAMPLE_LIST" > "$PENDING_LIST"
-fi
+for line in "${SAMPLES[@]}"; do
+  IFS=$'\t' read -r INPUT_BAM SAMPLE_ID <<< "$line"
+  if [[ -z "${INPUT_BAM}" ]]; then
+    continue
+  fi
+  if [[ -z "${SAMPLE_ID}" ]]; then
+    SAMPLE_ID=${INPUT_BAM##*/}
+    SAMPLE_ID=${SAMPLE_ID%.bam}
+  fi
 
-PENDING_COUNT=$(wc -l < "$PENDING_LIST" | tr -d ' ')
-echo ">>> 待处理样本数: $PENDING_COUNT"
-if [[ "$PENDING_COUNT" -eq 0 ]]; then
-  echo ">>> 没有待处理样本"
-  exit 0
-fi
+  if [[ -n "${DONE_SAMPLES[$SAMPLE_ID]:-}" ]]; then
+    echo ">>> 跳过已完成样本: ${SAMPLE_ID}"
+    continue
+  fi
 
-if command -v parallel >/dev/null 2>&1; then
-  echo ">>> 使用 GNU parallel 并行"
-  parallel --no-run-if-empty --colsep '\t' -j "${PARALLEL_JOBS}" \
-    "${SCRIPT_DIR}/0_NUMTs_detection_2.0_多样本_并行.sh" --worker {1} {2} \
-    :::: "$PENDING_LIST"
-else
-  echo ">>> 未找到 GNU parallel，使用 xargs 并行"
-  xargs -P "${PARALLEL_JOBS}" -n 2 -a "$PENDING_LIST" \
-    "${SCRIPT_DIR}/0_NUMTs_detection_2.0_多样本_并行.sh" --worker
-fi
+  process_sample "$INPUT_BAM" "$SAMPLE_ID"
+done
 
 echo "=== ALL DONE ==="

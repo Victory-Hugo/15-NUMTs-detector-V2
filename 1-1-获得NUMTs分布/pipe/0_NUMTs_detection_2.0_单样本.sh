@@ -15,7 +15,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-GENERAL_CONF="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-获得NUMTs分布/confs/0_NUMTs_detection_2.0.conf"
+GENERAL_CONF="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-1-获得NUMTs分布/confs/0_NUMTs_detection_2.0.conf"
 if [[ ! -f "$GENERAL_CONF" ]]; then
   echo "[ERROR] 未找到配置文件: $GENERAL_CONF" >&2
   exit 1

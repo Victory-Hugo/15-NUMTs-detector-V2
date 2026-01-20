@@ -8,12 +8,12 @@
 set -euo pipefail
 
 ## =============================== 参数解析 ================================== ##
-SAMPLE_LIST=${1:-"/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-获得NUMTs分布/confs/input_bam.path.txt"}
+SAMPLE_LIST=${1:-"/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-1-获得NUMTs分布/confs/input_bam.path.txt"}
 OUTPUT_ROOT=${2:-"/mnt/d/5-NCBI-Reference/3-Human/example/output"}
 NUM_SCRIPTS=${3:-10}
 
 ## =============================== 基础配置 ================================== ##
-BASE_DIR='/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-获得NUMTs分布/'
+BASE_DIR='/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-1-获得NUMTs分布/'
 CONFIG_DIR="${BASE_DIR}/confs"
 DEFAULT_CONFIG="${CONFIG_DIR}/GRCH38.json"  # 默认使用 GRCh38
 

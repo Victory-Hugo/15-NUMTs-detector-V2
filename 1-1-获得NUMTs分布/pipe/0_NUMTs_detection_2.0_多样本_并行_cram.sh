@@ -7,7 +7,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-GENERAL_CONF="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-获得NUMTs分布/confs/0_NUMTs_detection_2.0_多样本_并行.conf"
+GENERAL_CONF="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-1-获得NUMTs分布/confs/0_NUMTs_detection_2.0_多样本_并行.conf"
 RUN_MODE=${1:-""}
 WORKER_INPUT_CRAM=${2:-""}
 WORKER_SAMPLE_ID=${3:-""}
