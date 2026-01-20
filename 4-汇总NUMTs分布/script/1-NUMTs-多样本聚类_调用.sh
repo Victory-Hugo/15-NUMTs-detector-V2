@@ -19,9 +19,10 @@ set -e
 
 
 BASE_DIR="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/4-汇总NUMTs分布/"
-INPUT_DIR="${BASE_DIR}/data"
+INPUT_DIR="/mnt/l/13_SLE_NUMT/1-所有的NUMTs/data/"
 OUTPUT_DIR="${BASE_DIR}/output"
 SCRIPT_PATH="${BASE_DIR}/script/1-NUMTs-多样本聚类.py"
+PLOT_SCRIPT_PATH="${BASE_DIR}/script/2-plot-manhattan.py"
 
 # 创建输出目录（如果不存在）
 mkdir -p "$OUTPUT_DIR"
@@ -46,6 +47,10 @@ fi
 # 检查Python脚本是否存在
 if [ ! -f "$SCRIPT_PATH" ]; then
     echo "错误: Python脚本不存在: $SCRIPT_PATH"
+    exit 1
+fi
+if [ ! -f "$PLOT_SCRIPT_PATH" ]; then
+    echo "错误: 绘图脚本不存在: $PLOT_SCRIPT_PATH"
     exit 1
 fi
 
@@ -121,6 +126,7 @@ echo "输出文件位置:"
 echo "  - 合并输入文件: $MERGED_FILE"
 echo "  - 详细聚类结果: ${MERGED_FILE}.allCluster.tsv"
 echo "  - 聚类汇总统计: ${MERGED_FILE}.allCluster.sum.tsv"
+echo "  - Manhattan 图与TSV: ${MERGED_FILE}.allCluster.manhattan.*"
 echo
 
 # 显示简要统计信息
@@ -129,5 +135,12 @@ if [ -f "${MERGED_FILE}.allCluster.sum.tsv" ]; then
     echo "  总聚类数: $(tail -n +2 "${MERGED_FILE}.allCluster.sum.tsv" | wc -l)"
     echo "  涉及染色体: $(tail -n +2 "${MERGED_FILE}.allCluster.tsv" | cut -f4 | sort -u | tr '\n' ' ')"
 fi
+
+echo
+echo "正在生成 Manhattan 图与点数据..."
+echo "命令: python3 \"$PLOT_SCRIPT_PATH\" --input \"${MERGED_FILE}.allCluster.sum.tsv\" --output \"${MERGED_FILE}.allCluster.manhattan.png\""
+python3 "$PLOT_SCRIPT_PATH" \
+    --input "${MERGED_FILE}.allCluster.sum.tsv" \
+    --output "${MERGED_FILE}.allCluster.manhattan.png"
 
 echo "分析完成!"

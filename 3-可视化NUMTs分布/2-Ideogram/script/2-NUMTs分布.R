@@ -33,8 +33,8 @@ numt_color_str <- get_arg_value(
   "#273e55,#6aa18a,#b5c3b1,#d7bbaf,#b26966,#782b55,#591c4b"
 )
 numt_shape <- get_arg_value(args, "--numt_shape", "box")
-bin_size <- as.numeric(get_arg_value(args, "--bin_size", "100000"))
-min_len <- as.numeric(get_arg_value(args, "--min_len", "10000"))
+bin_size <- as.numeric(get_arg_value(args, "--bin_size", "1000"))
+output_numt_heatmap <- get_arg_value(args, "--output_numt_heatmap", NA_character_)
 
 gene_palette <- split_colors(gene_color_str)
 numt_palette <- split_colors(numt_color_str)
@@ -104,10 +104,14 @@ numt_raw$Chr <- sub("^hs", "chr", numt_raw$Chr, ignore.case = TRUE)
 numt_raw$Start <- as.numeric(numt_raw$Start)
 numt_raw$End <- as.numeric(numt_raw$End)
 
+# Remove rows with NA coordinates
+numt_raw <- numt_raw[!is.na(numt_raw$Start) & !is.na(numt_raw$End), ]
+
+if (nrow(numt_raw) == 0) {
+  stop("No valid NUMT data after cleaning")
+}
+
 midpoint <- floor((numt_raw$Start + numt_raw$End) / 2)
-half_min <- floor(min_len / 2)
-numt_raw$Start <- pmax(0, midpoint - half_min)
-numt_raw$End <- midpoint + half_min
 
 numt_bins <- data.frame(
   Chr = numt_raw$Chr,
@@ -128,9 +132,17 @@ numt_density$End <- ifelse(
 )
 numt_density <- numt_density[numt_density$Start < numt_density$End, ]
 
+if (nrow(numt_density) == 0) {
+  stop("No valid density data after coordinate validation")
+}
+
+# Create color assignment with proper breaks
+value_range <- range(numt_density$Value)
+breaks <- seq(value_range[1] - 0.1, value_range[2] + 0.1, length.out = length(numt_palette) + 1)
+
 numt_density$Color <- cut(
   numt_density$Value,
-  breaks = length(numt_palette),
+  breaks = breaks,
   include.lowest = TRUE,
   labels = numt_palette
 )
@@ -153,3 +165,23 @@ ideogram(
   colorset1 = gene_palette,
   output = output_svg
 )
+
+# Generate NUMT heatmap as alternative visualization
+if (!is.na(output_numt_heatmap) && nzchar(output_numt_heatmap)) {
+  # Prepare NUMT density heatmap data
+  numt_heatmap_data <- numt_density[, c("Chr", "Start", "End", "Value")]
+  
+  # Create output directory if needed
+  output_numt_dir <- dirname(output_numt_heatmap)
+  if (!dir.exists(output_numt_dir)) {
+    dir.create(output_numt_dir, recursive = TRUE)
+  }
+  
+  # Generate ideogram with NUMT heatmap only (no external markers)
+  ideogram(
+    karyotype = karyotype,
+    overlaid = numt_heatmap_data,
+    colorset1 = numt_palette,
+    output = output_numt_heatmap
+  )
+}
