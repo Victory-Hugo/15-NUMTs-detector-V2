@@ -32,6 +32,7 @@ numt_color_str <- get_arg_value(
   "--numt_color",
   "#273e55,#6aa18a,#b5c3b1,#d7bbaf,#b26966,#782b55,#591c4b"
 )
+numt_color_mode <- tolower(get_arg_value(args, "--numt_color_mode", "linear"))
 numt_shape <- get_arg_value(args, "--numt_shape", "box")
 bin_size <- as.numeric(get_arg_value(args, "--bin_size", "1000"))
 output_numt_heatmap <- get_arg_value(args, "--output_numt_heatmap", NA_character_)
@@ -55,6 +56,9 @@ if (length(gene_palette) == 0) {
 }
 if (length(numt_palette) == 0) {
   stop("numt_color is empty")
+}
+if (!numt_color_mode %in% c("linear", "log", "quantile")) {
+  stop("Unsupported --numt_color_mode: ", numt_color_mode)
 }
 
 output_dir <- dirname(output_svg)
@@ -136,16 +140,63 @@ if (nrow(numt_density) == 0) {
   stop("No valid density data after coordinate validation")
 }
 
-# Create color assignment with proper breaks
-value_range <- range(numt_density$Value)
-breaks <- seq(value_range[1] - 0.1, value_range[2] + 0.1, length.out = length(numt_palette) + 1)
+# Build full bin grid for heatmap so empty regions render as lowest color
+all_bins_list <- lapply(seq_len(nrow(karyotype)), function(i) {
+  chr <- karyotype$Chr[i]
+  chr_end <- karyotype$End[i]
+  starts <- seq(0, chr_end - 1, by = bin_size)
+  data.frame(
+    Chr = chr,
+    Start = starts,
+    End = pmin(starts + bin_size, chr_end),
+    stringsAsFactors = FALSE
+  )
+})
+numt_full_bins <- do.call(rbind, all_bins_list)
+numt_full_bins <- numt_full_bins[numt_full_bins$Start < numt_full_bins$End, ]
+numt_full_bins$Value <- 0
 
-numt_density$Color <- cut(
-  numt_density$Value,
+numt_density_full <- merge(
+  numt_full_bins,
+  numt_density,
+  by = c("Chr", "Start", "End"),
+  all.x = TRUE,
+  suffixes = c(".base", ".hit")
+)
+numt_density_full$Value <- ifelse(
+  is.na(numt_density_full$Value.hit),
+  numt_density_full$Value.base,
+  numt_density_full$Value.hit
+)
+numt_density_full <- numt_density_full[, c("Chr", "Start", "End", "Value")]
+
+raw_values <- numt_density_full$Value
+if (numt_color_mode == "log") {
+  color_values <- log1p(raw_values)
+} else if (numt_color_mode == "quantile") {
+  color_values <- rank(raw_values, ties.method = "average") / length(raw_values)
+} else {
+  color_values <- raw_values
+}
+
+value_range <- range(color_values)
+if (diff(value_range) == 0) {
+  breaks <- seq(value_range[1] - 0.5, value_range[2] + 0.5, length.out = length(numt_palette) + 1)
+} else {
+  breaks <- seq(value_range[1] - 0.1, value_range[2] + 0.1, length.out = length(numt_palette) + 1)
+}
+
+numt_density_full$Color <- cut(
+  color_values,
   breaks = breaks,
   include.lowest = TRUE,
   labels = numt_palette
 )
+
+# Map full-bin colors to non-empty bins for markers
+full_key <- paste(numt_density_full$Chr, numt_density_full$Start, numt_density_full$End, sep = ":")
+hit_key <- paste(numt_density$Chr, numt_density$Start, numt_density$End, sep = ":")
+numt_density$Color <- numt_density_full$Color[match(hit_key, full_key)]
 
 numt_labels <- data.frame(
   Type = "NUMT",
@@ -169,7 +220,8 @@ ideogram(
 # Generate NUMT heatmap as alternative visualization
 if (!is.na(output_numt_heatmap) && nzchar(output_numt_heatmap)) {
   # Prepare NUMT density heatmap data
-  numt_heatmap_data <- numt_density[, c("Chr", "Start", "End", "Value")]
+  numt_heatmap_data <- numt_density_full[, c("Chr", "Start", "End")]
+  numt_heatmap_data$Value <- color_values
   
   # Create output directory if needed
   output_numt_dir <- dirname(output_numt_heatmap)
