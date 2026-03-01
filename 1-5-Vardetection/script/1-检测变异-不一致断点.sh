@@ -167,14 +167,20 @@ else
         process_sample "${sample_id}" "${input_dir}" &
         pids+=("$!")
         if [ "${#pids[@]}" -ge "${JOBS}" ]; then
-            wait -n
-            new_pids=()
-            for pid in "${pids[@]}"; do
-                if kill -0 "${pid}" 2>/dev/null; then
-                    new_pids+=("${pid}")
+            # wait -n requires Bash 4.3+; use a portable polling loop instead
+            while true; do
+                new_pids=()
+                for pid in "${pids[@]}"; do
+                    if kill -0 "${pid}" 2>/dev/null; then
+                        new_pids+=("${pid}")
+                    fi
+                done
+                pids=("${new_pids[@]}")
+                if [ "${#pids[@]}" -lt "${JOBS}" ]; then
+                    break
                 fi
+                sleep 1
             done
-            pids=("${new_pids[@]}")
         fi
     done < "${LIST_PATH}"
     wait
