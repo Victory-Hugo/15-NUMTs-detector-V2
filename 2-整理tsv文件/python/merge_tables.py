@@ -37,10 +37,25 @@ def _collect_files(input_dir: Path, pattern: str) -> List[Path]:
     return sorted(input_dir.rglob(pattern))
 
 
+def _load_files_from_list(file_list_path: Path) -> List[Path]:
+    files: List[Path] = []
+    with file_list_path.open("r", encoding="utf-8") as handle:
+        for raw_line in handle:
+            line = raw_line.strip()
+            if not line or line.startswith("#"):
+                continue
+            file_path = Path(line).expanduser().resolve()
+            if not file_path.exists():
+                raise FileNotFoundError(f"Listed file does not exist: {file_path}")
+            files.append(file_path)
+    return files
+
+
 def run(
     config_path: str,
     suffix_key: str,
     output_path: Optional[str] = None,
+    files_list: Optional[str] = None,
     force: bool = False,
 ) -> str:
     with open(config_path, "r", encoding="utf-8") as handle:
@@ -66,8 +81,13 @@ def run(
     if final_output.exists() and not force:
         raise FileExistsError(f"Output exists; use --force to overwrite: {final_output}")
 
-    files = _collect_files(input_dir, pattern)
+    if files_list:
+        files = _load_files_from_list(Path(files_list).resolve())
+    else:
+        files = _collect_files(input_dir, pattern)
     if not files:
+        if files_list:
+            raise FileNotFoundError(f"No files found in list: {files_list}")
         raise FileNotFoundError(f"No files match pattern {pattern} under {input_dir}")
 
     header, header_count = _detect_header(files)
@@ -116,6 +136,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
         "--output-path",
         help="Override output path; default is config.output_dir/output_name",
     )
+    parser.add_argument(
+        "--files-list",
+        help="Path to txt list of input files; if provided, skip pattern search",
+    )
     parser.add_argument("--force", action="store_true", help="Overwrite output")
     parser.add_argument(
         "--list-keys",
@@ -143,6 +167,7 @@ def main() -> None:
         config_path=args.config,
         suffix_key=args.suffix_key,
         output_path=args.output_path,
+        files_list=args.files_list,
         force=args.force,
     )
 
