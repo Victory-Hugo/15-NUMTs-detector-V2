@@ -1,0 +1,40 @@
+env:
+  conda_env: BigLin
+
+input:
+  breakpoint_tsv: /mnt/l/20-NUMTs/1-原始结果/data/3-SLE/3-confident_breakpoints.tsv
+  cluster_tsv: /mnt/l/20-NUMTs/1-原始结果/data/3-SLE/7-mt_disc_cluster.tsv
+  length_bed_gz: /mnt/l/20-NUMTs/1-原始结果/data/3-SLE/8-merge_bed.tsv.gz
+  meta_tsv: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/4-计算NUMTs频率/input/meta/0-基础信息表.tsv
+  mt_gene_table: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/4-计算NUMTs频率/conf/mtDNA基因.txt
+
+qc:
+  meta_id_col: ID
+  meta_qc_col: 质控状态.1
+  meta_qc_pass_value: PASS
+  require_in_breakpoint: true
+  require_in_cluster: true
+
+catalog:
+  nuclear_merge_gap_bp: 1000
+  mt_merge_gap_bp: 1000
+  use_point_groups: nu_Tend_Bleft,nu_Tstart_Bright,mt_Tstart,mt_Tend
+  distinct_id_prefix: NUMT
+  fallback_to_cluster_midpoint: true
+
+frequency:
+  prevalent_min: 0.10
+  common_min: 0.01
+  rare_min: 0.001
+
+stratify:
+  geography_col: Region
+  ethnicity_col: Population
+  sex_col: Sex
+  min_group_n_warn: 10
+
+plot:
+  format_main: pdf
+  format_aux: png
+  dpi: 300
+  font_family: DejaVu Sans

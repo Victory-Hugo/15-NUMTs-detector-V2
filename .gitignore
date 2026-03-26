@@ -14,3 +14,7 @@ nohup.out
 # 忽略所有 .bam 和 .bai 文件（大文件）
 *.bam
 *.bai
+
+4-计算NUMTs频率/output
+
+4-计算NUMTs频率/input/meta/0-基础信息表.tsv
