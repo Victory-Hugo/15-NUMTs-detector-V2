@@ -1,0 +1,3 @@
+sampleID	chr	strand	pointGroup	Group	readsCount	pos	type
+HG001	chr11	+	nu_Tend_Bleft	nuleft	1	49862079.0	confident
+HG001	chrM	-	mt_Tstart	mt_confident	1	16088.0	confident
