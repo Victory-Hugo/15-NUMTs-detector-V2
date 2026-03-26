@@ -8,7 +8,7 @@ LOG_FILE="$LOG_DIR/${SCRIPT_NAME}.log"
 
 mkdir -p "$LOG_DIR"
 
-CONFIG_PATH="$PROJECT_DIR/conf/merge_config.json"
+CONFIG_PATH="$PROJECT_DIR/conf/merge_config.yaml"
 JOBS=""
 FORCE=0
 
@@ -17,6 +17,10 @@ while [[ $# -gt 0 ]]; do
     --config)
       CONFIG_PATH="$2"
       shift 2
+      ;;
+    --force)
+      FORCE=1
+      shift 1
       ;;
     *)
       echo "Unknown argument: $1" >&2
@@ -34,86 +38,81 @@ fi
 
 parse_config() {
   awk '
+    function emit_group() {
+      if (current_key != "") {
+        if (pattern == "" || output_name == "") {
+          print "Invalid suffix_groups entry for key: " current_key > "/dev/stderr"
+          exit 1
+        }
+        print "GROUP\t" current_key "\t" pattern "\t" output_name
+      }
+    }
     function trim(s) {
       gsub(/^[[:space:]]+|[[:space:]]+$/, "", s)
       return s
     }
-    function unquote(s) {
+    function unquote(s, first, last) {
       s = trim(s)
-      sub(/^"/, "", s)
-      sub(/",$|"$|,$/, "", s)
+      sub(/[[:space:]]+#.*$/, "", s)
+      first = substr(s, 1, 1)
+      last = substr(s, length(s), 1)
+      if ((first == "'"'"'" && last == "'"'"'") || (first == "\"" && last == "\"")) {
+        s = substr(s, 2, length(s) - 2)
+      }
       return s
     }
-    /^[[:space:]]*"suffix_groups"[[:space:]]*:[[:space:]]*\{/ {
-      in_suffix = 1
-      current_key = ""
+    /^[[:space:]]*#/ || /^[[:space:]]*$/ {
       next
     }
-    !in_suffix && /^[[:space:]]*"input_dir"[[:space:]]*:/ {
-      line = $0
-      sub(/^[^:]*:[[:space:]]*/, "", line)
-      print "META\tinput_dir\t" unquote(line)
+    /^[^[:space:]][^:]*:[[:space:]]*.*$/ {
+      if (in_suffix) {
+        emit_group()
+        current_key = ""
+        pattern = ""
+        output_name = ""
+      }
+      top_key = $0
+      sub(/:.*/, "", top_key)
+      value = $0
+      sub(/^[^:]*:[[:space:]]*/, "", value)
+
+      if (top_key == "input_dir" || top_key == "output_dir" || top_key == "tmp_dir" || top_key == "jobs" || top_key == "force") {
+        print "META\t" top_key "\t" unquote(value)
+      } else if (top_key == "suffix_groups") {
+        in_suffix = 1
+      } else {
+        in_suffix = 0
+      }
       next
     }
-    !in_suffix && /^[[:space:]]*"output_dir"[[:space:]]*:/ {
-      line = $0
-      sub(/^[^:]*:[[:space:]]*/, "", line)
-      print "META\toutput_dir\t" unquote(line)
-      next
-    }
-    !in_suffix && /^[[:space:]]*"tmp_dir"[[:space:]]*:/ {
-      line = $0
-      sub(/^[^:]*:[[:space:]]*/, "", line)
-      print "META\ttmp_dir\t" unquote(line)
-      next
-    }
-    !in_suffix && /^[[:space:]]*"jobs"[[:space:]]*:/ {
-      line = $0
-      sub(/^[^:]*:[[:space:]]*/, "", line)
-      gsub(/,/, "", line)
-      print "META\tjobs\t" trim(line)
-      next
-    }
-    !in_suffix && /^[[:space:]]*"force"[[:space:]]*:/ {
-      line = $0
-      sub(/^[^:]*:[[:space:]]*/, "", line)
-      gsub(/,/, "", line)
-      print "META\tforce\t" trim(line)
-      next
-    }
-    in_suffix && current_key == "" && /^[[:space:]]*"[^"]+"[[:space:]]*:[[:space:]]*\{/ {
-      match($0, /"[^"]+"/)
-      current_key = substr($0, RSTART + 1, RLENGTH - 2)
+
+    in_suffix && /^[[:space:]]{2}[^[:space:]][^:]*:[[:space:]]*$/ {
+      emit_group()
+      current_key = $0
+      gsub(/^[[:space:]]+/, "", current_key)
+      sub(/:.*/, "", current_key)
       pattern = ""
       output_name = ""
       next
     }
-    in_suffix && current_key != "" && /^[[:space:]]*"pattern"[[:space:]]*:/ {
+
+    in_suffix && current_key != "" && /^[[:space:]]{4}pattern:[[:space:]]*/ {
       line = $0
       sub(/^[^:]*:[[:space:]]*/, "", line)
       pattern = unquote(line)
       next
     }
-    in_suffix && current_key != "" && /^[[:space:]]*"output_name"[[:space:]]*:/ {
+
+    in_suffix && current_key != "" && /^[[:space:]]{4}output_name:[[:space:]]*/ {
       line = $0
       sub(/^[^:]*:[[:space:]]*/, "", line)
       output_name = unquote(line)
       next
     }
-    in_suffix && current_key != "" && /^[[:space:]]*\}[[:space:]]*,?[[:space:]]*$/ {
-      if (pattern == "" || output_name == "") {
-        print "Invalid suffix_groups entry for key: " current_key > "/dev/stderr"
-        exit 1
+    END {
+      if (in_suffix) {
+        emit_group()
       }
-      print "GROUP\t" current_key "\t" pattern "\t" output_name
-      current_key = ""
-      pattern = ""
-      output_name = ""
-      next
-    }
-    in_suffix && current_key == "" && /^[[:space:]]*\}[[:space:]]*,?[[:space:]]*$/ {
-      in_suffix = 0
-      next
     }
   ' "$CONFIG_PATH"
 }
@@ -156,7 +155,11 @@ while IFS=$'\t' read -r key value; do
     output_dir) OUTPUT_DIR="$value" ;;
     tmp_dir) TMP_DIR="$value" ;;
     jobs) JOBS="$value" ;;
-    force) FORCE=$(normalize_force "$value") ;;
+    force)
+      if [[ "$FORCE" -ne 1 ]]; then
+        FORCE=$(normalize_force "$value")
+      fi
+      ;;
   esac
 done < "$MERGE_META_FILE"
 
@@ -193,6 +196,7 @@ mkdir -p "$OUTPUT_DIR" "$TMP_DIR"
 KEYS_FILE="$TMP_DIR/merge_keys.txt"
 LISTS_DIR="$TMP_DIR/merge_filelists"
 MERGE_RUNNER="$TMP_DIR/merge_group_runner.sh"
+POSTPROCESS_SCRIPT="$PROJECT_DIR/pipe/2-cluster→circos.sh"
 mkdir -p "$LISTS_DIR"
 
 build_merge_lists() {
@@ -233,8 +237,8 @@ merge_one_group() {
   local temp_output="${final_output}.tmp"
 
   if [[ -f "$final_output" && "$FORCE" -eq 0 ]]; then
-    echo "Output exists; use --force to overwrite: $final_output" >&2
-    exit 1
+    echo "[$(date '+%F %T')] SKIP existing output: $final_output"
+    return 0
   fi
 
   if [[ ! -f "$files_list" ]]; then
@@ -368,6 +372,18 @@ if [[ "$auto_parallel_cmd" == "parallel" ]]; then
   parallel -j "$JOBS" --arg-file "$KEYS_FILE" "$MERGE_RUNNER" {} "$TMP_DIR"
 else
   xargs -I {} -P "$JOBS" "$MERGE_RUNNER" {} "$TMP_DIR" < "$KEYS_FILE"
+fi
+
+echo "[$(date '+%F %T')] STEP3 cluster to circos"
+if [[ ! -x "$POSTPROCESS_SCRIPT" ]]; then
+  echo "Postprocess script not executable or missing: $POSTPROCESS_SCRIPT" >&2
+  exit 1
+fi
+
+if [[ "$FORCE" -eq 1 ]]; then
+  "$POSTPROCESS_SCRIPT" --config "$CONFIG_PATH" --force
+else
+  "$POSTPROCESS_SCRIPT" --config "$CONFIG_PATH"
 fi
 
 echo "[$(date '+%F %T')] SUCCESS"

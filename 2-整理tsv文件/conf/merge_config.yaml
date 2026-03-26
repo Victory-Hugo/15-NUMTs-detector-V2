@@ -1,0 +1,32 @@
+input_dir: /mnt/d/5-NCBI-Reference/3-Human/example/output
+output_dir: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-整理tsv文件/output
+tmp_dir: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-整理tsv文件/tmp
+jobs: 4
+force: false
+
+suffix_groups:
+  all_breakpoints:
+    pattern: '*.AllBreakpoints.tsv'
+    output_name: 1-all_breakpoints.tsv
+  confident_breakpoints:
+    pattern: '*.ConfidentBreakpoints.tsv'
+    output_name: 3-confident_breakpoints.tsv
+  mt_disc_breakpoint_input:
+    pattern: '*.mt.disc.sam.breakpointINPUT.tsv'
+    output_name: 4-mt_disc_breakpoint_input.tsv
+  mt_disc_cluster_summary:
+    pattern: '*.mt.disc.sam.cluster.summary.tsv'
+    output_name: 6-mt_disc_cluster_summary.tsv
+  mt_disc_cluster:
+    pattern: '*.mt.disc.sam.cluster.tsv'
+    output_name: 7-mt_disc_cluster.tsv
+  breakpoints_old:
+    pattern: '*.Breakpoints.old.tsv'
+    output_name: 2-breakpoints_old.tsv
+  mt_disc_cluster_old:
+    pattern: '*.mt.disc.sam.cluster.old.tsv'
+    output_name: 5-mt_disc_cluster_old.tsv
+circos:
+  enabled: true
+  input_name: 7-mt_disc_cluster.tsv
+  output_name: mt.disc.sam.cluster.concat.circos.txt

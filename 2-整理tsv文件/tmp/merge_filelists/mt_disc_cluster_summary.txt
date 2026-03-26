@@ -1,0 +1,8 @@
+/mnt/d/5-NCBI-Reference/3-Human/example/output/1000434/1000434.mt.disc.sam.cluster.summary.tsv
+/mnt/d/5-NCBI-Reference/3-Human/example/output/1000592/1000592.mt.disc.sam.cluster.summary.tsv
+/mnt/d/5-NCBI-Reference/3-Human/example/output/1000612/1000612.mt.disc.sam.cluster.summary.tsv
+/mnt/d/5-NCBI-Reference/3-Human/example/output/HG001/HG001.mt.disc.sam.cluster.summary.tsv
+/mnt/d/5-NCBI-Reference/3-Human/example/output/HG002/HG002.mt.disc.sam.cluster.summary.tsv
+/mnt/d/5-NCBI-Reference/3-Human/example/output/HG003/HG003.mt.disc.sam.cluster.summary.tsv
+/mnt/d/5-NCBI-Reference/3-Human/example/output/HG004/HG004.mt.disc.sam.cluster.summary.tsv
+/mnt/d/5-NCBI-Reference/3-Human/example/output/HG006/HG006.mt.disc.sam.cluster.summary.tsv
