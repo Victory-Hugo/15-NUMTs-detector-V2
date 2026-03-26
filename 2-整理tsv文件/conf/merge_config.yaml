@@ -3,7 +3,7 @@ output_dir: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector
 tmp_dir: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-整理tsv文件/tmp
 jobs: 4
 force: false
-
+#! 第一步
 suffix_groups:
   all_breakpoints:
     pattern: '*.AllBreakpoints.tsv'
@@ -26,7 +26,3 @@ suffix_groups:
   mt_disc_cluster_old:
     pattern: '*.mt.disc.sam.cluster.old.tsv'
     output_name: 5-mt_disc_cluster_old.tsv
-circos:
-  enabled: true
-  input_name: 7-mt_disc_cluster.tsv
-  output_name: mt.disc.sam.cluster.concat.circos.txt

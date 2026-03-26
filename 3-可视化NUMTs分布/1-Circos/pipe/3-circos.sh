@@ -1,16 +1,54 @@
 #!/bin/bash
+set -euo pipefail
 #* 需要先安装Circos工具,可以使用conda或者下载安装
 #* conda install -c conda-forge libjpeg-turbo perl-gd
 #* conda install -c bioconda circos
 
-# 切换到配置文件目录（因为配置文件中使用相对路径）
-SCRIPT_DIR="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/3-可视化NUMTs分布"
+# 按脚本自身位置定位项目目录，避免硬编码路径失效。
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+CONF_DIR="${PROJECT_DIR}/conf"
+CONF_FILE="circos_allNUMTs-10K.conf"
+CIRCOS_BIN="${CIRCOS_BIN:-}"
+
+if [[ ! -d "${CONF_DIR}" ]]; then
+    echo "错误: 配置目录不存在: ${CONF_DIR}" >&2
+    exit 1
+fi
+
+if [[ ! -f "${CONF_DIR}/${CONF_FILE}" ]]; then
+    echo "错误: 配置文件不存在: ${CONF_DIR}/${CONF_FILE}" >&2
+    exit 1
+fi
+
+if [[ -z "${CIRCOS_BIN}" ]]; then
+    if command -v circos >/dev/null 2>&1; then
+        CIRCOS_BIN="$(command -v circos)"
+    elif [[ -n "${CONDA_PREFIX:-}" && -x "${CONDA_PREFIX}/bin/circos" ]]; then
+        CIRCOS_BIN="${CONDA_PREFIX}/bin/circos"
+    else
+        echo "错误: 未找到 circos 可执行文件。请先激活包含 circos 的 Conda 环境，或通过 CIRCOS_BIN 指定路径。" >&2
+        exit 1
+    fi
+fi
+
+MODULE_CHECK_LOG="$(mktemp)"
+trap 'rm -f "${MODULE_CHECK_LOG}"' EXIT
+
+"${CIRCOS_BIN}" -modules >"${MODULE_CHECK_LOG}" 2>&1 || true
+if grep -q '^missing' "${MODULE_CHECK_LOG}"; then
+    echo "错误: 当前 Circos 运行环境缺少 Perl 依赖模块，无法正常绘图。" >&2
+    echo "缺失模块如下:" >&2
+    grep '^missing' "${MODULE_CHECK_LOG}" >&2
+    echo "请先在当前环境中补齐依赖后再运行。" >&2
+    exit 1
+fi
 
 #! 使用相对路径，因为circos配置太难了
-cd ${SCRIPT_DIR}/conf/
+cd "${CONF_DIR}"
 
 # 执行前配置好conf文件
-circos -conf circos_allNUMTs-10K.conf
+"${CIRCOS_BIN}" -conf "${CONF_FILE}"
 
 # 绿色输出：成功提示
 echo -e "\e[32m===============================================\e[0m"

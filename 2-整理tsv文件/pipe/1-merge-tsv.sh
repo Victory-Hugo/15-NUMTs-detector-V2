@@ -196,7 +196,6 @@ mkdir -p "$OUTPUT_DIR" "$TMP_DIR"
 KEYS_FILE="$TMP_DIR/merge_keys.txt"
 LISTS_DIR="$TMP_DIR/merge_filelists"
 MERGE_RUNNER="$TMP_DIR/merge_group_runner.sh"
-POSTPROCESS_SCRIPT="$PROJECT_DIR/pipe/2-cluster→circos.sh"
 mkdir -p "$LISTS_DIR"
 
 build_merge_lists() {
@@ -372,18 +371,6 @@ if [[ "$auto_parallel_cmd" == "parallel" ]]; then
   parallel -j "$JOBS" --arg-file "$KEYS_FILE" "$MERGE_RUNNER" {} "$TMP_DIR"
 else
   xargs -I {} -P "$JOBS" "$MERGE_RUNNER" {} "$TMP_DIR" < "$KEYS_FILE"
-fi
-
-echo "[$(date '+%F %T')] STEP3 cluster to circos"
-if [[ ! -x "$POSTPROCESS_SCRIPT" ]]; then
-  echo "Postprocess script not executable or missing: $POSTPROCESS_SCRIPT" >&2
-  exit 1
-fi
-
-if [[ "$FORCE" -eq 1 ]]; then
-  "$POSTPROCESS_SCRIPT" --config "$CONFIG_PATH" --force
-else
-  "$POSTPROCESS_SCRIPT" --config "$CONFIG_PATH"
 fi
 
 echo "[$(date '+%F %T')] SUCCESS"
