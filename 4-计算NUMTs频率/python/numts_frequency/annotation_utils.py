@@ -14,6 +14,13 @@ LOG = logging.getLogger(__name__)
 MTDNA_LENGTH = 16569
 
 
+def _rounded_series_median(series: pd.Series) -> float:
+    clean = series.dropna()
+    if clean.empty:
+        return np.nan
+    return float(int(round(clean.median())))
+
+
 def annotate_sample_events(sample_events: pd.DataFrame, length_summary: pd.DataFrame) -> pd.DataFrame:
     return finalize_sample_event_table(sample_events, length_summary)
 
@@ -62,6 +69,7 @@ def annotate_catalog(
                 "mt_length_for_main_bp",
                 "mt_breakpoint_span_bp",
                 "mt_source_span_bp",
+                "mt_primary_fragment_span_bp",
                 "nuclear_breakpoint_span_bp",
             ]
         ],
@@ -71,13 +79,25 @@ def annotate_catalog(
     medians = (
         event_lengths.groupby("distinct_numt_id", as_index=False)
         .agg(
-            median_mt_length_for_main_bp=("mt_length_for_main_bp", "median"),
+            median_mt_length_for_main_bp=("mt_primary_fragment_span_bp", _rounded_series_median),
             median_mt_breakpoint_span_bp=("mt_breakpoint_span_bp", "median"),
             median_mt_source_union_span_bp=("mt_source_span_bp", "median"),
             median_nuclear_breakpoint_span_bp=("nuclear_breakpoint_span_bp", "median"),
         )
         .copy()
     )
+    missing_length_mask = medians["median_mt_length_for_main_bp"].isna()
+    if missing_length_mask.any():
+        fallback_lengths = (
+            event_lengths.loc[:, ["distinct_numt_id", "mt_length_for_main_bp"]]
+            .groupby("distinct_numt_id", as_index=False)
+            .agg(median_mt_length_for_main_bp_fallback=("mt_length_for_main_bp", _rounded_series_median))
+        )
+        medians = medians.merge(fallback_lengths, on="distinct_numt_id", how="left")
+        medians["median_mt_length_for_main_bp"] = medians["median_mt_length_for_main_bp"].fillna(
+            medians["median_mt_length_for_main_bp_fallback"]
+        )
+        medians = medians.drop(columns=["median_mt_length_for_main_bp_fallback"])
     annotated = catalog.merge(medians, on="distinct_numt_id", how="left", suffixes=("", "_updated")).copy()
     if "median_mt_length_for_main_bp_updated" in annotated.columns:
         if "median_mt_length_for_main_bp" in annotated.columns:

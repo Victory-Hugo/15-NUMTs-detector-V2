@@ -8,8 +8,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from .catalog_utils import build_breakpoint_index, query_interval
+from .catalog_utils import build_breakpoint_index, query_interval, query_interval_by_key
 from .io_utils import write_tsv
+from .parse_utils import build_region_key
 from .parse_utils import LEFT_GROUP, RIGHT_GROUP
 
 LOG = logging.getLogger(__name__)
@@ -97,10 +98,23 @@ def build_sample_filters(
 def build_event_traceability(breakpoints: pd.DataFrame, clusters: pd.DataFrame, retained_ids: set[str]) -> pd.DataFrame:
     bp = breakpoints[breakpoints["sample_id"].isin(retained_ids)].copy()
     nuclear_bp = bp[bp["pointGroup"].isin([LEFT_GROUP, RIGHT_GROUP])].copy()
-    bp_index = build_breakpoint_index(nuclear_bp)
+    fallback_index = build_breakpoint_index(nuclear_bp)
+    region_index = {}
+    use_region_key_match = False
+    if "source_region_key" in nuclear_bp.columns:
+        region_bp = nuclear_bp[nuclear_bp["source_region_key"].notna()].copy()
+        if not region_bp.empty:
+            region_index = build_breakpoint_index(region_bp, group_cols=("source_region_key", "chr"))
+            use_region_key_match = True
     results = []
     for row in clusters[clusters["sample_id"].isin(retained_ids)].itertuples(index=False):
-        sub = query_interval(bp_index, row.sample_id, row.chr, row.start, row.end)
+        region_key = build_region_key(row.sample_id, row.chr, row.start, row.end)
+        if use_region_key_match:
+            sub = query_interval_by_key(region_index, (region_key, row.chr), row.start, row.end)
+            traceability_mode = "source_region_key"
+        else:
+            sub = query_interval(fallback_index, row.sample_id, row.chr, row.start, row.end)
+            traceability_mode = "sample_chr_interval"
         results.append(
             {
                 "sample_id": row.sample_id,
@@ -108,6 +122,8 @@ def build_event_traceability(breakpoints: pd.DataFrame, clusters: pd.DataFrame, 
                 "chr": row.chr,
                 "cluster_start": int(row.start),
                 "cluster_end": int(row.end),
+                "breakpoint_region_key": region_key if use_region_key_match else pd.NA,
+                "traceability_mode": traceability_mode,
                 "supporting_nuclear_breakpoint_rows": int(sub["positions"].shape[0]),
                 "traceability_status": "ok" if sub["positions"].shape[0] > 0 else "event_without_confident_nuclear_breakpoint",
             }
@@ -125,7 +141,10 @@ def build_validation_report(
     clusters: pd.DataFrame,
     meta: pd.DataFrame,
 ) -> None:
-    duplicated_bp = int(breakpoints.duplicated(["sample_id", "chr", "pointGroup", "pos"]).sum())
+    duplicated_bp_cols = ["sample_id", "chr", "pointGroup", "pos"]
+    if "source_region_key" in breakpoints.columns and breakpoints["source_region_key"].notna().any():
+        duplicated_bp_cols.append("source_region_key")
+    duplicated_bp = int(breakpoints.duplicated(duplicated_bp_cols).sum())
     duplicated_cluster = int(clusters.duplicated(["sample_id", "cluster_id_raw"]).sum())
     duplicated_meta = int(meta.duplicated(["sample_id"]).sum())
     inconsistent_bp_chr = int((~breakpoints["chr"].astype(str).str.startswith("chr")).sum())

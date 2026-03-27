@@ -23,10 +23,15 @@ from .parse_utils import (
 LOG = logging.getLogger(__name__)
 
 
-def build_breakpoint_index(breakpoints: pd.DataFrame) -> dict:
-    """按样本与染色体建立二分检索索引。"""
+def build_breakpoint_index(
+    breakpoints: pd.DataFrame,
+    group_cols: tuple[str, ...] = ("sample_id", "chr"),
+) -> dict:
+    """按给定键建立二分检索索引。"""
     index: dict = {}
-    for key, sub in breakpoints.groupby(["sample_id", "chr"], sort=False):
+    for key, sub in breakpoints.groupby(list(group_cols), sort=False, dropna=False):
+        if not isinstance(key, tuple):
+            key = (key,)
         ordered = sub.sort_values("pos").reset_index(drop=True)
         index[key] = {
             "positions": ordered["pos"].to_numpy(dtype=float),
@@ -36,8 +41,8 @@ def build_breakpoint_index(breakpoints: pd.DataFrame) -> dict:
     return index
 
 
-def query_interval(index: dict, sample_id: str, chrom: str, start: float, end: float) -> dict:
-    data = index.get((sample_id, chrom))
+def query_interval_by_key(index: dict, key: tuple[object, ...], start: float, end: float) -> dict:
+    data = index.get(tuple(key))
     if data is None:
         return {"positions": np.array([]), "weights": np.array([]), "point_groups": np.array([])}
     left = int(np.searchsorted(data["positions"], float(start), side="left"))
@@ -47,6 +52,10 @@ def query_interval(index: dict, sample_id: str, chrom: str, start: float, end: f
         "weights": data["weights"][left:right],
         "point_groups": data["point_groups"][left:right],
     }
+
+
+def query_interval(index: dict, sample_id: str, chrom: str, start: float, end: float) -> dict:
+    return query_interval_by_key(index, (sample_id, chrom), start, end)
 
 
 def _weighted_point(interval: dict, point_group: str) -> float | None:
@@ -74,6 +83,30 @@ def _single_point_or_interval(start: float | None, end: float | None) -> tuple[f
     if end_is_na:
         return float(start), float(start)
     return float(min(start, end)), float(max(start, end))
+
+
+def _absolute_span(start: float | None, end: float | None) -> float:
+    if pd.isna(start) or pd.isna(end):
+        return np.nan
+    return float(abs(float(end) - float(start)) + 1.0)
+
+
+def _merge_interval_with_cluster_fallback(
+    start: float | None,
+    end: float | None,
+    fallback_start: float | None,
+    fallback_end: float | None,
+) -> tuple[float | None, float | None]:
+    interval_start, interval_end = _single_point_or_interval(start, end)
+    fallback_interval_start, fallback_interval_end = _single_point_or_interval(fallback_start, fallback_end)
+    if pd.isna(interval_start) and pd.isna(interval_end):
+        return fallback_interval_start, fallback_interval_end
+    if pd.isna(fallback_interval_start) and pd.isna(fallback_interval_end):
+        return interval_start, interval_end
+    return (
+        float(min(interval_start, fallback_interval_start)),
+        float(max(interval_end, fallback_interval_end)),
+    )
 
 
 def _interval_single_linkage_labels(df: pd.DataFrame, start_col: str, end_col: str, gap: int) -> list[int]:
@@ -130,12 +163,13 @@ def finalize_sample_event_table(sample_events: pd.DataFrame, length_summary: pd.
         merged["nuclear_left_breakpoint_pos"].isna() | merged["nuclear_right_breakpoint_pos"].isna(),
         "nuclear_breakpoint_span_bp",
     ] = np.nan
-    merged["mt_breakpoint_span_bp"] = merged["mt_breakpoint_end"] - merged["mt_breakpoint_start"] + 1
-    merged.loc[
-        merged["mt_breakpoint_start"].isna() | merged["mt_breakpoint_end"].isna(),
-        "mt_breakpoint_span_bp",
-    ] = np.nan
-    merged["mt_source_span_bp"] = merged["mt_source_span_bp"].fillna(merged["mt_core_span_bp"])
+    merged["mt_breakpoint_span_bp"] = [
+        _absolute_span(start, end)
+        for start, end in zip(merged["mt_breakpoint_start"], merged["mt_breakpoint_end"])
+    ]
+    mt_bp_span_fallback = merged["mt_breakpoint_span_bp"].clip(upper=16569)
+    merged["mt_source_span_bp"] = merged["mt_source_span_bp"].fillna(mt_bp_span_fallback)
+    merged["mt_source_span_bp"] = merged["mt_source_span_bp"].fillna(merged["mt_core_span_bp"].clip(upper=16569))
     merged["mt_source_min"] = merged["mt_source_min"].fillna(merged["mt_core_start"])
     merged["mt_source_max"] = merged["mt_source_max"].fillna(merged["mt_core_end"])
     merged["mt_source_envelope_span_bp"] = merged["mt_source_envelope_span_bp"].fillna(merged["mt_core_span_bp"])
@@ -186,7 +220,15 @@ def build_sample_event_table(
     length_summary: pd.DataFrame,
 ) -> pd.DataFrame:
     """从 cluster 主表和 breakpoint 证据构建样本事件表。"""
-    index = build_breakpoint_index(breakpoints[breakpoints["sample_id"].isin(retained_samples)].copy())
+    retained_breakpoints = breakpoints[breakpoints["sample_id"].isin(retained_samples)].copy()
+    fallback_index = build_breakpoint_index(retained_breakpoints)
+    region_index = {}
+    use_region_key_match = False
+    if "source_region_key" in retained_breakpoints.columns:
+        region_bp = retained_breakpoints[retained_breakpoints["source_region_key"].notna()].copy()
+        if not region_bp.empty:
+            region_index = build_breakpoint_index(region_bp, group_cols=("source_region_key", "chr"))
+            use_region_key_match = True
     length_keys = set(length_summary["region_key"].astype(str))
     length_lookup = (
         length_summary.set_index("region_key")[["mt_source_min", "mt_source_max"]].to_dict("index")
@@ -209,9 +251,17 @@ def build_sample_event_table(
             else:
                 mt_query_start = np.nan
                 mt_query_end = np.nan
-        nuclear_interval = query_interval(index, row.sample_id, row.chr, row.start, row.end)
+        if use_region_key_match:
+            nuclear_interval = query_interval_by_key(region_index, (region_key, row.chr), row.start, row.end)
+            breakpoint_match_mode = "source_region_key"
+        else:
+            nuclear_interval = query_interval(fallback_index, row.sample_id, row.chr, row.start, row.end)
+            breakpoint_match_mode = "sample_chr_interval"
         if pd.notna(mt_query_start) and pd.notna(mt_query_end):
-            mt_interval = query_interval(index, row.sample_id, "chrM", mt_query_start, mt_query_end)
+            if use_region_key_match:
+                mt_interval = query_interval_by_key(region_index, (region_key, "chrM"), mt_query_start, mt_query_end)
+            else:
+                mt_interval = query_interval(fallback_index, row.sample_id, "chrM", mt_query_start, mt_query_end)
         else:
             mt_interval = {"positions": np.array([]), "weights": np.array([]), "point_groups": np.array([])}
         left_pos = _weighted_point(nuclear_interval, LEFT_GROUP)
@@ -244,6 +294,8 @@ def build_sample_event_table(
                 "mt_breakpoint_start": mt_start,
                 "mt_breakpoint_end": mt_end,
                 "supporting_breakpoint_rows": int(nuclear_interval["positions"].shape[0] + mt_interval["positions"].shape[0]),
+                "breakpoint_region_key": region_key if use_region_key_match else pd.NA,
+                "breakpoint_match_mode": breakpoint_match_mode,
                 "length_bed_region_key": region_key,
                 "length_bed_match_status": "matched" if region_key in length_keys else "not_matched",
             }
@@ -301,8 +353,13 @@ def build_distinct_catalog(
         )
 
     nuclear_bounds = [
-        _single_point_or_interval(start, end)
-        for start, end in zip(events["nuclear_left_breakpoint_pos"], events["nuclear_right_breakpoint_pos"])
+        _merge_interval_with_cluster_fallback(start, end, cluster_start, cluster_end)
+        for start, end, cluster_start, cluster_end in zip(
+            events["nuclear_left_breakpoint_pos"],
+            events["nuclear_right_breakpoint_pos"],
+            events["cluster_start"],
+            events["cluster_end"],
+        )
     ]
     mt_bounds = [
         _single_point_or_interval(start, end)
@@ -358,8 +415,11 @@ def build_distinct_catalog(
             sub["nuclear_right_breakpoint_pos"].notna() & sub["nuclear_left_breakpoint_pos"].notna(),
             np.nan,
         )
-        mt_span = sub["mt_breakpoint_end"] - sub["mt_breakpoint_start"] + 1
-        mt_span = mt_span.where(sub["mt_breakpoint_end"].notna() & sub["mt_breakpoint_start"].notna(), np.nan)
+        mt_span = pd.Series(
+            [_absolute_span(start, end) for start, end in zip(sub["mt_breakpoint_start"], sub["mt_breakpoint_end"])],
+            index=sub.index,
+            dtype=float,
+        )
         frequency_class = classify_frequency(
             carrier_count=carrier_count,
             carrier_frequency=carrier_frequency,
@@ -421,7 +481,13 @@ def build_distinct_catalog(
                     float(sub["mt_source_span_bp"].median()) if sub["mt_source_span_bp"].notna().any() else np.nan
                 ),
                 "median_mt_length_for_main_bp": (
-                    float(sub["mt_length_for_main_bp"].median()) if sub["mt_length_for_main_bp"].notna().any() else np.nan
+                    float(int(round(sub["mt_primary_fragment_span_bp"].median())))
+                    if "mt_primary_fragment_span_bp" in sub.columns and sub["mt_primary_fragment_span_bp"].notna().any()
+                    else (
+                        float(int(round(sub["mt_length_for_main_bp"].median())))
+                        if sub["mt_length_for_main_bp"].notna().any()
+                        else np.nan
+                    )
                 ),
                 "frequency_class": frequency_class,
             }

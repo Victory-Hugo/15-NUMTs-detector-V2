@@ -10,7 +10,7 @@ input:
 
 qc:
   meta_id_col: ID
-  meta_qc_col: 质控状态.1
+  meta_qc_col: 质控状态
   meta_qc_pass_value: PASS
   require_in_breakpoint: true
   require_in_cluster: true

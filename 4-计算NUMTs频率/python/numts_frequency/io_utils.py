@@ -88,11 +88,27 @@ def read_delim(path: str | Path, sep: str = "\t", **kwargs) -> pd.DataFrame:
 
 
 def read_breakpoints(path: str) -> pd.DataFrame:
+    header = read_delim(path, sep="\t", nrows=0)
+    available_cols = set(header.columns.astype(str).tolist())
+    usecols = ["sampleID", "chr", "pointGroup", "pos", "readsCount"]
+    if "source_region_key" in available_cols:
+        usecols.append("source_region_key")
+    elif {"source_sample_id", "source_region_chr", "source_region_start", "source_region_end"}.issubset(available_cols):
+        usecols.extend(["source_sample_id", "source_region_chr", "source_region_start", "source_region_end"])
+
+    dtype_map = {"sampleID": str, "chr": str, "pointGroup": str}
+    if "source_region_key" in usecols:
+        dtype_map["source_region_key"] = str
+    if "source_sample_id" in usecols:
+        dtype_map["source_sample_id"] = str
+    if "source_region_chr" in usecols:
+        dtype_map["source_region_chr"] = str
+
     df = read_delim(
         path,
         sep="\t",
-        usecols=["sampleID", "chr", "pointGroup", "pos", "readsCount"],
-        dtype={"sampleID": str, "chr": str, "pointGroup": str},
+        usecols=usecols,
+        dtype=dtype_map,
     )
     df = df.rename(columns={"sampleID": "sample_id"}).copy()
     df["chr"] = df["chr"].map(normalize_chr_name)
@@ -101,6 +117,25 @@ def read_breakpoints(path: str) -> pd.DataFrame:
         df["readsCount"] = pd.to_numeric(df["readsCount"], errors="coerce").fillna(1).astype(int)
     else:
         df["readsCount"] = 1
+    if "source_region_chr" in df.columns:
+        df["source_region_chr"] = df["source_region_chr"].map(normalize_chr_name)
+        df["source_region_start"] = pd.to_numeric(df["source_region_start"], errors="coerce")
+        df["source_region_end"] = pd.to_numeric(df["source_region_end"], errors="coerce")
+    if "source_region_key" not in df.columns and {"source_sample_id", "source_region_chr", "source_region_start", "source_region_end"}.issubset(df.columns):
+        df["source_region_key"] = [
+            build_region_key(sample_id, chrom, start, end)
+            if pd.notna(start) and pd.notna(end)
+            else pd.NA
+            for sample_id, chrom, start, end in zip(
+                df["source_sample_id"],
+                df["source_region_chr"],
+                df["source_region_start"],
+                df["source_region_end"],
+            )
+        ]
+    if "source_region_key" in df.columns:
+        df["source_region_key"] = df["source_region_key"].astype("string").str.strip()
+        df.loc[df["source_region_key"].eq(""), "source_region_key"] = pd.NA
     return df
 
 
