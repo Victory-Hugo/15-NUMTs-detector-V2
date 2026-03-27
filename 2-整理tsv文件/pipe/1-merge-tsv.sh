@@ -3,8 +3,10 @@ set -euo pipefail
 
 SCRIPT_NAME=$(basename "$0")
 PROJECT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+SCRIPT_DIR="$PROJECT_DIR/script"
 LOG_DIR="$PROJECT_DIR/log"
 LOG_FILE="$LOG_DIR/${SCRIPT_NAME}.log"
+MERGE_HELPER="$SCRIPT_DIR/merge_tsv_group.sh"
 
 mkdir -p "$LOG_DIR"
 
@@ -33,6 +35,11 @@ CONFIG_PATH="${CONFIG_PATH//$'\r'/}"
 
 if [[ ! -f "$CONFIG_PATH" ]]; then
   echo "Config file not found: $CONFIG_PATH" >&2
+  exit 1
+fi
+
+if [[ ! -x "$MERGE_HELPER" ]]; then
+  echo "Merge helper not found or not executable: $MERGE_HELPER" >&2
   exit 1
 fi
 
@@ -233,106 +240,20 @@ merge_one_group() {
   local files_list="$2"
   local output_name="$3"
   local final_output="$OUTPUT_DIR/$output_name"
-  local temp_output="${final_output}.tmp"
+  local source_mode="none"
 
-  if [[ -f "$final_output" && "$FORCE" -eq 0 ]]; then
-    echo "[$(date '+%F %T')] SKIP existing output: $final_output"
-    return 0
-  fi
+  case "$suffix_key" in
+    all_breakpoints|confident_breakpoints)
+      source_mode="breakpoint_region"
+      ;;
+  esac
 
-  if [[ ! -f "$files_list" ]]; then
-    echo "No files found in list: $files_list" >&2
-    exit 1
-  fi
-
-  local file_count
-  file_count=$(awk '
-    {
-      gsub(/\r/, "", $0)
-      if ($0 != "" && $0 !~ /^#/) {
-        count++
-      }
-    }
-    END { print count + 0 }
-  ' "$files_list")
-
-  if [[ "$file_count" -eq 0 ]]; then
-    echo "No files found in list: $files_list" >&2
-    exit 1
-  fi
-
-  awk '
-    function fail(message) {
-      print message > "/dev/stderr"
-      exit 1
-    }
-    {
-      gsub(/\r/, "", $0)
-      if ($0 == "" || $0 ~ /^#/) {
-        next
-      }
-
-      file = $0
-      files[++file_total] = file
-
-      status = (getline current_first < file)
-      if (status < 0) {
-        fail("Listed file does not exist: " file)
-      }
-      close(file)
-
-      if (status == 0) {
-        current_first = ""
-      }
-
-      first_line[file] = current_first
-      counts[current_first]++
-    }
-    END {
-      if (file_total == 0) {
-        fail("No files found in list: " list_file)
-      }
-
-      header = ""
-      header_count = 0
-      for (line in counts) {
-        if (counts[line] > header_count) {
-          header = line
-          header_count = counts[line]
-        }
-      }
-      if (header_count < 2) {
-        header = ""
-      }
-
-      if (header != "") {
-        print header > out_file
-      }
-
-      for (i = 1; i <= file_total; i++) {
-        file = files[i]
-        first = first_line[file]
-        skip_first = (header != "" && first == header) ? 1 : 0
-
-        if (header != "" && first != header && first ~ /^#/) {
-          fail("Header mismatch: expected " header " but got " first " in " file)
-        }
-
-        close(file)
-        line_no = 0
-        while ((getline line < file) > 0) {
-          line_no++
-          if (skip_first && line_no == 1) {
-            continue
-          }
-          print line > out_file
-        }
-        close(file)
-      }
-    }
-  ' list_file="$files_list" out_file="$temp_output" "$files_list"
-
-  mv -f "$temp_output" "$final_output"
+  bash "$MERGE_HELPER" \
+    --suffix-key "$suffix_key" \
+    --files-list "$files_list" \
+    --output-path "$final_output" \
+    --force "$FORCE" \
+    --source-mode "$source_mode"
 }
 
 cat > "$MERGE_RUNNER" <<'EOF'
@@ -360,6 +281,7 @@ OUTPUT_DIR=$(printf '%q' "$OUTPUT_DIR")
 FORCE=$(printf '%q' "$FORCE")
 LISTS_DIR=$(printf '%q' "$LISTS_DIR")
 MERGE_GROUPS_FILE=$(printf '%q' "$MERGE_GROUPS_FILE")
+MERGE_HELPER=$(printf '%q' "$MERGE_HELPER")
 $(declare -f merge_one_group)
 EOF
 
