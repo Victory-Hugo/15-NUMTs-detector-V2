@@ -11,7 +11,7 @@ meta:
 
 analysis:
   frequency_cluster_gap_bp: "1000"
-  distinct_numt_min_sample_supports: "1,2,3,4,5"
+  distinct_numt_min_sample_supports: "1,2,3,4,5,6,7,8,9,10"
   distinct_numt_primary_min_sample_support: "1"
   ideogram_bin_size_bp: "1000000"
   frequency_denominator: "8372"
