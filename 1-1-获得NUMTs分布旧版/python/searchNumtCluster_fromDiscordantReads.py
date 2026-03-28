@@ -235,6 +235,8 @@ def run(sample_id: str, wgs_bam: str, input_disc: str) -> int:
     for cluster_id, myclusters in df3.groupby("RNAME"):
         pos_clusters = cluster(myclusters["POS"].astype(int).tolist(), maxgap=500)
         for pos_values in pos_clusters:
+            # 文献严格阈值为 >=5 对 discordant reads；当前 >=2 作为初筛，
+            # 若需严格标准请将下行改为 if len(pos_values) < 5
             if len(pos_values) < 2:
                 continue
             df_cluster = df3[df3["POS"].isin(pos_values)].copy()

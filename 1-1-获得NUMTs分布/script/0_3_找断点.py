@@ -93,7 +93,8 @@ PSL_COLS = [
     "blockSizes", "qStarts", "tStarts"
 ]
 
-def classify_breakpoint(row, which='nu', read_len=150, mismatch=5):
+def classify_breakpoint(row, which='nu', read_len=150, mismatch=3):
+    # mismatch=3 与旧版保持一致（新版原为5）
     """给每条 PSL 命中分配断点类别。"""
     if which == 'nu':
         if   row.strand == "+" and row.Qend   >= read_len - mismatch: return "nu_Tstart_Bright"
@@ -131,8 +132,10 @@ df = pd.read_csv(INPUT_PSL, skiprows=5, sep="\t", names=PSL_COLS)
 df['matchLEN'] = df['Tend'] - df['Tstart']
 
 # 全局基本过滤
-df = df[(df.matchLEN <= 150) & (df.misMatch <= 5)]
-df = df[(df.Tend     >= 150) | (df.Tend     <= 5)]
+# df = df[(df.matchLEN <= 150) & (df.misMatch <= 5)]  # 新版
+# df = df[(df.Tend >= 150) | (df.Tend <= 5)]           # 新版（Tend位置约束，旧版无此过滤）
+# 与旧版保持一致：matchLEN < 140（排除近全长比对），misMatch <= 3
+df = df[(df.matchLEN < 140) & (df.misMatch <= 3)]
 
 # 染色体名称映射
 df['Tname_mapped'] = df.Tname.map(TNAME_MAP).fillna(df.Tname)

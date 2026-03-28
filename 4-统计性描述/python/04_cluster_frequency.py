@@ -1,18 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""按染色体对样本级事件进行 1 kb 聚类并计算人群频率。"""
+"""基于多样本 GroupID 聚类结果输出 distinct NUMTs 统计。"""
 
 from __future__ import annotations
 
 import argparse
-import csv
 import logging
-from collections import Counter, defaultdict
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, List
 
 import pandas as pd
+
+from groupNumtCluster_fromMultipleSamples import (
+    build_cluster_tables,
+    filter_cluster_tables,
+    read_input_table,
+    write_cluster_tables,
+)
 
 LOG = logging.getLogger(__name__)
 
@@ -22,28 +27,19 @@ def configure_logging() -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="对事件表做染色体内 1 kb 聚类并输出频率表。")
-    parser.add_argument("--events-tsv", required=True)
+    parser = argparse.ArgumentParser(description="按 GroupID 聚类结果统计 distinct NUMTs。")
+    parser.add_argument("--cluster-input-file", required=True)
+    parser.add_argument("--cluster-prefix", required=True)
     parser.add_argument("--cluster-out", required=True)
     parser.add_argument("--class-summary-out", required=True)
     parser.add_argument("--support-summary-out", required=True)
     parser.add_argument("--top-out", required=True)
     parser.add_argument("--cluster-gap-bp", type=int, required=True)
     parser.add_argument("--denominator", type=int, required=True)
+    parser.add_argument("--min-supports", required=True)
+    parser.add_argument("--primary-min-support", type=int, required=True)
     parser.add_argument("--threads", type=int, default=1)
     return parser
-
-
-def chrom_sort_key(chrom: str) -> Tuple[int, str]:
-    if chrom.startswith("chr"):
-        suffix = chrom[3:]
-        if suffix.isdigit():
-            return (int(suffix), chrom)
-        if suffix == "X":
-            return (23, chrom)
-        if suffix == "Y":
-            return (24, chrom)
-    return (10_000, chrom)
 
 
 def classify_frequency(sample_count: int, denominator: int) -> str:
@@ -57,139 +53,242 @@ def classify_frequency(sample_count: int, denominator: int) -> str:
     return "ultra-rare"
 
 
-def cluster_one_chromosome(task: Tuple[str, List[Tuple[int, str]], int, int]) -> List[Dict[str, object]]:
-    chrom, rows, cluster_gap_bp, denominator = task
-    rows = sorted(rows, key=lambda item: item[0])
-    if not rows:
-        return []
+def parse_min_supports(raw_value: str) -> List[int]:
+    values: List[int] = []
+    for token in raw_value.split(","):
+        token = token.strip()
+        if not token:
+            continue
+        value = int(token)
+        if value < 1:
+            raise ValueError("--min-supports 里的值必须 >= 1")
+        values.append(value)
+    if not values:
+        raise ValueError("--min-supports 不能为空")
+    return sorted(set(values))
 
-    result = []
-    cluster_index = 1
 
-    current_points = [rows[0][0]]
-    current_unique_points = {rows[0][0]}
-    current_samples = {rows[0][1]}
-    previous_midpoint = rows[0][0]
+def with_suffix_before_extension(path_str: str, suffix: str) -> str:
+    path = Path(path_str)
+    return str(path.with_name(f"{path.stem}{suffix}{path.suffix}"))
 
-    for midpoint, sample_id in rows[1:]:
-        if midpoint - previous_midpoint <= cluster_gap_bp:
-            current_points.append(midpoint)
-            current_unique_points.add(midpoint)
-            current_samples.add(sample_id)
-        else:
-            sample_count = len(current_samples)
-            result.append(
-                {
-                    "merged_cluster_id": f"{cluster_index}_{chrom}",
-                    "chr": chrom,
-                    "cluster_min_midpoint": min(current_points),
-                    "cluster_max_midpoint": max(current_points),
-                    "cluster_midpoint_mean": sum(current_points) / len(current_points),
-                    "POS": len(current_unique_points),
-                    "sample_count": sample_count,
-                    "frequency": sample_count / denominator,
-                    "frequency_class": classify_frequency(sample_count, denominator),
-                    "is_singleton": sample_count == 1,
-                    "is_doubleton": sample_count == 2,
-                    "is_tripleton": sample_count == 3,
-                }
-            )
-            cluster_index += 1
-            current_points = [midpoint]
-            current_unique_points = {midpoint}
-            current_samples = {sample_id}
-        previous_midpoint = midpoint
 
-    sample_count = len(current_samples)
-    result.append(
-        {
-            "merged_cluster_id": f"{cluster_index}_{chrom}",
-            "chr": chrom,
-            "cluster_min_midpoint": min(current_points),
-            "cluster_max_midpoint": max(current_points),
-            "cluster_midpoint_mean": sum(current_points) / len(current_points),
-            "POS": len(current_unique_points),
-            "sample_count": sample_count,
-            "frequency": sample_count / denominator,
-            "frequency_class": classify_frequency(sample_count, denominator),
-            "is_singleton": sample_count == 1,
-            "is_doubleton": sample_count == 2,
-            "is_tripleton": sample_count == 3,
+def build_frequency_cluster_table(summary_df: pd.DataFrame, denominator: int) -> pd.DataFrame:
+    if summary_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "merged_cluster_id",
+                "GroupID",
+                "chr",
+                "cluster_min_midpoint",
+                "cluster_max_midpoint",
+                "cluster_midpoint_mean",
+                "POS",
+                "sample_count",
+                "frequency",
+                "frequency_class",
+                "is_singleton",
+                "is_doubleton",
+                "is_tripleton",
+            ]
+        )
+
+    working_df = summary_df.copy()
+    if "mean" not in working_df.columns:
+        working_df["mean"] = (
+            pd.to_numeric(working_df["min"], errors="coerce") + pd.to_numeric(working_df["max"], errors="coerce")
+        ) / 2
+
+    freq_df = working_df.rename(
+        columns={
+            "mergedClusterID": "merged_cluster_id",
+            "CHR": "chr",
+            "PositionCount": "POS",
+            "SampleCount": "sample_count",
+            "mean": "cluster_midpoint_mean",
+            "min": "cluster_min_midpoint",
+            "max": "cluster_max_midpoint",
         }
+    ).copy()
+    freq_df["sample_count"] = freq_df["sample_count"].astype(int)
+    freq_df["frequency"] = freq_df["sample_count"] / denominator
+    freq_df["frequency_class"] = freq_df["sample_count"].map(lambda value: classify_frequency(int(value), denominator))
+    freq_df["is_singleton"] = freq_df["sample_count"] == 1
+    freq_df["is_doubleton"] = freq_df["sample_count"] == 2
+    freq_df["is_tripleton"] = freq_df["sample_count"] == 3
+    return freq_df[
+        [
+            "merged_cluster_id",
+            "GroupID",
+            "chr",
+            "cluster_min_midpoint",
+            "cluster_max_midpoint",
+            "cluster_midpoint_mean",
+            "POS",
+            "sample_count",
+            "frequency",
+            "frequency_class",
+            "is_singleton",
+            "is_doubleton",
+            "is_tripleton",
+        ]
+    ]
+
+
+def build_class_summary(freq_df: pd.DataFrame) -> pd.DataFrame:
+    class_order = ["common", "low-frequency", "rare", "ultra-rare"]
+    counts = freq_df["frequency_class"].value_counts().to_dict() if not freq_df.empty else {}
+    return pd.DataFrame(
+        [{"category": category, "cluster_count": int(counts.get(category, 0))} for category in class_order]
     )
-    return result
+
+
+def build_support_summary_row(min_sample_support: int, freq_df: pd.DataFrame) -> Dict[str, int]:
+    sample_counts = freq_df["sample_count"].astype(int) if not freq_df.empty else pd.Series(dtype=int)
+    return {
+        "min_sample_support": min_sample_support,
+        "distinct_numt_count": int(len(freq_df)),
+        "singleton_clusters": int((sample_counts == 1).sum()),
+        "doubleton_clusters": int((sample_counts == 2).sum()),
+        "tripleton_clusters": int((sample_counts == 3).sum()),
+        "clusters_ge_2_samples": int((sample_counts >= 2).sum()),
+        "clusters_ge_3_samples": int((sample_counts >= 3).sum()),
+        "clusters_ge_4_samples": int((sample_counts >= 4).sum()),
+        "clusters_ge_5_samples": int((sample_counts >= 5).sum()),
+        "clusters_ge_10_samples": int((sample_counts >= 10).sum()),
+        "clusters_ge_20_samples": int((sample_counts >= 20).sum()),
+        "clusters_ge_50_samples": int((sample_counts >= 50).sum()),
+        "clusters_ge_100_samples": int((sample_counts >= 100).sum()),
+    }
+
+
+def write_threshold_outputs(
+    min_sample_support: int,
+    detail_df: pd.DataFrame,
+    summary_df: pd.DataFrame,
+    cluster_prefix: str,
+    cluster_out: str,
+    class_summary_out: str,
+    top_out: str,
+    denominator: int,
+    is_primary: bool,
+) -> Dict[str, object]:
+    filtered_detail_df, filtered_summary_df = filter_cluster_tables(
+        detail_df=detail_df,
+        summary_df=summary_df,
+        min_sample_support=min_sample_support,
+    )
+
+    detail_out = f"{cluster_prefix}.min-support-{min_sample_support}.allCluster.tsv"
+    summary_out = f"{cluster_prefix}.min-support-{min_sample_support}.allCluster.sum.tsv"
+    write_cluster_tables(filtered_detail_df, filtered_summary_df, detail_out=detail_out, summary_out=summary_out)
+
+    freq_df = build_frequency_cluster_table(filtered_summary_df, denominator=denominator)
+    class_df = build_class_summary(freq_df)
+    top_df = freq_df.sort_values(
+        ["sample_count", "frequency", "chr", "cluster_min_midpoint"],
+        ascending=[False, False, True, True],
+    ).head(20)
+
+    per_support_cluster_out = with_suffix_before_extension(cluster_out, f".min-support-{min_sample_support}")
+    per_support_class_out = with_suffix_before_extension(class_summary_out, f".min-support-{min_sample_support}")
+    per_support_top_out = with_suffix_before_extension(top_out, f".min-support-{min_sample_support}")
+    Path(per_support_cluster_out).parent.mkdir(parents=True, exist_ok=True)
+    freq_df.to_csv(per_support_cluster_out, sep="\t", index=False)
+    class_df.to_csv(per_support_class_out, sep="\t", index=False)
+    top_df.to_csv(per_support_top_out, sep="\t", index=False)
+
+    if is_primary:
+        freq_df.to_csv(cluster_out, sep="\t", index=False)
+        class_df.to_csv(class_summary_out, sep="\t", index=False)
+        top_df.to_csv(top_out, sep="\t", index=False)
+
+    return {
+        "support_row": build_support_summary_row(min_sample_support=min_sample_support, freq_df=freq_df),
+        "cluster_count": int(len(freq_df)),
+    }
 
 
 def run(
-    events_tsv: str,
+    cluster_input_file: str,
+    cluster_prefix: str,
     cluster_out: str,
     class_summary_out: str,
     support_summary_out: str,
     top_out: str,
     cluster_gap_bp: int,
     denominator: int,
+    min_supports: str,
+    primary_min_support: int,
     threads: int,
 ) -> int:
-    event_df = pd.read_csv(events_tsv, sep="\t", dtype={"sampleID": str, "region_chr": str})
-    event_df["midpoint"] = event_df["midpoint"].astype(int)
+    support_values = parse_min_supports(min_supports)
+    if primary_min_support not in support_values:
+        raise ValueError("--primary-min-support 必须包含在 --min-supports 内")
 
-    events_by_chr: Dict[str, List[Tuple[int, str]]] = defaultdict(list)
-    for row in event_df.itertuples(index=False):
-        events_by_chr[row.region_chr].append((int(row.midpoint), str(row.sampleID)))
+    input_df = read_input_table(cluster_input_file)
+    observed_sample_count = int(input_df["sampleID"].astype(str).nunique()) if not input_df.empty else 0
+    effective_denominator = max(int(denominator), observed_sample_count)
+    if effective_denominator != int(denominator):
+        LOG.warning(
+            "配置 denominator=%s 小于聚类输入观测样本数=%s，自动使用 %s 以避免 frequency > 1",
+            denominator,
+            observed_sample_count,
+            effective_denominator,
+        )
+    detail_df, summary_df = build_cluster_tables(input_df=input_df, max_gap_bp=cluster_gap_bp, threads=threads)
 
-    tasks = [(chrom, rows, cluster_gap_bp, denominator) for chrom, rows in events_by_chr.items()]
-    cluster_rows: List[Dict[str, object]] = []
-    if max(1, threads) > 1 and len(tasks) > 1:
-        with ProcessPoolExecutor(max_workers=min(threads, len(tasks))) as pool:
-            for rows in pool.map(cluster_one_chromosome, tasks):
-                cluster_rows.extend(rows)
+    results: List[Dict[str, object]] = []
+    max_workers = max(1, min(int(threads), len(support_values)))
+    if max_workers > 1 and len(support_values) > 1:
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            futures = [
+                pool.submit(
+                    write_threshold_outputs,
+                    min_sample_support=value,
+                    detail_df=detail_df,
+                    summary_df=summary_df,
+                    cluster_prefix=cluster_prefix,
+                    cluster_out=cluster_out,
+                    class_summary_out=class_summary_out,
+                    top_out=top_out,
+                    denominator=effective_denominator,
+                    is_primary=value == primary_min_support,
+                )
+                for value in support_values
+            ]
+            for future in futures:
+                results.append(future.result())
     else:
-        for task in tasks:
-            cluster_rows.extend(cluster_one_chromosome(task))
+        for value in support_values:
+            results.append(
+                write_threshold_outputs(
+                    min_sample_support=value,
+                    detail_df=detail_df,
+                    summary_df=summary_df,
+                    cluster_prefix=cluster_prefix,
+                    cluster_out=cluster_out,
+                    class_summary_out=class_summary_out,
+                    top_out=top_out,
+                    denominator=effective_denominator,
+                    is_primary=value == primary_min_support,
+                )
+            )
 
-    cluster_rows.sort(key=lambda row: (chrom_sort_key(str(row["chr"])), int(row["cluster_min_midpoint"])))
+    support_rows = sorted(
+        [item["support_row"] for item in results],
+        key=lambda row: int(row["min_sample_support"]),
+    )
+    pd.DataFrame(support_rows).to_csv(support_summary_out, sep="\t", index=False)
 
-    cluster_df = pd.DataFrame(cluster_rows)
-    cluster_df.to_csv(cluster_out, sep="\t", index=False)
-
-    class_order = ["common", "low-frequency", "rare", "ultra-rare"]
-    class_counts = Counter(cluster_df["frequency_class"].tolist())
-    with Path(class_summary_out).open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.writer(handle, delimiter="\t")
-        writer.writerow(["category", "cluster_count"])
-        for category in class_order:
-            writer.writerow([category, class_counts.get(category, 0)])
-
-    sample_counts = cluster_df["sample_count"].astype(int)
-    support_rows = [
-        ("all_clusters", int(len(cluster_df))),
-        ("singleton_clusters", int((sample_counts == 1).sum())),
-        ("doubleton_clusters", int((sample_counts == 2).sum())),
-        ("tripleton_clusters", int((sample_counts == 3).sum())),
-        ("clusters_ge_2_samples", int((sample_counts >= 2).sum())),
-        ("clusters_ge_3_samples", int((sample_counts >= 3).sum())),
-        ("clusters_ge_4_samples", int((sample_counts >= 4).sum())),
-        ("clusters_ge_5_samples", int((sample_counts >= 5).sum())),
-        ("clusters_ge_10_samples", int((sample_counts >= 10).sum())),
-        ("clusters_ge_20_samples", int((sample_counts >= 20).sum())),
-        ("clusters_ge_50_samples", int((sample_counts >= 50).sum())),
-        ("clusters_ge_100_samples", int((sample_counts >= 100).sum())),
-    ]
-    with Path(support_summary_out).open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.writer(handle, delimiter="\t")
-        writer.writerow(["metric", "value"])
-        writer.writerows(support_rows)
-
-    top_df = cluster_df.sort_values(["sample_count", "frequency", "chr", "cluster_min_midpoint"], ascending=[False, False, True, True]).head(20)
-    top_df.to_csv(top_out, sep="\t", index=False)
-
+    primary_cluster_count = next(
+        int(item["cluster_count"]) for value, item in zip(support_values, results) if value == primary_min_support
+    )
     LOG.info(
-        "频率聚类完成，总 cluster 数 %s；singleton %s；>=2 samples %s；>=3 samples %s；>=4 samples %s",
-        len(cluster_df),
-        int((sample_counts == 1).sum()),
-        int((sample_counts >= 2).sum()),
-        int((sample_counts >= 3).sum()),
-        int((sample_counts >= 4).sum()),
+        "distinct NUMTs 聚类完成: total_group_ids=%s primary_min_support=%s primary_distinct_numts=%s",
+        len(summary_df),
+        primary_min_support,
+        primary_cluster_count,
     )
     return 0
 
@@ -199,13 +298,16 @@ def main(argv: List[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     return run(
-        events_tsv=args.events_tsv,
+        cluster_input_file=args.cluster_input_file,
+        cluster_prefix=args.cluster_prefix,
         cluster_out=args.cluster_out,
         class_summary_out=args.class_summary_out,
         support_summary_out=args.support_summary_out,
         top_out=args.top_out,
         cluster_gap_bp=args.cluster_gap_bp,
         denominator=args.denominator,
+        min_supports=args.min_supports,
+        primary_min_support=args.primary_min_support,
         threads=args.threads,
     )
 

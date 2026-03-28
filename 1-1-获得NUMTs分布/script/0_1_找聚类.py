@@ -83,7 +83,10 @@ def read_and_filter(path: str) -> pd.DataFrame:
         df['RNAME'] = df['RNAME'].map(CHROM_ALIASES).fillna(df['RNAME'])
         df['RNEXT'] = df['RNEXT'].map(CHROM_ALIASES).fillna(df['RNEXT'])
     # Keep only valid chromosomes
-    return df[df['RNAME'].isin(VALID_CHROMS)]
+    df = df[df['RNAME'].isin(VALID_CHROMS)]
+    # 与旧版保持一致：旧版在聚类前过滤 MAPQ > 0，排除多重比对reads
+    df = df[df['MAPQ'].astype(int) > 0]
+    return df
 
 
 def fix_rnext(df: pd.DataFrame) -> pd.DataFrame:
@@ -198,10 +201,13 @@ def extract_regions(df: pd.DataFrame) -> list:
         sub = df[df['RNAME'] == chrom]
         clusters = cluster_positions(sub['POS'].astype(int).tolist())
         for pts in clusters:
+            # 文献严格阈值为 >=5 对 discordant reads；当前 >=2 作为初筛，
+            # 若需严格标准请将下行改为 if len(pts) < 5
             if len(pts) < 2:
                 continue
             start = min(pts) - 500
-            end = max(pts) + 500
+            # end = max(pts) + 500  # 新版
+            end = max(pts) + 500 + 150  # 与旧版保持一致：旧版区间右端额外扩展150bp（read长度）
             regions.append({
                 'chr': chrom,
                 'start': start,

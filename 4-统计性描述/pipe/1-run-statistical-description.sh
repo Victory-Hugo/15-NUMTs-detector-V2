@@ -54,12 +54,15 @@ fi
 source "$PROJECT_ROOT/script/load_config.sh" "$CONFIG_PATH"
 
 require_var CFG_INPUT_BREAKPOINT_TSV_GZ
+require_var CFG_INPUT_DISTINCT_NUMT_CLUSTER_INPUT_TSV_GZ
 require_var CFG_INPUT_MERGE_BED_TSV_GZ
 require_var CFG_INPUT_META_TSV
 require_var CFG_META_ID_COL
 require_var CFG_META_QC_COL
 require_var CFG_META_QC_PASS_VALUE
 require_var CFG_ANALYSIS_FREQUENCY_CLUSTER_GAP_BP
+require_var CFG_ANALYSIS_DISTINCT_NUMT_MIN_SAMPLE_SUPPORTS
+require_var CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT
 require_var CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP
 require_var CFG_ANALYSIS_FREQUENCY_DENOMINATOR
 require_var CFG_RUNTIME_THREADS
@@ -127,13 +130,16 @@ wait "$pid_events"
 
 run_with_log "04_cluster_frequency" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/04_cluster_frequency.py" \
-    --events-tsv "$OUT_DIR/3-numt-events.tsv" \
+    --cluster-input-file "$CFG_INPUT_DISTINCT_NUMT_CLUSTER_INPUT_TSV_GZ" \
+    --cluster-prefix "$TMP_DIR/4-mt_disc_breakpoint_input" \
     --cluster-out "$OUT_DIR/4-numt-frequency-by-cluster.tsv" \
     --class-summary-out "$OUT_DIR/4-numt-frequency-class-summary.tsv" \
     --support-summary-out "$OUT_DIR/4-numt-support-summary.tsv" \
     --top-out "$OUT_DIR/4-numt-top-recurrent-clusters.tsv" \
     --cluster-gap-bp "$CFG_ANALYSIS_FREQUENCY_CLUSTER_GAP_BP" \
     --denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" \
+    --min-supports "$CFG_ANALYSIS_DISTINCT_NUMT_MIN_SAMPLE_SUPPORTS" \
+    --primary-min-support "$CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT" \
     --threads "$THREADS"
 
 wait "$pid_length"
