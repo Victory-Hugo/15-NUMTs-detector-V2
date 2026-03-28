@@ -1,0 +1,16 @@
+paths:
+  sample_list: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-1-获得NUMTs分布旧版/conf/sample_bams.txt"
+  output_root: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-1-获得NUMTs分布旧版/output"
+  reference: "/mnt/d/5-NCBI-Reference/3-Human/Reference/GRCh38_latest_genomic.fna"
+
+runtime:
+  conda_base: "/home/luolintao/miniconda3"
+  conda_env: "BigLin"
+  threads: 16
+  sort_mem: "2G"
+
+tools:
+  python: "python"
+  samtools: "samtools"
+  samblaster: "samblaster"
+  blat: "blat"

@@ -1,0 +1,8 @@
+nu_Tend_Bleft	nuleft	chr1	634078	+	1	-1	HG001
+nu_Tstart_Bright	nuright	chr1	-1	+	1	633739	HG001
+nu_Tstart_Bright	nuright	chr1	-1	+	1	633939	HG001
+mt_Tstart	mtLeft	chrM	-1	+	1	8770	HG001
+mt_Tend	mtLeft	chrM	8909	+	1	-1	HG001
+mt_Tstart	mtRight	chrM	-1	+	1	8570	HG001
+mt_Tstart	mtRight	chrM	-1	+	1	8770	HG001
+mt_Tend	mtRight	chrM	8909	+	1	-1	HG001

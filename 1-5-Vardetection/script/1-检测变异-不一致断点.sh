@@ -122,8 +122,8 @@ process_sample() {
         humanMT_fasta="${output_dir}/${sampleIndex}.humanMT.fasta"
         humanchimpMT_fasta="${output_dir}/${sampleIndex}.humanchimpMT.fasta"
 
-        cat "${REF_HUMAN}" "${filtered_fasta}" > "${humanMT_fasta}"
-        cat "${REF_HUMANCHIMP}" "${filtered_fasta}" > "${humanchimpMT_fasta}"
+        cat "${REF_HUMAN}" "${contigINPUT}" > "${humanMT_fasta}"
+        cat "${REF_HUMANCHIMP}" "${contigINPUT}" > "${humanchimpMT_fasta}"
 
         local alnHuman
         local alnHumanChimp

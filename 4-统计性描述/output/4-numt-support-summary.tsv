@@ -1,0 +1,13 @@
+metric	value
+all_clusters	10098
+singleton_clusters	8076
+doubleton_clusters	642
+tripleton_clusters	266
+clusters_ge_2_samples	2022
+clusters_ge_3_samples	1380
+clusters_ge_4_samples	1114
+clusters_ge_5_samples	977
+clusters_ge_10_samples	653
+clusters_ge_20_samples	448
+clusters_ge_50_samples	274
+clusters_ge_100_samples	183

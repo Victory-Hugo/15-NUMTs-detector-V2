@@ -1,0 +1,22 @@
+input:
+  breakpoint_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/3-confident_breakpoints.tsv.gz"
+  merge_bed_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/8-merge_bed.tsv.gz"
+  meta_tsv: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/4-统计性描述/meta/0-基础信息表.tsv"
+
+meta:
+  id_col: "ID"
+  qc_col: "质控状态"
+  qc_pass_value: "PASS"
+
+analysis:
+  frequency_cluster_gap_bp: "1000"
+  ideogram_bin_size_bp: "1000000"
+  frequency_denominator: "8372"
+
+runtime:
+  threads: "8"
+  chunk_rows: "1000000"
+
+output:
+  tmp_dir: "tmp"
+  out_dir: "output"

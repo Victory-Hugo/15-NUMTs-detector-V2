@@ -1,0 +1,6 @@
+/mnt/d/5-NCBI-Reference/3-Human/example/HG001.bam
+/mnt/d/5-NCBI-Reference/3-Human/example/HG002_5X.bam
+/mnt/d/5-NCBI-Reference/3-Human/example/HG003_5X.bam
+/mnt/d/5-NCBI-Reference/3-Human/example/HG004_5X.bam
+/mnt/d/5-NCBI-Reference/3-Human/example/HG005_5X.bam
+/mnt/d/5-NCBI-Reference/3-Human/example/HG006_5X.bam

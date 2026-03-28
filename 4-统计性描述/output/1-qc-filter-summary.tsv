@@ -1,0 +1,14 @@
+metric	value
+meta_total_samples	8546
+meta_pass_samples	8376
+meta_fail_samples	170
+breakpoint_total_rows	5345876
+breakpoint_kept_rows	4540849
+breakpoint_total_samples	9800
+breakpoint_pass_observed_samples	8372
+breakpoint_dropped_samples	1428
+merge_bed_total_rows	78158214
+merge_bed_kept_rows	65139348
+merge_bed_total_samples	6874
+merge_bed_pass_observed_samples	5706
+merge_bed_dropped_samples	1168
