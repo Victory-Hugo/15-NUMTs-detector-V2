@@ -153,7 +153,9 @@ def legacy_cluster_outputs(path: str, sample_id: str) -> pd.DataFrame:
         myclusters['POS'] = myclusters['POS'].astype(int)
         sub_cluster = cluster_positions(myclusters['POS'].tolist(), maxgap=500)
         for x in sub_cluster:
+            # 文献严格阈值为 >=5 对 discordant reads；>=2 作为初筛，>=2与Wei等人的Github代码保持一致
             if len(x) >= 2:
+            # if len(x) >= 5:
                 mycluster = x
                 df_cluster = df3[df3.POS.isin(mycluster)]
                 df_cluster_pairMT = df[df.QNAME.isin(df_cluster['QNAME'])]
