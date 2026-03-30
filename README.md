@@ -53,7 +53,4 @@ bash pipe/run.sh --config conf/Config.yaml
 - 🔀 提交 PR（代码与文档改进）
 - 💡 分享 NUMTs 分析场景与数据特点
 
-## ⚠️ 说明
 
-目前 README 中的命令与目录部分为通用模板示例，后续将根据仓库实际脚本进一步对齐。  
-如果你希望，我可以继续补一版「按真实脚本自动生成的 README」。🧭
