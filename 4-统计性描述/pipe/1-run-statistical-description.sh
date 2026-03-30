@@ -174,11 +174,14 @@ pid_python_plots=$!
 
 run_with_log "01_plot_ideogram" \
     "$RSCRIPT_BIN" "$PROJECT_ROOT/src/01_plot_ideogram.R" \
-    --input "$TABLE_OUT_DIR/3-numt-events-for-ideogram.tsv" \
+    --input "$TABLE_OUT_DIR/3-numt-events.tsv" \
+    --marker-input "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
     --output-marker "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" \
     --output-heatmap "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" \
+    --output-heatmap-1kb "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.svg" \
     --karyotype "$KARYOTYPE_TXT" \
-    --bin-size "$CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP" &
+    --bin-size "$CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP" \
+    --frequency-denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" &
 pid_ideogram=$!
 
 run_with_log "02_plot_cluster_distribution" \
@@ -186,7 +189,8 @@ run_with_log "02_plot_cluster_distribution" \
     --input "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
     --output-pdf "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.pdf" \
     --output-png "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.png" \
-    --output-svg "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.svg" &
+    --output-svg "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.svg" \
+    --frequency-denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" &
 pid_cluster_r=$!
 
 wait "$pid_python_plots"
@@ -195,5 +199,6 @@ wait "$pid_cluster_r"
 
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-marker.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.png"
+convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.png"
 
 log "Pipeline finished successfully"

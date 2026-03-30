@@ -30,6 +30,7 @@ input_file <- get_arg_value(args, "--input", NA_character_)
 output_pdf <- get_arg_value(args, "--output-pdf", NA_character_)
 output_png <- get_arg_value(args, "--output-png", NA_character_)
 output_svg <- get_arg_value(args, "--output-svg", NA_character_)
+frequency_denominator <- as.numeric(get_arg_value(args, "--frequency-denominator", "8372"))
 
 if (is.na(input_file) || !nzchar(input_file)) {
   stop("Missing required --input")
@@ -121,6 +122,13 @@ p2 <- ggplot(plot_df, aes(x = x, y = sample_count, color = CHR)) +
   base_theme
 
 combined_plot <- wrap_plots(p1, p2, ncol = 2) + plot_annotation(tag_levels = "A")
+combined_plot <- combined_plot + plot_annotation(
+  subtitle = paste0(
+    "Frequency definition: sample_count / ", frequency_denominator,
+    ". Class thresholds used in ideogram plots: singleton = 1 sample; rare = 2-83; ",
+    "low-frequency = 84-418 (1% to <5%); common >= 419 (>=5%)."
+  )
+)
 
 ggsave(filename = output_pdf, plot = combined_plot, width = 15, height = 7, units = "in")
 ggsave(filename = output_png, plot = combined_plot, width = 15, height = 7, units = "in", dpi = 300)

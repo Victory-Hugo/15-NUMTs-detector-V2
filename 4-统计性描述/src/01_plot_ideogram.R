@@ -15,19 +15,96 @@ get_arg_value <- function(args, flag, default = NA_character_) {
 args <- commandArgs(trailingOnly = TRUE)
 
 input_file <- get_arg_value(args, "--input", NA_character_)
+marker_input_file <- get_arg_value(args, "--marker-input", NA_character_)
 output_marker <- get_arg_value(args, "--output-marker", NA_character_)
 output_heatmap <- get_arg_value(args, "--output-heatmap", NA_character_)
+output_heatmap_1kb <- get_arg_value(args, "--output-heatmap-1kb", NA_character_)
 conf_karyotype <- get_arg_value(args, "--karyotype", NA_character_)
 bin_size <- as.numeric(get_arg_value(args, "--bin-size", "1000000"))
+frequency_denominator <- as.numeric(get_arg_value(args, "--frequency-denominator", "8372"))
 
 gene_palette <- c("#273e55", "#6aa18a", "#b5c3b1", "#d7bbaf", "#b26966", "#782b55", "#591c4b")
-numt_palette <- c(
-  "#0b0405", "#30203e", "#3e4d93", "#366b9f", "#3488a6",
-  "#36a4ab", "#49c1ad", "#60ceac", "#84d8b0", "#c4e9cf", "#def5e5"
+marker_class_palette <- c(
+  "singleton" = "#0072b2",
+  "rare" = "#56b4e9",
+  "low-frequency" = "#009e73",
+  "common" = "#f0e442"
 )
+heatmap_palette <- c(
+  "#2d465a",
+  "#97b5a1",
+  "#a75e62",
+  "#5f1f4d"
+)
+
+annotate_svg_with_frequency_legend <- function(svg_path, mode = c("marker", "heatmap"), bin_label = NULL, denominator = 8372) {
+  mode <- match.arg(mode)
+  if (!file.exists(svg_path)) {
+    return(invisible(NULL))
+  }
+
+  xml_escape <- function(x) {
+    x <- gsub("&", "&amp;", x, fixed = TRUE)
+    x <- gsub("<", "&lt;", x, fixed = TRUE)
+    x <- gsub(">", "&gt;", x, fixed = TRUE)
+    x
+  }
+
+  svg_text <- paste(readLines(svg_path, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+  svg_text <- gsub(">NUMT</text>", ">Distinct NUMT cluster</text>", svg_text, fixed = TRUE)
+  svg_text <- gsub(">Low</text>", ">singleton</text>", svg_text, fixed = TRUE)
+  svg_text <- gsub(">High</text>", ">common</text>", svg_text, fixed = TRUE)
+
+  box_x <- if (mode == "marker") 500 else 455
+  box_y <- if (mode == "marker") 168 else 145
+  box_width <- if (mode == "marker") 215 else 260
+  box_height <- if (mode == "marker") 110 else 132
+  text_x <- box_x + 8
+  text_y <- box_y + 16
+  line_step <- 12
+
+  header_line <- if (mode == "marker") {
+    "Marker color = frequency class of each distinct NUMT cluster"
+  } else {
+    paste0("Heatmap color = highest cluster frequency class within each ", bin_label, " bin")
+  }
+
+  legend_lines <- c(
+    header_line,
+    paste0("Frequency = sample_count / ", denominator),
+    "singleton: sample_count = 1",
+    "rare: sample_count = 2-83",
+    "low-frequency: sample_count = 84-418 (1% to <5%)",
+    "common: sample_count >= 419 (>=5%)"
+  )
+
+  legend_text <- paste(
+    vapply(seq_along(legend_lines), function(i) {
+      sprintf(
+        "<text x=\"%s\" y=\"%s\" font-size=\"9\" font-family=\"Arial\" fill=\"black\">%s</text>",
+        text_x,
+        text_y + (i - 1) * line_step,
+        xml_escape(legend_lines[[i]])
+      )
+    }, character(1)),
+    collapse = ""
+  )
+
+  annotation_block <- sprintf(
+    "<rect x=\"%s\" y=\"%s\" width=\"%s\" height=\"%s\" style=\"fill:white;fill-opacity:0.92;stroke:#666666;stroke-width:0.6\"/>%s",
+    box_x, box_y, box_width, box_height, legend_text
+  )
+
+  svg_text <- sub("</svg>$", paste0(annotation_block, "</svg>"), svg_text)
+  writeLines(svg_text, svg_path, useBytes = TRUE)
+  invisible(NULL)
+}
 
 if (is.na(input_file) || !nzchar(input_file)) {
   stop("Missing required --input")
+}
+if (is.na(marker_input_file) || !nzchar(marker_input_file)) {
+  stop("Missing required --marker-input")
 }
 if (is.na(output_marker) || !nzchar(output_marker)) {
   stop("Missing required --output-marker")
@@ -41,6 +118,9 @@ if (is.na(conf_karyotype) || !nzchar(conf_karyotype)) {
 if (!file.exists(conf_karyotype)) {
   stop("karyotype file not found: ", conf_karyotype)
 }
+if (!file.exists(marker_input_file)) {
+  stop("marker input file not found: ", marker_input_file)
+}
 
 marker_dir <- dirname(output_marker)
 heatmap_dir <- dirname(output_heatmap)
@@ -49,6 +129,9 @@ if (!dir.exists(marker_dir)) {
 }
 if (!dir.exists(heatmap_dir)) {
   dir.create(heatmap_dir, recursive = TRUE)
+}
+if (!is.na(output_heatmap_1kb) && nzchar(output_heatmap_1kb) && !dir.exists(dirname(output_heatmap_1kb))) {
+  dir.create(dirname(output_heatmap_1kb), recursive = TRUE)
 }
 
 pdf(NULL)
@@ -68,22 +151,64 @@ input_df <- read.table(
   header = TRUE,
   stringsAsFactors = FALSE
 )
+marker_df <- read.table(
+  marker_input_file,
+  sep = "\t",
+  header = TRUE,
+  stringsAsFactors = FALSE
+)
 
 required_cols <- c("Chr", "Start", "End")
-missing_cols <- setdiff(required_cols, names(input_df))
-if (length(missing_cols) > 0) {
-  stop("Input is missing columns: ", paste(missing_cols, collapse = ", "))
+if (all(required_cols %in% names(input_df))) {
+  input_df <- input_df[, required_cols]
+} else if (all(c("sampleID", "region_chr", "region_start", "region_end") %in% names(input_df))) {
+  input_df <- data.frame(
+    Chr = as.character(input_df$region_chr),
+    Start = as.numeric(input_df$region_start),
+    End = as.numeric(input_df$region_end),
+    stringsAsFactors = FALSE
+  )
+} else {
+  stop(
+    "Input must contain either Chr/Start/End or sampleID/region_chr/region_start/region_end"
+  )
 }
 
-input_df$Chr <- as.character(input_df$Chr)
-input_df$Start <- as.numeric(input_df$Start)
-input_df$End <- as.numeric(input_df$End)
 input_df <- input_df[!is.na(input_df$Start) & !is.na(input_df$End), ]
 input_df <- input_df[input_df$Chr %in% karyotype$Chr, ]
 
 if (nrow(input_df) == 0) {
   stop("No valid NUMT events after cleaning")
 }
+
+required_marker_cols <- c(
+  "chr", "cluster_min_midpoint", "cluster_max_midpoint", "cluster_midpoint_mean",
+  "frequency", "sample_count", "frequency_class"
+)
+missing_marker_cols <- setdiff(required_marker_cols, names(marker_df))
+if (length(missing_marker_cols) > 0) {
+  stop("Marker input is missing columns: ", paste(missing_marker_cols, collapse = ", "))
+}
+
+marker_df <- data.frame(
+  Chr = as.character(marker_df$chr),
+  Start = as.numeric(marker_df$cluster_min_midpoint),
+  End = as.numeric(marker_df$cluster_max_midpoint),
+  Midpoint = as.numeric(marker_df$cluster_midpoint_mean),
+  Value = as.numeric(marker_df$frequency),
+  Class = ifelse(
+    as.numeric(marker_df$sample_count) == 1,
+    "singleton",
+    ifelse(
+      as.character(marker_df$frequency_class) %in% c("rare", "ultra-rare"),
+      "rare",
+      as.character(marker_df$frequency_class)
+    )
+  ),
+  stringsAsFactors = FALSE
+)
+marker_df <- marker_df[!is.na(marker_df$Start) & !is.na(marker_df$End) & !is.na(marker_df$Value), ]
+marker_df <- marker_df[marker_df$Chr %in% karyotype$Chr, ]
 
 data(gene_density, package = "RIdeogram")
 gene_density$Chr <- as.character(gene_density$Chr)
@@ -93,83 +218,50 @@ gene_density$Chr <- ifelse(
   paste0("chr", gene_density$Chr)
 )
 
-midpoint <- floor((input_df$Start + input_df$End) / 2)
-
-numt_bins <- data.frame(
-  Chr = input_df$Chr,
-  Start = floor((midpoint - 1) / bin_size) * bin_size,
-  End = floor((midpoint - 1) / bin_size) * bin_size + bin_size,
-  Value = 1,
-  stringsAsFactors = FALSE
-)
-
-numt_density <- aggregate(Value ~ Chr + Start + End, data = numt_bins, FUN = sum)
 karyotype_end <- setNames(karyotype$End, karyotype$Chr)
-numt_density$End <- ifelse(
-  numt_density$End > karyotype_end[numt_density$Chr],
-  karyotype_end[numt_density$Chr],
-  numt_density$End
+marker_df$End <- ifelse(
+  marker_df$End > karyotype_end[marker_df$Chr],
+  karyotype_end[marker_df$Chr],
+  marker_df$End
 )
-numt_density <- numt_density[numt_density$Start < numt_density$End, ]
+marker_df <- marker_df[marker_df$Start < marker_df$End, ]
 
-if (nrow(numt_density) == 0) {
-  stop("No valid density data after binning")
+if (nrow(marker_df) == 0) {
+  stop("No valid marker-frequency data after binning")
 }
 
-all_bins_list <- lapply(seq_len(nrow(karyotype)), function(i) {
-  chr <- karyotype$Chr[i]
-  chr_end <- karyotype$End[i]
-  starts <- seq(0, chr_end - 1, by = bin_size)
-  data.frame(
-    Chr = chr,
-    Start = starts,
-    End = pmin(starts + bin_size, chr_end),
+marker_df$Class <- factor(
+  marker_df$Class,
+  levels = c("singleton", "rare", "low-frequency", "common")
+)
+marker_df$ClassRank <- as.numeric(marker_df$Class)
+
+marker_df$Color <- marker_class_palette[as.character(marker_df$Class)]
+
+build_heatmap_data <- function(marker_data, karyotype_data, karyotype_end_map, current_bin_size) {
+  heatmap_bins <- data.frame(
+    Chr = marker_data$Chr,
+    Start = floor((marker_data$Midpoint - 1) / current_bin_size) * current_bin_size,
+    End = floor((marker_data$Midpoint - 1) / current_bin_size) * current_bin_size + current_bin_size,
+    Value = marker_data$ClassRank,
     stringsAsFactors = FALSE
   )
-})
-numt_full_bins <- do.call(rbind, all_bins_list)
-numt_full_bins <- numt_full_bins[numt_full_bins$Start < numt_full_bins$End, ]
-numt_full_bins$Value <- 0
-
-numt_density_full <- merge(
-  numt_full_bins,
-  numt_density,
-  by = c("Chr", "Start", "End"),
-  all.x = TRUE,
-  suffixes = c(".base", ".hit")
-)
-numt_density_full$Value <- ifelse(
-  is.na(numt_density_full$Value.hit),
-  numt_density_full$Value.base,
-  numt_density_full$Value.hit
-)
-numt_density_full <- numt_density_full[, c("Chr", "Start", "End", "Value")]
-
-value_range <- range(numt_density_full$Value)
-if (diff(value_range) == 0) {
-  breaks <- seq(value_range[1] - 0.5, value_range[2] + 0.5, length.out = length(numt_palette) + 1)
-} else {
-  breaks <- seq(value_range[1] - 0.1, value_range[2] + 0.1, length.out = length(numt_palette) + 1)
+  heatmap_bins$End <- ifelse(
+    heatmap_bins$End > karyotype_end_map[heatmap_bins$Chr],
+    karyotype_end_map[heatmap_bins$Chr],
+    heatmap_bins$End
+  )
+  heatmap_bins <- heatmap_bins[heatmap_bins$Start < heatmap_bins$End, ]
+  aggregate(Value ~ Chr + Start + End, data = heatmap_bins, FUN = max)
 }
-
-numt_density_full$Color <- cut(
-  numt_density_full$Value,
-  breaks = breaks,
-  include.lowest = TRUE,
-  labels = numt_palette
-)
-
-full_key <- paste(numt_density_full$Chr, numt_density_full$Start, numt_density_full$End, sep = ":")
-hit_key <- paste(numt_density$Chr, numt_density$Start, numt_density$End, sep = ":")
-numt_density$Color <- numt_density_full$Color[match(hit_key, full_key)]
 
 numt_labels <- data.frame(
   Type = "NUMT",
   Shape = "box",
-  Chr = numt_density$Chr,
-  Start = numt_density$Start,
-  End = numt_density$End,
-  color = gsub("#", "", as.character(numt_density$Color)),
+  Chr = marker_df$Chr,
+  Start = marker_df$Start,
+  End = marker_df$End,
+  color = gsub("#", "", as.character(marker_df$Color)),
   stringsAsFactors = FALSE
 )
 
@@ -181,11 +273,36 @@ ideogram(
   colorset1 = gene_palette,
   output = output_marker
 )
+annotate_svg_with_frequency_legend(
+  svg_path = output_marker,
+  mode = "marker",
+  denominator = frequency_denominator
+)
 
-numt_heatmap_data <- numt_density_full[, c("Chr", "Start", "End", "Value")]
 ideogram(
   karyotype = karyotype,
-  overlaid = numt_heatmap_data,
-  colorset1 = numt_palette,
+  overlaid = build_heatmap_data(marker_df, karyotype, karyotype_end, bin_size),
+  colorset1 = heatmap_palette,
   output = output_heatmap
 )
+annotate_svg_with_frequency_legend(
+  svg_path = output_heatmap,
+  mode = "heatmap",
+  bin_label = paste0(format(bin_size, scientific = FALSE, trim = TRUE), " bp"),
+  denominator = frequency_denominator
+)
+
+if (!is.na(output_heatmap_1kb) && nzchar(output_heatmap_1kb)) {
+  ideogram(
+    karyotype = karyotype,
+    overlaid = build_heatmap_data(marker_df, karyotype, karyotype_end, 1000),
+    colorset1 = heatmap_palette,
+    output = output_heatmap_1kb
+  )
+  annotate_svg_with_frequency_legend(
+    svg_path = output_heatmap_1kb,
+    mode = "heatmap",
+    bin_label = "1 kb",
+    denominator = frequency_denominator
+  )
+}
