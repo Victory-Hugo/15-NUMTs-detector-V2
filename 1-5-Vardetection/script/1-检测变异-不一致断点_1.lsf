@@ -1,0 +1,339 @@
+#!/bin/bash
+shopt -u cdspell
+#*##############################################################################
+
+#*##############################################################################
+
+#BSUB -J Vardetect1                    # 作业名称（可修改）
+#BSUB -q normal                           # 使用的队列
+#BSUB -n 32                         # 请求 CPU 核心数
+#BSUB -R "span[hosts=1]"               # 所有核心集中在同一节点
+#BSUB -W 2000:00                       # 最大运行时间
+#BSUB -o Vardetect1.out                # 标准输出日志文件
+#BSUB -e Vardetect1.err                # 错误输出日志文件
+
+################################################################################
+## This script detects NUMT variants from discordance and split reads
+## CAP3, blat and clustalo need to be installed
+################################################################################
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONF_FILE="${SCRIPT_DIR}/../conf/VarDetection_fromDiscSplitReads.conf"
+
+if [ ! -f "${CONF_FILE}" ]; then
+    echo "error: config not found: ${CONF_FILE}"
+    exit 1
+fi
+
+# shellcheck disable=SC1090
+. "${CONF_FILE}"
+
+: "${PYTHON_BIN:=python3}"
+: "${CAP3_BIN:=cap3}"
+: "${BLAT_BIN:=blat}"
+: "${CLUSTALO_BIN:=clustalo}"
+
+tool_exists() {
+    local tool="$1"
+    [ -x "${tool}" ] || command -v "${tool}" > /dev/null 2>&1
+}
+
+if [ ! -f "${LIST_PATH}" ]; then
+    echo "error: list_path not found: ${LIST_PATH}"
+    exit 1
+fi
+
+process_sample() {
+    local sample_id="$1"
+    local input_dir="$2"
+
+    if [ -z "${sample_id}" ] || [ -z "${input_dir}" ]; then
+        echo "warning: skip empty sample entry"
+        return 0
+    fi
+
+    if [ ! -d "${input_dir}" ]; then
+        echo "error: input dir not found: ${input_dir}"
+        return 1
+    fi
+
+    local output_dir="${OUTPUT_BASE}/${sample_id}"
+    local logs_dir="${LOGS_DIR}"
+    local output_dir_cap3="${output_dir}/assembly"
+    local outputdir_psl_human="${output_dir}/pslHuman"
+    local outputdir_psl_chimp="${output_dir}/pslChimp"
+    local outputdir_aln_human="${output_dir}/alnHuman"
+    local outputdir_aln_humanchimp="${output_dir}/alnHumanChimp"
+
+    local fasta_list="${output_dir}/fastaFiles.list"
+    local numts_bed="${output_dir}/${sample_id}_numts.bed"
+    local done_flag="${output_dir}/.done"
+
+    local processed_any=0
+    local produced_result=0
+    local success_count=0
+    local fail_count=0
+
+    mkdir -p \
+        "${output_dir}" \
+        "${output_dir_cap3}" \
+        "${outputdir_psl_human}" \
+        "${outputdir_psl_chimp}" \
+        "${outputdir_aln_human}" \
+        "${outputdir_aln_humanchimp}" \
+        "${logs_dir}"
+
+    if [ -f "${done_flag}" ] && [ -s "${numts_bed}" ]; then
+        echo "skip ${sample_id}: already completed"
+        return 0
+    fi
+
+    rm -f "${done_flag}"
+
+    if [ ! -f "${fasta_list}" ]; then
+        find "${input_dir}" -name "*.fasta" > "${fasta_list}"
+    fi
+
+    if [ ! -s "${fasta_list}" ]; then
+        echo "error: no fasta found under ${input_dir}"
+        return 1
+    fi
+
+    : > "${numts_bed}"
+
+    while IFS= read -r contigINPUT; do
+        if [ -z "${contigINPUT}" ]; then
+            continue
+        fi
+
+        if [ ! -f "${contigINPUT}" ]; then
+            echo "warning: fasta not found, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        fi
+
+        processed_any=1
+        echo "processing ${contigINPUT} ..."
+
+        local sampleIndex
+        local contigBasename
+        sampleIndex="$(basename "${contigINPUT}" .fasta)"
+        contigBasename="$(basename "${contigINPUT}")"
+
+        local cap3_out
+        local assembled_fasta
+        cap3_out="${output_dir_cap3}/${contigBasename}.cap"
+
+        if tool_exists "${CAP3_BIN}"; then
+            local cap3_exit=0
+            (
+                cd "${output_dir_cap3}" || exit 1
+                "${CAP3_BIN}" "${contigINPUT}" > "${cap3_out}"
+            ) || cap3_exit=$?
+
+            assembled_fasta="${cap3_out}.contigs"
+            if [ "${cap3_exit}" -ne 0 ] || [ ! -s "${assembled_fasta}" ]; then
+                echo "warning: CAP3 failed or empty output, fallback to original fasta: ${contigINPUT}"
+                assembled_fasta="${contigINPUT}"
+            fi
+        else
+            echo "warning: cap3 not found, fallback to original fasta: ${contigINPUT}"
+            assembled_fasta="${contigINPUT}"
+        fi
+
+        local filtered_fasta
+        filtered_fasta="${output_dir}/${sampleIndex}.filtered.fasta"
+        "${PYTHON_BIN}" "${FILTER_FASTA_PY}" --input "${assembled_fasta}" --output "${filtered_fasta}" --min-acgt "${MIN_ACGT}" || {
+            echo "warning: filter fasta failed, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        }
+
+        if [ ! -s "${filtered_fasta}" ]; then
+            echo "warning: filtered fasta empty, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        fi
+
+        local psl_human
+        local psl_chimp
+        psl_human="${outputdir_psl_human}/${sampleIndex}.human.psl"
+        psl_chimp="${outputdir_psl_chimp}/${sampleIndex}.chimp.psl"
+
+        if tool_exists "${BLAT_BIN}"; then
+            "${BLAT_BIN}" "${REF_HUMAN}" "${filtered_fasta}" "${psl_human}" || {
+                echo "warning: blat human failed, skip ${contigINPUT}"
+                fail_count=$((fail_count + 1))
+                continue
+            }
+
+            "${BLAT_BIN}" "${REF_CHIMP}" "${filtered_fasta}" "${psl_chimp}" || {
+                echo "warning: blat chimp failed, skip ${contigINPUT}"
+                fail_count=$((fail_count + 1))
+                continue
+            }
+        else
+            echo "warning: blat not found, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        fi
+
+        if [ ! -s "${psl_human}" ]; then
+            echo "warning: PSL file not found or empty: ${psl_human}, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        fi
+
+        "${PYTHON_BIN}" "${PSL_TO_BED_PY}" "${psl_human}" "${numts_bed}" || {
+            echo "warning: psl to bed failed, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        }
+
+        if [ ! -s "${numts_bed}" ]; then
+            echo "warning: numts bed still empty after ${contigINPUT}"
+        fi
+
+        local humanMT_fasta
+        local humanchimpMT_fasta
+        humanMT_fasta="${output_dir}/${sampleIndex}.humanMT.fasta"
+        humanchimpMT_fasta="${output_dir}/${sampleIndex}.humanchimpMT.fasta"
+
+        cat "${REF_HUMAN}" "${filtered_fasta}" > "${humanMT_fasta}" || {
+            echo "warning: build humanMT fasta failed, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        }
+
+        cat "${REF_HUMANCHIMP}" "${filtered_fasta}" > "${humanchimpMT_fasta}" || {
+            echo "warning: build humanchimpMT fasta failed, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        }
+
+        local alnHuman
+        local alnHumanChimp
+        alnHuman="${outputdir_aln_human}/${sampleIndex}"
+        alnHumanChimp="${outputdir_aln_humanchimp}/${sampleIndex}"
+
+        if tool_exists "${CLUSTALO_BIN}"; then
+            "${CLUSTALO_BIN}" -i "${humanMT_fasta}" -o "${alnHuman}.humanMTaln.fa" --outfmt=fa --force || {
+                echo "warning: clustalo human failed, skip ${contigINPUT}"
+                fail_count=$((fail_count + 1))
+                continue
+            }
+
+            "${CLUSTALO_BIN}" -i "${humanchimpMT_fasta}" -o "${alnHumanChimp}.humanchimpMTaln.fa" --outfmt=fa --force || {
+                echo "warning: clustalo humanchimp failed, skip ${contigINPUT}"
+                fail_count=$((fail_count + 1))
+                continue
+            }
+        else
+            echo "warning: clustalo not found, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        fi
+
+        "${PYTHON_BIN}" "${PY_HUMAN}" "${alnHuman}.humanMTaln.fa" "${numts_bed}" || {
+            echo "warning: PY_HUMAN failed, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        }
+
+        "${PYTHON_BIN}" "${PY_HUMANCHIMP}" "${alnHumanChimp}.humanchimpMTaln.fa" "${numts_bed}" || {
+            echo "warning: PY_HUMANCHIMP failed, skip ${contigINPUT}"
+            fail_count=$((fail_count + 1))
+            continue
+        }
+
+        success_count=$((success_count + 1))
+
+        if [ -s "${numts_bed}" ]; then
+            produced_result=1
+        fi
+    done < "${fasta_list}"
+
+    echo "sample ${sample_id}: success=${success_count}, failed=${fail_count}"
+
+    if [ "${processed_any}" -eq 0 ]; then
+        echo "error: no valid fasta processed for ${sample_id}"
+        return 1
+    fi
+
+    if [ "${success_count}" -eq 0 ]; then
+        echo "error: sample ${sample_id} has no successful contig"
+        return 1
+    fi
+
+    touch "${done_flag}"
+    echo "done ${sample_id}"
+    return 0
+}
+
+if [ "${JOBS}" -le 1 ]; then
+    while IFS=$'\t' read -r sample_id input_dir; do
+        if [ -z "${sample_id}" ] || [[ "${sample_id}" =~ ^# ]]; then
+            continue
+        fi
+
+        process_sample "${sample_id}" "${input_dir}" || {
+            echo "warning: sample failed but continue: ${sample_id}"
+        }
+    done < "${LIST_PATH}"
+else
+    declare -a pids=()
+    declare -a pid_samples=()
+
+    while IFS=$'\t' read -r sample_id input_dir; do
+        if [ -z "${sample_id}" ] || [[ "${sample_id}" =~ ^# ]]; then
+            continue
+        fi
+
+        process_sample "${sample_id}" "${input_dir}" &
+        pids+=("$!")
+        pid_samples+=("${sample_id}")
+
+        if [ "${#pids[@]}" -ge "${JOBS}" ]; then
+            while true; do
+                declare -a new_pids=()
+                declare -a new_pid_samples=()
+                local_idx=0
+
+                for pid in "${pids[@]}"; do
+                    if kill -0 "${pid}" 2> /dev/null; then
+                        new_pids+=("${pid}")
+                        new_pid_samples+=("${pid_samples[${local_idx}]}")
+                    else
+                        wait "${pid}" || {
+                            echo "warning: background sample failed but continue: ${pid_samples[${local_idx}]}"
+                        }
+                    fi
+                    local_idx=$((local_idx + 1))
+                done
+
+                pids=()
+                pid_samples=()
+
+                if [ "${#new_pids[@]}" -gt 0 ]; then
+                    pids=("${new_pids[@]}")
+                    pid_samples=("${new_pid_samples[@]}")
+                fi
+
+                if [ "${#pids[@]}" -lt "${JOBS}" ]; then
+                    break
+                fi
+                sleep 1
+            done
+        fi
+    done < "${LIST_PATH}"
+
+    if [ "${#pids[@]}" -gt 0 ]; then
+        local_idx=0
+        for pid in "${pids[@]}"; do
+            wait "${pid}" || {
+                echo "warning: background sample failed but continue: ${pid_samples[${local_idx}]}"
+            }
+            local_idx=$((local_idx + 1))
+        done
+    fi
+fi

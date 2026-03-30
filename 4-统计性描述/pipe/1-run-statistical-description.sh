@@ -60,24 +60,38 @@ require_var CFG_INPUT_META_TSV
 require_var CFG_META_ID_COL
 require_var CFG_META_QC_COL
 require_var CFG_META_QC_PASS_VALUE
+require_var CFG_REFERENCE_KARYOTYPE_TXT
 require_var CFG_ANALYSIS_FREQUENCY_CLUSTER_GAP_BP
 require_var CFG_ANALYSIS_DISTINCT_NUMT_MIN_SAMPLE_SUPPORTS
 require_var CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT
 require_var CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP
 require_var CFG_ANALYSIS_FREQUENCY_DENOMINATOR
+require_var CFG_RUNTIME_CONDA_SH
+require_var CFG_RUNTIME_CONDA_ENV
 require_var CFG_RUNTIME_THREADS
 require_var CFG_RUNTIME_CHUNK_ROWS
 require_var CFG_OUTPUT_TMP_DIR
 require_var CFG_OUTPUT_OUT_DIR
+require_var CFG_OUTPUT_QC_SUBDIR
+require_var CFG_OUTPUT_TABLE_SUBDIR
+require_var CFG_OUTPUT_FIGURE_PYTHON_SUBDIR
+require_var CFG_OUTPUT_FIGURE_R_SUBDIR
 
-source /home/luolintao/miniconda3/etc/profile.d/conda.sh
-conda activate BigLin
+if [[ ! -f "$CFG_RUNTIME_CONDA_SH" ]]; then
+    log "conda.sh not found: $CFG_RUNTIME_CONDA_SH"
+    exit 1
+fi
+
+source "$CFG_RUNTIME_CONDA_SH"
+if [[ "${CONDA_DEFAULT_ENV:-}" != "$CFG_RUNTIME_CONDA_ENV" ]]; then
+    conda activate "$CFG_RUNTIME_CONDA_ENV"
+fi
 
 PYTHON_BIN=$(command -v python)
 RSCRIPT_BIN=$(command -v Rscript)
 
 if [[ -z "$PYTHON_BIN" || -z "$RSCRIPT_BIN" ]]; then
-    log "python or Rscript not found after activating BigLin"
+    log "python or Rscript not found after activating $CFG_RUNTIME_CONDA_ENV"
     exit 1
 fi
 
@@ -88,11 +102,15 @@ log "Checking R dependencies"
 
 TMP_DIR="$PROJECT_ROOT/$CFG_OUTPUT_TMP_DIR"
 OUT_DIR="$PROJECT_ROOT/$CFG_OUTPUT_OUT_DIR"
+QC_OUT_DIR="$OUT_DIR/$CFG_OUTPUT_QC_SUBDIR"
+TABLE_OUT_DIR="$OUT_DIR/$CFG_OUTPUT_TABLE_SUBDIR"
+PYTHON_FIG_OUT_DIR="$OUT_DIR/$CFG_OUTPUT_FIGURE_PYTHON_SUBDIR"
+R_FIG_OUT_DIR="$OUT_DIR/$CFG_OUTPUT_FIGURE_R_SUBDIR"
 THREADS="$CFG_RUNTIME_THREADS"
 CHUNK_ROWS="$CFG_RUNTIME_CHUNK_ROWS"
-KARYOTYPE_TXT="$PROJECT_ROOT/../3-可视化NUMTs分布/2-Ideogram/conf/human_karyotype.txt"
+KARYOTYPE_TXT="$CFG_REFERENCE_KARYOTYPE_TXT"
 
-mkdir -p "$TMP_DIR" "$OUT_DIR" "$TMP_DIR/logs"
+mkdir -p "$TMP_DIR" "$OUT_DIR" "$TMP_DIR/logs" "$QC_OUT_DIR" "$TABLE_OUT_DIR" "$PYTHON_FIG_OUT_DIR" "$R_FIG_OUT_DIR"
 
 run_with_log "01_filter_qc_samples" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/01_filter_qc_samples.py" \
@@ -105,14 +123,14 @@ run_with_log "01_filter_qc_samples" \
     --pass-sample-tsv "$TMP_DIR/1-pass-samples.tsv" \
     --breakpoint-out-gz "$TMP_DIR/2-confident_breakpoints.pass.tsv.gz" \
     --merge-bed-out-gz "$TMP_DIR/3-merge_bed.pass.tsv.gz" \
-    --summary-out "$OUT_DIR/1-qc-filter-summary.tsv" \
+    --summary-out "$QC_OUT_DIR/1-qc-filter-summary.tsv" \
     --threads "$THREADS"
 
 run_with_log "02_build_length_table" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/02_build_length_table.py" \
     --input-gz "$TMP_DIR/3-merge_bed.pass.tsv.gz" \
-    --output-tsv "$OUT_DIR/2-numt-length-by-region.tsv" \
-    --summary-tsv "$OUT_DIR/2-numt-length-summary.tsv" \
+    --output-tsv "$TABLE_OUT_DIR/2-numt-length-by-region.tsv" \
+    --summary-tsv "$TABLE_OUT_DIR/2-numt-length-summary.tsv" \
     --chunk-rows "$CHUNK_ROWS" \
     --temp-dir "$TMP_DIR/length_buckets" &
 pid_length=$!
@@ -120,9 +138,9 @@ pid_length=$!
 run_with_log "03_build_event_table" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/03_build_event_table.py" \
     --input-gz "$TMP_DIR/2-confident_breakpoints.pass.tsv.gz" \
-    --events-out "$OUT_DIR/3-numt-events.tsv" \
-    --ideogram-out "$OUT_DIR/3-numt-events-for-ideogram.tsv" \
-    --chr-count-out "$OUT_DIR/3-numt-chromosome-counts.tsv" \
+    --events-out "$TABLE_OUT_DIR/3-numt-events.tsv" \
+    --ideogram-out "$TABLE_OUT_DIR/3-numt-events-for-ideogram.tsv" \
+    --chr-count-out "$TABLE_OUT_DIR/3-numt-chromosome-counts.tsv" \
     --chunk-rows "$CHUNK_ROWS" &
 pid_events=$!
 
@@ -132,10 +150,10 @@ run_with_log "04_cluster_frequency" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/04_cluster_frequency.py" \
     --cluster-input-file "$CFG_INPUT_DISTINCT_NUMT_CLUSTER_INPUT_TSV_GZ" \
     --cluster-prefix "$TMP_DIR/4-mt_disc_breakpoint_input" \
-    --cluster-out "$OUT_DIR/4-numt-frequency-by-cluster.tsv" \
-    --class-summary-out "$OUT_DIR/4-numt-frequency-class-summary.tsv" \
-    --support-summary-out "$OUT_DIR/4-numt-support-summary.tsv" \
-    --top-out "$OUT_DIR/4-numt-top-recurrent-clusters.tsv" \
+    --cluster-out "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
+    --class-summary-out "$TABLE_OUT_DIR/4-numt-frequency-class-summary.tsv" \
+    --support-summary-out "$TABLE_OUT_DIR/4-numt-support-summary.tsv" \
+    --top-out "$TABLE_OUT_DIR/4-numt-top-recurrent-clusters.tsv" \
     --cluster-gap-bp "$CFG_ANALYSIS_FREQUENCY_CLUSTER_GAP_BP" \
     --denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" \
     --min-supports "$CFG_ANALYSIS_DISTINCT_NUMT_MIN_SAMPLE_SUPPORTS" \
@@ -146,35 +164,36 @@ wait "$pid_length"
 
 run_with_log "05_plot_python_figures" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/05_plot_python_figures.py" \
-    --length-tsv "$OUT_DIR/2-numt-length-by-region.tsv" \
-    --chr-count-tsv "$OUT_DIR/3-numt-chromosome-counts.tsv" \
-    --freq-cluster-tsv "$OUT_DIR/4-numt-frequency-by-cluster.tsv" \
-    --freq-class-tsv "$OUT_DIR/4-numt-frequency-class-summary.tsv" \
-    --out-dir "$OUT_DIR" &
+    --length-tsv "$TABLE_OUT_DIR/2-numt-length-by-region.tsv" \
+    --chr-count-tsv "$TABLE_OUT_DIR/3-numt-chromosome-counts.tsv" \
+    --freq-cluster-tsv "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
+    --freq-class-tsv "$TABLE_OUT_DIR/4-numt-frequency-class-summary.tsv" \
+    --support-summary-tsv "$TABLE_OUT_DIR/4-numt-support-summary.tsv" \
+    --out-prefix "$PYTHON_FIG_OUT_DIR/5-numt-statistical-summary" &
 pid_python_plots=$!
 
 run_with_log "01_plot_ideogram" \
     "$RSCRIPT_BIN" "$PROJECT_ROOT/src/01_plot_ideogram.R" \
-    --input "$OUT_DIR/3-numt-events-for-ideogram.tsv" \
-    --output-marker "$OUT_DIR/3-numt-ideogram-marker.svg" \
-    --output-heatmap "$OUT_DIR/3-numt-ideogram-heatmap.svg" \
+    --input "$TABLE_OUT_DIR/3-numt-events-for-ideogram.tsv" \
+    --output-marker "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" \
+    --output-heatmap "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" \
     --karyotype "$KARYOTYPE_TXT" \
     --bin-size "$CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP" &
 pid_ideogram=$!
 
 run_with_log "02_plot_cluster_distribution" \
     "$RSCRIPT_BIN" "$PROJECT_ROOT/src/02_plot_cluster_distribution.R" \
-    --input "$OUT_DIR/4-numt-frequency-by-cluster.tsv" \
-    --output-pdf "$OUT_DIR/4-numt-cluster-distribution-combined.pdf" \
-    --output-png "$OUT_DIR/4-numt-cluster-distribution-combined.png" \
-    --output-svg "$OUT_DIR/4-numt-cluster-distribution-combined.svg" &
+    --input "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
+    --output-pdf "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.pdf" \
+    --output-png "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.png" \
+    --output-svg "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.svg" &
 pid_cluster_r=$!
 
 wait "$pid_python_plots"
 wait "$pid_ideogram"
 wait "$pid_cluster_r"
 
-convert_svg_to_png "$OUT_DIR/3-numt-ideogram-marker.svg" "$OUT_DIR/3-numt-ideogram-marker.png"
-convert_svg_to_png "$OUT_DIR/3-numt-ideogram-heatmap.svg" "$OUT_DIR/3-numt-ideogram-heatmap.png"
+convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-marker.png"
+convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.png"
 
 log "Pipeline finished successfully"

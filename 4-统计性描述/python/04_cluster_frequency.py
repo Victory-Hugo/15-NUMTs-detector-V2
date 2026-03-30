@@ -85,6 +85,7 @@ def build_frequency_cluster_table(summary_df: pd.DataFrame, denominator: int) ->
                 "cluster_midpoint_mean",
                 "POS",
                 "sample_count",
+                "chosen_region_length",
                 "frequency",
                 "frequency_class",
                 "is_singleton",
@@ -108,6 +109,7 @@ def build_frequency_cluster_table(summary_df: pd.DataFrame, denominator: int) ->
             "mean": "cluster_midpoint_mean",
             "min": "cluster_min_midpoint",
             "max": "cluster_max_midpoint",
+            "chosen_region_length": "chosen_region_length",
         }
     ).copy()
     freq_df["sample_count"] = freq_df["sample_count"].astype(int)
@@ -126,6 +128,7 @@ def build_frequency_cluster_table(summary_df: pd.DataFrame, denominator: int) ->
             "cluster_midpoint_mean",
             "POS",
             "sample_count",
+            "chosen_region_length",
             "frequency",
             "frequency_class",
             "is_singleton",

@@ -16,7 +16,19 @@ LOG = logging.getLogger(__name__)
 
 INPUT_COLUMNS = ["sampleID", "Cluster_No", "disFile", "splitFile", "wgsBAM", "chr", "start", "end"]
 DETAIL_COLUMNS = ["GroupID", "Index", "POS", "CHR", "mergedClusterID"]
-SUMMARY_COLUMNS = ["mergedClusterID", "GroupID", "CHR", "PositionCount", "SampleCount", "min", "max"]
+SUMMARY_COLUMNS = [
+    "mergedClusterID",
+    "GroupID",
+    "CHR",
+    "PositionCount",
+    "SampleCount",
+    "min",
+    "max",
+    "min_region_length",
+    "median_region_length",
+    "max_region_length",
+    "chosen_region_length",
+]
 
 
 def configure_logging() -> None:
@@ -111,11 +123,15 @@ def parse_min_sample_supports(raw_value: str | None, fallback_value: int) -> Lis
     return sorted(set(values))
 
 
-def build_one_chromosome_cluster_rows(task: Tuple[str, List[Tuple[str, int]], int]) -> Tuple[List[dict[str, object]], List[dict[str, object]]]:
+def build_one_chromosome_cluster_rows(
+    task: Tuple[str, List[Tuple[str, int, int]], int]
+) -> Tuple[List[dict[str, object]], List[dict[str, object]]]:
     chrom, chrom_rows, max_gap_bp = task
     position_to_samples: dict[int, set[str]] = {}
-    for sample_id, position in chrom_rows:
+    position_to_lengths: dict[int, list[int]] = {}
+    for sample_id, position, region_length in chrom_rows:
         position_to_samples.setdefault(int(position), set()).add(str(sample_id))
+        position_to_lengths.setdefault(int(position), []).append(int(region_length))
 
     positions = sorted(position_to_samples)
     sub_clusters = cluster_positions(positions, max_gap_bp=max_gap_bp)
@@ -124,8 +140,10 @@ def build_one_chromosome_cluster_rows(task: Tuple[str, List[Tuple[str, int]], in
     summary_rows: List[dict[str, object]] = []
     for group_id, sub_cluster in enumerate(sub_clusters):
         sample_ids = set()
+        cluster_lengths: list[int] = []
         for position in sub_cluster:
             sample_ids.update(position_to_samples.get(int(position), set()))
+            cluster_lengths.extend(position_to_lengths.get(int(position), []))
         merged_cluster_id = f"{group_id}_{chrom}"
         for index, position in enumerate(sub_cluster):
             detail_rows.append(
@@ -146,6 +164,10 @@ def build_one_chromosome_cluster_rows(task: Tuple[str, List[Tuple[str, int]], in
                 "SampleCount": len(sample_ids),
                 "min": int(min(sub_cluster)),
                 "max": int(max(sub_cluster)),
+                "min_region_length": int(min(cluster_lengths)),
+                "median_region_length": int(pd.Series(cluster_lengths).median()),
+                "max_region_length": int(max(cluster_lengths)),
+                "chosen_region_length": int(max(cluster_lengths)),
             }
         )
     return detail_rows, summary_rows
@@ -156,12 +178,14 @@ def build_cluster_tables(input_df: pd.DataFrame, max_gap_bp: int, threads: int) 
         return pd.DataFrame(columns=DETAIL_COLUMNS), pd.DataFrame(columns=SUMMARY_COLUMNS)
 
     grouped_df = input_df.groupby("chr", sort=False)
-    chrom_tasks: List[Tuple[str, List[Tuple[str, int]], int]] = []
+    chrom_tasks: List[Tuple[str, List[Tuple[str, int, int]], int]] = []
     for chrom, chrom_df in grouped_df:
+        region_lengths = (chrom_df["end"].astype(int) - chrom_df["start"].astype(int)).tolist()
         chrom_rows = list(
             zip(
                 chrom_df["sampleID"].astype(str).tolist(),
                 chrom_df["position"].astype(int).tolist(),
+                region_lengths,
             )
         )
         chrom_tasks.append((str(chrom), chrom_rows, max_gap_bp))

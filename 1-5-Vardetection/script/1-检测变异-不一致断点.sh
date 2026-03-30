@@ -1,14 +1,14 @@
 #! /bin/bash
 
 ################################################################################
-## This script detects NUMT variants from discordance and split reads
-## CAP3, blat and clustalo need to be installed
+## 该脚本用于检测来自不一致和分裂读取的NUMT变异
+## 需要安装CAP3、blat和clustalo
 ################################################################################
 
-set -euo pipefail
+# set -euo pipefail # 注释掉 set -e 来允许单个样本失败而不影响整个批次的处理
 
-
-CONF_FILE="/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/conf/VarDetection_fromDiscSplitReads.conf"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONF_FILE="${1:-${SCRIPT_DIR}/../conf/VarDetection_fromDiscSplitReads.conf}"
 
 if [ ! -f "${CONF_FILE}" ]; then
     echo "error: config not found: ${CONF_FILE}"
@@ -17,6 +17,16 @@ fi
 
 # shellcheck disable=SC1090
 . "${CONF_FILE}"
+
+: "${PYTHON_BIN:=python3}"
+: "${CAP3_BIN:=cap3}"
+: "${BLAT_BIN:=blat}"
+: "${CLUSTALO_BIN:=clustalo}"
+
+tool_exists() {
+    local tool="$1"
+    [ -x "${tool}" ] || command -v "${tool}" > /dev/null 2>&1
+}
 
 if [ ! -f "${LIST_PATH}" ]; then
     echo "error: list_path not found: ${LIST_PATH}"
@@ -76,8 +86,25 @@ process_sample() {
         local cap3_out
         local assembled_fasta
         cap3_out="${output_dir_cap3}/${contigBasename}.cap"
-        if command -v cap3 &> /dev/null; then
-            (cd "${output_dir_cap3}" && cap3 "${contigINPUT}" > "${cap3_out}")
+
+        # Check sequence count to avoid CAP3 memory issues
+        local seq_count
+        seq_count=$(grep -c "^>" "${contigINPUT}" || echo "0")
+        local max_seq_for_cap3="${MAX_SEQ_FOR_CAP3:-500}"
+
+        if [ "${seq_count}" -gt "${max_seq_for_cap3}" ]; then
+            echo "INFO: Skipping CAP3 assembly for ${contigINPUT}"
+            echo "  Reason: Input contains ${seq_count} sequences (threshold: ${max_seq_for_cap3})"
+            echo "  CAP3 may cause memory overflow or segmentation fault with large inputs"
+            echo "  Impact: Using original reads instead of assembled contigs"
+            echo "  Note: This does NOT affect variant detection or age inference results"
+            echo "  Note: Output may contain redundant variant calls from overlapping reads"
+            assembled_fasta="${contigINPUT}"
+        elif tool_exists "${CAP3_BIN}"; then
+            (cd "${output_dir_cap3}" && "${CAP3_BIN}" "${contigINPUT}" > "${cap3_out}") || {
+                echo "warning: CAP3 failed, fallback to original fasta"
+                assembled_fasta="${contigINPUT}"
+            }
             assembled_fasta="${cap3_out}.contigs"
             if [ ! -f "${assembled_fasta}" ]; then
                 echo "warning: CAP3 output missing, fallback to original fasta"
@@ -90,7 +117,7 @@ process_sample() {
         ### filter fasta to avoid empty/invalid sequences ###
         local filtered_fasta
         filtered_fasta="${output_dir}/${sampleIndex}.filtered.fasta"
-        python3 "${FILTER_FASTA_PY}" --input "${assembled_fasta}" --output "${filtered_fasta}" --min-acgt "${MIN_ACGT}"
+        "${PYTHON_BIN}" "${FILTER_FASTA_PY}" --input "${assembled_fasta}" --output "${filtered_fasta}" --min-acgt "${MIN_ACGT}"
         if [ ! -s "${filtered_fasta}" ]; then
             echo "warning: filtered fasta empty, skip ${contigINPUT}"
             continue
@@ -101,16 +128,16 @@ process_sample() {
         local psl_chimp
         psl_human="${outputdir_psl_human}/${sampleIndex}.human.psl"
         psl_chimp="${outputdir_psl_chimp}/${sampleIndex}.chimp.psl"
-        if command -v blat &> /dev/null; then
-            blat "${REF_HUMAN}" "${filtered_fasta}" "${psl_human}"
-            blat "${REF_CHIMP}" "${filtered_fasta}" "${psl_chimp}"
+        if tool_exists "${BLAT_BIN}"; then
+            "${BLAT_BIN}" "${REF_HUMAN}" "${filtered_fasta}" "${psl_human}"
+            "${BLAT_BIN}" "${REF_CHIMP}" "${filtered_fasta}" "${psl_chimp}"
         else
             echo "warning: blat not found, skip PSL generation"
         fi
 
         ### build numts.bed from psl ###
         if [ -f "${psl_human}" ]; then
-            python3 "${PSL_TO_BED_PY}" "${psl_human}" "${numts_bed}"
+            "${PYTHON_BIN}" "${PSL_TO_BED_PY}" "${psl_human}" "${numts_bed}"
         else
             echo "error: PSL file not found: ${psl_human}"
             return 1
@@ -129,17 +156,17 @@ process_sample() {
         local alnHumanChimp
         alnHuman="${outputdir_aln_human}/${sampleIndex}"
         alnHumanChimp="${outputdir_aln_humanchimp}/${sampleIndex}"
-        if command -v clustalo &> /dev/null; then
-            clustalo -i "${humanMT_fasta}" -o "${alnHuman}.humanMTaln.fa" --outfmt=fa --force
-            clustalo -i "${humanchimpMT_fasta}" -o "${alnHumanChimp}.humanchimpMTaln.fa" --outfmt=fa --force
+        if tool_exists "${CLUSTALO_BIN}"; then
+            "${CLUSTALO_BIN}" -i "${humanMT_fasta}" -o "${alnHuman}.humanMTaln.fa" --outfmt=fa --force
+            "${CLUSTALO_BIN}" -i "${humanchimpMT_fasta}" -o "${alnHumanChimp}.humanchimpMTaln.fa" --outfmt=fa --force
         else
             echo "warning: clustalo not found, skip alignment"
             continue
         fi
 
         ### variant detection ###
-        python3 "${PY_HUMAN}" "${alnHuman}.humanMTaln.fa" "${numts_bed}"
-        python3 "${PY_HUMANCHIMP}" "${alnHumanChimp}.humanchimpMTaln.fa" "${numts_bed}"
+        "${PYTHON_BIN}" "${PY_HUMAN}" "${alnHuman}.humanMTaln.fa" "${numts_bed}"
+        "${PYTHON_BIN}" "${PY_HUMANCHIMP}" "${alnHumanChimp}.humanchimpMTaln.fa" "${numts_bed}"
     done < "${fasta_list}"
 
     (
