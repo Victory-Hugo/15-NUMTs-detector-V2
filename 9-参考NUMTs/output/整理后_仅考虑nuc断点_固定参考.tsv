@@ -1,0 +1,931 @@
+Chr	Mt Start	Mt End	Mt fragment length	Nuc Start	Nuc End	Chr fragment length	Difference	Source
+1	3914	9755	5842	629084	634924	5841	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				2415420	2415514	95		Tao_Genes_2023
+1	9452	9582	131	5554746	5554877	132	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	2466	2675	210	5850258	5850468	211	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	8040	8205	166	8909743	8909908	166	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	907	1117	211	9574629	9574829	201	10	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	12292	12357	66	11142847	11142918	72	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	15078	15578	501	11425262	11425772	511	10	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				17961213	17961289	77		Tao_Genes_2023
+1				18504347	18504497	151		Tao_Genes_2023
+1	3900	4113	214	18595412	18595626	215	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				23921743	23921775	33		Tao_Genes_2023
+1				35255195	35255324	130		Tao_Genes_2023
+1	4611	5021	411	50017096	50017505	410	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	7301	8453	1153	55372550	55373651	1102	51	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	16400	16566	167	76971249	76971415	167	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	4969	5343	375	81080801	81081175	375	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	1739	12883	11145	93920175	93937743	17569	6424	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+1	12612	12768	157	93920442	93920596	155	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	12031	12339	309	93921981	93922279	299	10	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				93922585	93923554	970		Tao_Genes_2023
+1	9219	9858	640	93925174	93925307	134	506	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	7862	8245	384	93926635	93927071	437	53	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	6837	7679	843	93927471	93928308	838	5	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	5565	6108	544	93933749	93934284	536	8	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	4699	4891	193	93935023	93935231	209	16	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	1739	3106	1368	93936406	93937757	1352	16	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	12476	12518	43	103621156	103621198	43	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	5855	9328	3474	106802629	106806125	3497	23	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				107369143	107369276	134		Tao_Genes_2023
+1	13327	13450	124	113576758	113576881	124	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	1051	3162	2112	119942350	119944634	2285	173	Daniela_Lascaro_BMC_Genomics_2008
+1	6869	6980	112	147860672	147860783	112	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				168593601	168593710	110		Tao_Genes_2023
+1	8461	8556	96	169474063	169474158	96	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				170006358	170006412	55		Tao_Genes_2023
+1	5586	5653	68	172710531	172710602	72	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	12142	12535	394	181422785	181423178	394	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	612	941	330	190909727	190910060	334	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	873	1181	309	191961693	191961992	300	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	11152	11320	169	205475336	205475504	169	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				208145434	208145500	67		Tao_Genes_2023
+1	2623	2699	77	212504996	212505072	77	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	9562	9600	39	215499796	215499834	39	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	9818	9919	102	220455154	220455255	102	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	14421	14521	101	226958158	226958258	101	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	14798	15717	920	235520022	235520923	902	18	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	9758	14797	5040	235537396	235542389	4994	46	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	9782	13593	3812	235538591	235542365	3775	37	Daniela_Lascaro_BMC_Genomics_2008
+1	573	6202	5630	237940763	237946395	5633	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	1	16569	16569	237940763	237951721	10959	5610	Simone_BMC_Genomics_2011_版本2_585_高置信
+1	1	239	239	237947076	237947319	244	5	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	12156	16569	4414	237947320	237951721	4402	12	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1				239859022	239859130	109		Tao_Genes_2023
+1	6157	6288	132	240549886	240550017	132	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+1	596	719	124	248904383	248904502	120	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	10204	10357	154	9746713	9746865	153	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	2779	2848	70	11256916	11256985	70	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	6514	6629	116	15521167	15521282	116	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				19236328	19236437	110		Tao_Genes_2023
+2	15254	15451	198	22317051	22317248	198	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				29584531	29584632	102		Tao_Genes_2023
+2				30432495	30432599	105		Tao_Genes_2023
+2	1763	1818	56	33767471	33767526	56	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	956	1124	169	40784957	40785117	161	8	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				42911489	42911572	84		Tao_Genes_2023
+2				43099970	43100104	135		Tao_Genes_2023
+2	6741	7012	272	49229628	49229899	272	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	6295	6994	700	50588692	50589390	699	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				55535912	55535989	78		Tao_Genes_2023
+2				56280460	56280647	188		Tao_Genes_2023
+2	8661	8830	170	56465022	56465191	170	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	9554	9765	212	63689410	63689621	212	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	5021	5289	269	68260740	68261008	269	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				71638760	71638870	111		Tao_Genes_2023
+2	2998	3103	106	75063748	75063853	106	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	7858	8109	252	81666477	81666728	252	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	11589	16567	4979	82814979	82819966	4988	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	334	365	32	82820346	82821005	660	628	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	6851	7080	230	85068805	85069034	230	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	1577	1637	61	85724900	85724960	61	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	8314	8789	476	87824890	87825365	476	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	3750	3886	137	92006447	92006583	137	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				94237239	94237393	155		Tao_Genes_2023
+2	1042	1508	467	94899009	94899525	517	50	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	5624	6979	1356	94899591	94900970	1380	24	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	9394	10302	909	94901001	94901958	958	49	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	724	804	81	96680839	96680919	81	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	12290	12344	55	102505774	102505829	56	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	724	834	111	103598726	103598836	111	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				103657697	103657792	96		Tao_Genes_2023
+2	12412	12552	141	108913568	108913709	142	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				113039457	113039524	68		Tao_Genes_2023
+2	13031	13102	72	114490352	114490423	72	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	15443	16569	1127	116751185	116752339	1155	28	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	1	60	60	116752313	116752365	53	7	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	16296	16315	20	117020197	117020454	258	238	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	596	6431	5836	117021190	117027027	5838	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	8315	9755	1441	120210850	120212281	1432	9	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	8315	13922	5608	120210850	120217227	6378	770	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+2				120212289	120212362	74		Tao_Genes_2023
+2	9785	12758	2974	120212661	120215601	2941	33	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	12998	13566	569	120216228	120216790	563	6	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	12256	12539	284	124680719	124681002	284	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	16295	16569	275	125810817	125811168	352	77	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	1	8784	8784	125810955	125812539	1585	7199	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+2	576	998	423	125812120	125812539	420	3	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	12598	12685	88	129090943	129091030	88	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				129220387	129220508	122		Tao_Genes_2023
+2	15391	15534	144	130270396	130270674	279	135	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	3658	15398	11741	130270561	130283331	12771	1030	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+2	3799	15398	11600	130271810	130283331	11522	78	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	10657	15398	4742	131369061	131373756	4696	46	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	8509	8570	62	131379466	131379525	60	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	3638	10552	6915	131379567	131386393	6827	88	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023
+2	6380	10552	4173	131379593	131383702	4110	63	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	3638	6274	2637	131383703	131386318	2616	21	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	15391	15534	144	131386320	131386463	144	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	4147	4222	76	132425100	132425175	76	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	14510	14675	166	134526365	134526527	163	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	5172	6145	974	140216997	140217971	975	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	1	6145	6145	140217001	140224965	7965	1820	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+2	575	5185	4611	140219650	140224225	4576	35	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	16295	16569	275	140224905	140225240	336	61	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	2167	2385	219	143088655	143088881	227	8	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	575	2385	1811	143088658	143091584	2927	1116	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+2	575	2156	1582	143090007	143091585	1579	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	1	76	76	143092265	143092340	76	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	3877	16569	12693	143092303	143101345	9043	3650	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+2	9840	16569	6730	143092341	143099057	6717	13	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	7753	9763	2011	143099372	143101349	1978	33	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	2760	2848	89	147265184	147265272	89	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				148822956	148823163	208		Tao_Genes_2023
+2	611	742	132	148881726	148881857	132	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	4861	6197	1337	155263465	155264802	1338	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	11801	15067	3267	155311086	155314353	3268	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	6591	6823	233	166414495	166414713	219	14	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	9713	9859	147	174780950	174781096	147	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	833	1228	396	179739347	179739740	394	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				182377657	182377741	85		Tao_Genes_2023
+2				183514925	183515109	185		Tao_Genes_2023
+2	4170	4230	61	196434786	196434846	61	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	10440	13131	2692	201212296	201214981	2686	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	7227	8223	997	201549268	201550653	1386	389	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	7227	13616	6390	201549268	201558129	8862	2472	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+2	9089	11615	2527	201552756	201555231	2476	51	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	11606	12325	720	201555524	201556227	704	16	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	12567	13616	1050	201557098	201558131	1034	16	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	6944	11154	4211	202614210	202618291	4082	129	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	10787	10897	111	202618883	202619186	304	193	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	2856	3120	265	211773781	211774059	279	14	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	575	2957	2383	211774381	211776629	2249	134	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	4854	7680	2827	211777209	211780005	2797	30	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	9537	9659	123	215812668	215812790	123	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	12217	12339	123	216879717	216879838	122	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	12982	13036	55	217574801	217574855	55	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	6053	6505	453	220048819	220049271	453	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	2648	2742	95	226421703	226421794	92	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	890	1048	159	226722269	226722426	158	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	3668	3780	113	229028787	229028907	121	8	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	13050	13104	55	231574210	231574264	55	0	Daniela_Lascaro_BMC_Genomics_2008
+2	771	1032	262	235455990	235456247	258	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2				237125607	237125679	73		Tao_Genes_2023
+2	13048	13103	56	237522178	237522235	58	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+2	10087	10319	233	237523972	237524204	233	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	7085	7574	490	12164841	12165633	793	303	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				24417483	24417584	102		Tao_Genes_2023
+3	10984	11022	39	25467504	25467542	39	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	11916	11970	55	28334886	28334940	55	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				28933159	28933268	110		Tao_Genes_2023
+3	10400	10642	243	29797652	29797895	244	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				34012902	34013059	158		Tao_Genes_2023
+3				38330485	38330620	136		Tao_Genes_2023
+3	1741	3041	1301	40220044	40221345	1302	1	Daniela_Lascaro_BMC_Genomics_2008
+3	1418	3039	1622	40252147	40253767	1621	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	15808	16210	403	43229326	43229731	406	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				44170756	44170859	104		Tao_Genes_2023
+3				44868400	44868504	105		Tao_Genes_2023
+3				56039011	56039124	114		Tao_Genes_2023
+3	15559	15633	75	63847026	63847100	75	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	4353	4428	76	68659056	68659131	76	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	9136	9372	237	72583300	72583536	237	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	6027	9316	3290	89586844	89590097	3254	36	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023
+3	8029	8246	218	89587898	89588115	218	0	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	6027	7309	1283	89588825	89590096	1272	11	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	1396	2718	1323	96617188	96618510	1323	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	6534	6682	149	96765136	96765284	149	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	4620	4752	133	98844865	98844997	133	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	12563	13537	975	103814804	103815796	993	18	Daniela_Lascaro_BMC_Genomics_2008
+3	10576	12340	1765	106894139	106895901	1763	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	9787	12340	2554	106894139	106897090	2952	398	Daniela_Lascaro_BMC_Genomics_2008
+3	8668	12340	3673	106894139	106898254	4116	443	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+3	8716	10582	1867	106896293	106898255	1963	96	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	576	858	283	106898599	106898879	281	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	12464	14369	1906	106898887	106900816	1930	24	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				106900859	106903560	2702		Tao_Genes_2023
+3	5126	5495	370	106901068	106901718	651	281	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	1054	2048	995	106902523	106903555	1033	38	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	7150	7772	623	120722023	120722645	623	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	4704	4770	67	122688738	122688804	67	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				125532716	125532799	84		Tao_Genes_2023
+3	6745	6870	126	127005476	127005601	126	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	9278	9357	80	128989160	128989239	80	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				129914984	129915085	102		Tao_Genes_2023
+3				142946081	142946172	92		Tao_Genes_2023
+3	12428	12584	157	150842071	150842227	157	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	5665	5822	158	152919694	152919856	163	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	7454	7643	190	153658803	153658987	185	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				155431278	155431377	100		Tao_Genes_2023
+3				155433089	155433209	121		Tao_Genes_2023
+3	1925	2314	390	160947654	160948042	389	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				163932578	163932643	66		Tao_Genes_2023
+3				164424268	164424325	58		Tao_Genes_2023
+3	11401	11570	170	166159903	166160179	277	107	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	9109	10768	1660	166160188	166162064	1877	217	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	1549	2065	517	166227122	166227543	422	95	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	598	1371	774	166232482	166233257	776	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	16403	16474	72	169936797	169936868	72	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	6704	6933	230	171534423	171534651	229	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	8931	8988	58	176216490	176216547	58	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				176784668	176784731	64		Tao_Genes_2023
+3	4226	4348	123	176966318	176966436	119	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	13011	13321	311	177010720	177011028	309	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	11569	11684	116	186058647	186058760	114	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3	9177	9247	71	187466181	187466251	71	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+3				195206004	195206037	34		Tao_Genes_2023
+4	16294	16471	178	5404539	5404717	179	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	9338	9679	342	12640294	12640635	342	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	4644	5195	552	14505906	14506449	544	8	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4				15110042	15110091	50		Tao_Genes_2023
+4	13097	13387	291	17061877	17062167	291	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	11300	12301	1002	25717914	25718891	978	24	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	9440	12301	2862	25717914	25721057	3144	282	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+4	9440	11293	1854	25719210	25721057	1848	6	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	2899	3050	152	27730424	27730575	152	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	15139	15925	787	30884397	30885182	786	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	12196	12258	63	41023226	41023289	64	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	11477	11543	67	46118149	46118215	67	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	14980	15072	93	47772272	47772364	93	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	9470	10302	833	49246020	49246916	897	64	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	9470	10302	833	49548563	49549436	874	41	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	962	1092	131	55328160	55328290	131	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4				60678409	60678465	57		Tao_Genes_2023
+4	9169	9384	216	64606380	64606595	216	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	9471	16561	7091	64606702	64611885	5184	1907	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023
+4	13036	16561	3526	64607023	64610541	3519	7	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	9471	10836	1366	64610543	64611882	1340	26	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	12227	12339	113	66065344	66065456	113	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	4756	5581	826	68049637	68050446	810	16	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	7629	7757	129	68572491	68572619	129	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	2226	2456	231	78008530	78008761	232	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	15115	15179	65	78187532	78187596	65	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	14931	15578	648	81733389	81734046	658	10	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4				83294402	83294481	80		Tao_Genes_2023
+4				86020365	86020473	109		Tao_Genes_2023
+4	3646	3775	130	87676077	87676206	130	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	2856	3075	220	89731797	89732017	221	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	2790	3622	833	92701825	92702653	829	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	15855	16029	175	93817332	93817509	178	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4				98669026	98669131	106		Tao_Genes_2023
+4				101972425	101972726	302		Tao_Genes_2023
+4	9204	9315	112	107374106	107374217	112	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4				107897071	107897137	67		Tao_Genes_2023
+4	8757	8822	66	110444593	110444658	66	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	133	239	107	116296602	116296948	347	240	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	575	3168	2594	116297740	116300312	2573	21	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	2008	2388	381	128081405	128081776	372	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4				131216385	131216422	38		Tao_Genes_2023
+4	661	15564	14904	155451635	155466470	14836	68	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	13017	13095	79	160044596	160044674	79	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	12250	12417	168	162421374	162421541	168	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	5758	5864	107	163229039	163229149	111	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	7621	7775	155	179069437	179069591	155	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	7187	7370	184	181237363	181237546	184	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+4	729	792	64	185294150	185294213	64	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	7992	8216	225	1370544	1370768	225	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	6597	7153	557	5395380	5395937	558	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	6954	7956	1003	5395969	5396968	1000	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				8416607	8416776	170		Tao_Genes_2023
+5	14146	16569	2424	8618577	8621019	2443	19	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	1	16569	16569	8618577	8622573	3997	12572	Simone_BMC_Genomics_2011_版本2_585_高置信
+5	1	239	239	8621020	8621260	241	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	1	1087	1087	8621020	8622573	1554	467	Calabrese_BMCBioinformatics_2012_高置信
+5	597	1087	491	8622089	8622573	485	6	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	14898	15015	118	18457220	18457337	118	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				20834692	20834802	111		Tao_Genes_2023
+5	13372	13444	73	29533605	29533677	73	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				31065990	31066102	113		Tao_Genes_2023
+5				35238346	35238478	133		Tao_Genes_2023
+5				56863573	56863674	102		Tao_Genes_2023
+5				57534047	57534150	104		Tao_Genes_2023
+5	3822	4308	487	60761539	60762024	486	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				69600403	69600479	77		Tao_Genes_2023
+5				70455546	70455622	77		Tao_Genes_2023
+5				71027396	71027472	77		Tao_Genes_2023
+5				72027340	72027487	148		Tao_Genes_2023
+5				72616911	72617068	158		Tao_Genes_2023
+5	15841	15925	85	73239368	73239452	85	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				73625288	73625351	64		Tao_Genes_2023
+5	10801	10841	41	73775892	73775932	41	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				79401441	79401571	131		Tao_Genes_2023
+5				79999183	79999345	163		Tao_Genes_2023
+5	341	2697	2357	80650022	80652368	2347	10	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				85085575	85085621	47		Tao_Genes_2023
+5	15478	16005	528	85237550	85238064	515	13	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	9989	10044	56	87187732	87187787	56	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	8412	8542	131	94183137	94183267	131	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	12662	16124	3463	94567456	94570918	3463	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	14414	16032	1619	97677393	97679010	1618	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	13892	16032	2141	97677393	97685278	7886	5745	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+5	13892	14321	430	97684846	97685325	480	50	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	5916	7992	2077	98409694	98411780	2087	10	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	6117	15183	9067	100045938	100055045	9108	41	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				105145483	105145539	57		Tao_Genes_2023
+5	14660	14829	170	106553363	106553532	170	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				116804719	116804820	102		Tao_Genes_2023
+5	2003	2058	56	119127399	119127454	56	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	383	708	326	121030987	121031317	331	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	11854	11988	135	122338839	122338973	135	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				122607653	122607722	70		Tao_Genes_2023
+5	128	455	328	123760201	123760534	334	6	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	390	1537	1148	123760788	123761766	979	169	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	10270	15488	5219	134923309	134928527	5219	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	9108	9230	123	137305100	137305220	121	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				145293638	145293795	158		Tao_Genes_2023
+5	5703	5841	139	163009429	163009706	278	139	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				165325553	165325656	104		Tao_Genes_2023
+5	12146	12188	43	166530419	166530461	43	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5	811	879	69	170635558	170635626	69	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+5				180413206	180413250	45		Tao_Genes_2023
+6	8504	8691	188	1705978	1706165	188	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				5353707	5353747	41		Tao_Genes_2023
+6	13239	13300	62	5477425	5477486	62	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				13749519	13749615	97		Tao_Genes_2023
+6				16251022	16251151	130		Tao_Genes_2023
+6				16936820	16936922	103		Tao_Genes_2023
+6				24591174	24591261	88		Tao_Genes_2023
+6	7554	8115	562	24947835	24948393	559	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				31930764	31930820	57		Tao_Genes_2023
+6	9109	9888	780	32706123	32706901	779	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	6154	6224	71	42037656	42037726	71	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	16356	16467	112	43491167	43491279	113	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				51332033	51332105	73		Tao_Genes_2023
+6	13269	13363	95	51986979	51987073	95	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				58112724	58112879	156		Tao_Genes_2023
+6				60866316	60866471	156		Tao_Genes_2023
+6	2418	2934	517	61574113	61574629	517	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	3031	3090	60	74225483	74225542	60	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	335	457	123	74819195	74819317	123	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	8702	8830	129	88555292	88555420	129	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	6514	6745	232	91727058	91727311	254	22	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				93236986	93237048	63		Tao_Genes_2023
+6	4150	4487	338	94446773	94447442	670	332	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				116023261	116023375	115		Tao_Genes_2023
+6	5922	6036	115	119159307	119159421	115	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	16102	16281	180	125396572	125396756	185	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	6780	6846	67	127312127	127312193	67	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	15166	15282	117	132799651	132799767	117	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	15391	15653	263	133150568	133150832	265	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				136954171	136954302	132		Tao_Genes_2023
+6	8148	16569	8422	141120896	141121231	336	8086	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	9859	10001	143	143077801	143077943	143	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				143477909	143478032	124		Tao_Genes_2023
+6				144257253	144257385	133		Tao_Genes_2023
+6	1357	1617	261	144728937	144729203	267	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	7451	11649	4199	153665572	153669780	4209	10	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	3094	3167	74	154516516	154516589	74	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	3162	3379	218	156547836	156548053	218	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	9393	9467	75	159835594	159835665	72	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6	12288	12339	52	161561294	161561344	51	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+6				166115484	166115545	62		Tao_Genes_2023
+6				169186317	169186629	313		Tao_Genes_2023
+6	871	2220	1350	169186396	169187688	1293	57	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				12107885	12107979	95		Tao_Genes_2023
+7	8148	8313	166	22746881	22747213	333	167	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	14707	16028	1322	22747524	22748838	1315	7	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	4739	5008	270	36228621	36228884	264	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	1012	1100	89	37518747	37518835	89	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				39562915	39563069	155		Tao_Genes_2023
+7	2418	2574	157	45251971	45252127	157	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	8065	8139	75	46189015	46189089	75	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				50564565	50564677	113		Tao_Genes_2023
+7	8301	15614	7314	57166975	57175065	8091	777	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	7875	8315	441	57175066	57175125	60	381	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	3819	16569	12751	57185765	57198470	12706	45	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	1	60	60	57198471	57198530	60	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				63094845	63094917	73		Tao_Genes_2023
+7	8757	8822	66	63187065	63187130	66	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	8662	11979	3318	64104094	64107366	3273	45	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	3094	11979	8886	64104094	64112691	8598	288	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+7	3430	8642	5213	64107448	64112585	5138	75	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	3094	3191	98	64112590	64112691	102	4	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	9016	9513	498	67627832	67628353	522	24	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	7180	7539	360	68097736	68098352	617	257	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	11125	11528	404	68266320	68266859	540	136	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	12960	13065	106	68736528	68736633	106	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	8462	8741	280	69329981	69330272	292	12	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	5233	8741	3509	69329981	69334595	4615	1106	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+7	7515	8396	882	69330592	69331450	859	23	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	6548	7532	985	69331741	69332727	987	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	5513	6553	1041	69333020	69334005	986	55	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	5233	5525	293	69334304	69334597	294	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				83855231	83855287	57		Tao_Genes_2023
+7	5645	5730	86	111085401	111085486	86	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				111100641	111100716	76		Tao_Genes_2023
+7	13065	16031	2967	112372646	112375580	2935	32	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	1039	1184	146	116306359	116306502	144	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	11047	11503	457	117263895	117264386	492	35	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	1012	1204	193	118896897	118897084	188	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				133191741	133191833	93		Tao_Genes_2023
+7	15589	15787	199	133275456	133275654	199	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	12561	12730	170	141173044	141173213	170	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	3047	6623	3577	141801337	141804665	3329	248	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	2740	3300	561	141804969	141805530	562	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	16557	16569	13	142664441	142664691	251	238	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	574	3094	2521	142665176	142667693	2518	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	1615	1710	96	145997333	145997428	96	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	12425	12550	126	147053045	147053170	126	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	14333	14492	160	150132001	150132160	160	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	2530	2587	58	151425270	151425327	58	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				151514643	151514757	115		Tao_Genes_2023
+7	14332	14489	158	153968663	153968820	158	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7	7759	7907	149	155074617	155074762	146	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+7				156547621	156547672	52		Tao_Genes_2023
+7				159294639	159294694	56		Tao_Genes_2023
+8				1726319	1726492	174		Tao_Genes_2023
+8	11063	11187	125	13353397	13353521	125	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	14393	14501	109	16057004	16057112	109	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	10331	10767	437	18200916	18201345	430	7	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	14792	15238	447	18849262	18849708	447	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	8665	8875	211	20551196	20551406	211	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	4118	4296	179	26951274	26951450	177	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	14522	14996	475	27903245	27903719	475	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	12257	12340	84	32805885	32805967	83	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	16459	16569	111	33010609	33010796	188	77	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	1	11145	11145	33010665	33017255	6591	4554	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+8	582	5080	4499	33011450	33015866	4417	82	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	5109	5721	613	33016648	33017255	608	5	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	13936	16024	2089	36277610	36279696	2087	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8				37029347	37029439	93		Tao_Genes_2023
+8	2648	2733	86	37353323	37353408	86	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8				39399904	39399976	73		Tao_Genes_2023
+8	807	905	99	40070590	40070687	98	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	4246	5133	888	46827238	46828119	882	6	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	1	5133	5133	46827238	46836869	9632	4499	Calabrese_BMCBioinformatics_2012_高置信
+8	1	16569	16569	46827238	46839027	11790	4779	Simone_BMC_Genomics_2011_版本2_585_高置信
+8	656	3521	2866	46828189	46831050	2862	4	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	172	239	68	46836642	46836709	68	0	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	14424	16569	2146	46836870	46839027	2158	12	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	13454	13557	104	48400740	48400848	109	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	15174	15387	214	52751743	52751957	215	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8				63884438	63884594	157		Tao_Genes_2023
+8	168	364	197	67580528	67580863	336	139	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	13555	16569	3015	67580764	67583874	3111	96	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	9176	16569	7394	67580864	67588442	7579	185	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+8				67584183	67588451	4269		Tao_Genes_2023
+8	10633	13562	2930	67584187	67587086	2900	30	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	8489	9827	1339	67587096	67588442	1347	8	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	5353	5612	260	69102973	69103231	259	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	625	782	158	72985697	72985854	158	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	2286	2661	376	76201763	76202139	377	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	1522	1735	214	76645457	76645669	213	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	4666	4922	257	78282214	78282468	255	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8				88939716	88939798	83		Tao_Genes_2023
+8	8805	8923	119	97908037	97908155	119	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	14860	14943	84	99495870	99495953	84	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	16444	16563	120	103081963	103082084	122	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	581	12176	11596	103082325	103091463	9139	2457	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+8	581	2340	1760	103082684	103084355	1672	88	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	1013	7114	6102	103083055	103090419	7365	1263	Daniela_Lascaro_BMC_Genomics_2008
+8	2445	4372	1928	103084764	103086701	1938	10	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	4362	4896	535	103087000	103087538	539	4	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	5516	6037	522	103088413	103088933	521	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	6094	7324	1231	103089426	103090632	1207	24	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	7447	7788	342	103091121	103091464	344	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8				110081491	110081677	187		Tao_Genes_2023
+8	5089	7195	2107	110933244	110935366	2123	16	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	15633	15901	269	111248841	111249155	315	46	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	6881	7008	128	120224313	120224440	128	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	10162	10505	344	133515505	133515851	347	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8	4864	6709	1846	133754807	133756648	1842	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+8				137861755	137862009	255		Tao_Genes_2023
+8	12845	13213	369	139651453	139651818	366	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	13704	14700	997	5091067	5092005	939	58	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	1286	7946	6661	5092087	5098698	6612	49	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	1286	13610	12325	5092087	5110735	18649	6324	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+9	7932	9890	1959	5098990	5100918	1929	30	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	9881	13610	3730	5107046	5110741	3696	34	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	2451	2540	90	18336644	18336733	90	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	6593	6653	61	18826068	18826128	61	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	16557	16569	13	33655881	33655968	88	75	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	574	3093	2520	33656610	33659130	2521	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	15514	15773	260	33916480	33916741	262	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	16100	16478	379	34999144	34999510	367	12	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9				36473989	36474021	33		Tao_Genes_2023
+9				40613863	40614017	155		Tao_Genes_2023
+9	1021	1509	489	42256672	42257161	490	1	Daniela_Lascaro_BMC_Genomics_2008
+9	5770	6528	759	42257714	42258448	735	24	Daniela_Lascaro_BMC_Genomics_2008
+9				43244303	43244457	155		Tao_Genes_2023
+9	3747	3890	144	63026134	63026277	144	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9				63413067	63413221	155		Tao_Genes_2023
+9				64045494	64046461	968		Tao_Genes_2023
+9				64046464	64047813	1350		Tao_Genes_2023
+9				64047876	64048398	523		Tao_Genes_2023
+9	3747	3890	144	64737075	64737218	144	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	3747	3890	144	65222580	65222723	144	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	3747	3890	144	65799263	65799406	144	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	13855	14351	497	77964854	77965344	491	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	4396	6214	1819	78741011	78742818	1808	11	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	1	11392	11392	78741011	78744364	3354	8038	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+9	581	1008	428	78743087	78743514	428	0	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	16414	16569	156	78744287	78744442	156	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	3810	3919	110	78810865	78810972	108	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	4605	6990	2386	80563554	80565930	2377	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	9109	9888	780	82427347	82428115	769	11	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9				85320498	85320559	62		Tao_Genes_2023
+9	5027	5103	77	90435761	90435837	77	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	9109	9888	780	92108915	92109690	776	4	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	9541	11699	2159	92109981	92111770	1790	369	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	5427	6022	596	92539063	92539686	624	28	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9				93759607	93759712	106		Tao_Genes_2023
+9	10400	10448	49	95877109	95877158	50	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	9937	10360	424	101793454	101793877	424	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	13835	14038	204	103065409	103065612	204	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	4863	5454	592	109300229	109301143	915	323	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9				111633234	111633403	170		Tao_Genes_2023
+9				112576772	112576875	104		Tao_Genes_2023
+9				116756625	116756723	99		Tao_Genes_2023
+9				120335301	120335411	111		Tao_Genes_2023
+9				126548253	126548344	92		Tao_Genes_2023
+9	2767	2841	75	129878857	129878931	75	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9	1797	1913	117	133417316	133417432	117	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+9				133739146	133739309	164		Tao_Genes_2023
+10	13011	13183	173	2235689	2235860	172	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10				17199513	17199569	57		Tao_Genes_2023
+10	3226	3575	350	19747173	19747516	344	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	3675	3961	287	20804290	20804576	287	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	9622	9795	174	20841371	20841544	174	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10				24867890	24868008	119		Tao_Genes_2023
+10	2606	2680	75	25638517	25638591	75	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	2515	2659	145	26873261	26873405	145	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	1552	1613	62	27876748	27876809	62	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	7141	7216	76	30565268	30565340	73	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	10736	10863	128	33023099	33023230	132	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	1345	1459	115	36214899	36215015	117	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	11657	13948	2292	36432876	36435162	2287	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	1701	3875	2175	37600797	37602974	2178	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	3750	3890	141	38761813	38761953	141	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	3750	3890	141	42210525	42210665	141	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	577	1015	439	46706107	46706545	439	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10				46707251	46707320	70		Tao_Genes_2023
+10				47633080	47633149	70		Tao_Genes_2023
+10	577	1015	439	47633857	47634295	439	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	11	60	50	55597036	55597086	51	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	575	2962	2388	55597816	55600086	2271	117	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	2801	3165	365	55600373	55600735	363	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	8093	8204	112	69155315	69155426	112	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	5472	9034	3563	69589879	69593372	3494	69	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	3293	9034	5742	69589879	69596450	6572	830	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+10	3821	7698	3878	69591150	69595925	4776	898	Daniela_Lascaro_BMC_Genomics_2008
+10	4503	5433	931	69594018	69594936	919	12	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	3293	4488	1196	69595258	69596450	1193	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	5804	5870	67	79411226	79411293	68	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	12506	12996	491	89786624	89787110	487	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10				94763349	94763754	406		Tao_Genes_2023
+10	11308	11764	457	94774172	94774628	457	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	11308	12174	867	94940259	94941121	863	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	11512	11637	126	96650909	96651032	124	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10				96866433	96866539	107		Tao_Genes_2023
+10	8281	8813	533	100057383	100057915	533	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10				111833499	111833617	119		Tao_Genes_2023
+10	346	459	114	112894578	112894690	113	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	3358	3529	172	119838008	119838180	173	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	5743	5890	148	125819798	125819937	140	8	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+10	4354	4422	69	130131136	130131204	69	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	2856	2987	132	6501903	6502030	128	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	577	2972	2396	10507887	10510280	2394	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	13153	13355	203	11239977	11240174	198	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	16193	16386	194	31555109	31555305	197	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	2587	3153	567	37541526	37542060	535	32	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				38586374	38586440	67		Tao_Genes_2023
+11	6810	7804	995	39766246	39767237	992	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023
+11	6810	7804	995	39766246	39773242	6997	6002	UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	13255	13452	198	47323984	47324181	198	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	3381	3891	511	48972953	48973463	511	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				49183395	49183770	376		Tao_Genes_2023
+11	3381	3891	511	49812519	49813024	506	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				49861894	49862282	389		Tao_Genes_2023
+11	3390	3887	498	55273486	55273984	499	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				61116965	61117070	106		Tao_Genes_2023
+11	16434	16569	136	64187335	64187471	137	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				72417043	72417154	112		Tao_Genes_2023
+11	6642	6804	163	73510661	73510823	163	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	15891	16027	137	74566998	74567136	139	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				77256359	77256543	185		Tao_Genes_2023
+11	10821	10902	82	77596175	77596256	82	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	9820	15585	5766	81551574	81557335	5762	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	597	1163	567	87813548	87814110	563	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	14414	15879	1466	87815032	87816474	1443	23	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				89661623	89661996	374		Tao_Genes_2023
+11	3380	3890	511	89908541	89909051	511	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	3380	3890	511	89935493	89936003	511	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	3750	3894	145	90098132	90098273	142	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	2057	9778	7722	103402015	103409578	7564	158	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	575	9778	9204	103402016	103411124	9109	95	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+11	3606	3648	43	103409581	103409623	43	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	575	2040	1466	103409663	103411125	1463	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	15451	15610	160	110876992	110877151	160	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				112139339	112139440	102		Tao_Genes_2023
+11				113766677	113766716	40		Tao_Genes_2023
+11	14659	14730	72	123003606	123003677	72	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	15331	15832	502	123139885	123140386	502	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	5916	6030	115	125851931	125852041	111	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	12537	12607	71	125915516	125915586	71	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11	5676	5727	52	128066532	128066583	52	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+11				131754680	131754822	143		Tao_Genes_2023
+12	4117	4171	55	4232638	4232692	55	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	5687	5958	272	7620315	7620597	283	11	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				7621222	7621685	464		Tao_Genes_2023
+12				7626485	7626632	148		Tao_Genes_2023
+12	6766	6997	232	7637414	7637645	232	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	6296	6510	215	7646872	7647087	216	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				8563954	8564059	106		Tao_Genes_2023
+12	6135	6417	283	9322708	9322986	279	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	6135	6417	283	9408797	9409072	276	7	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				19795687	19795729	43		Tao_Genes_2023
+12	1722	1826	105	22005832	22005936	105	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	5510	5731	222	26572542	26572767	226	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				27756503	27756588	86		Tao_Genes_2023
+12	6135	6370	236	31015446	31015677	232	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	13462	14520	1059	31246708	31247762	1055	4	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	14458	15429	972	31248045	31248974	930	42	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	15488	15612	125	31249111	31249243	133	8	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	6638	7011	374	40286289	40286661	373	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				40952292	40952362	71		Tao_Genes_2023
+12	3790	3878	89	41363635	41363723	89	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	3376	5099	1724	41698558	41700251	1694	30	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	4258	4422	165	49817339	49817502	164	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	4240	4307	68	62774010	62774077	68	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				74069435	74069547	113		Tao_Genes_2023
+12	14761	15137	377	108178336	108178709	374	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				112619125	112619233	109		Tao_Genes_2023
+12	13488	13549	62	114172419	114172480	62	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12				124309498	124309621	124		Tao_Genes_2023
+12	4417	4463	47	126583793	126583839	47	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+12	12141	12343	203	130315599	130315801	203	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	10083	10209	127	22113189	22113315	127	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	12583	12718	136	23765874	23766009	136	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	6784	6924	141	32193340	32193484	145	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	4209	4414	206	36065491	36065696	206	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	9537	9592	56	40768367	40768422	56	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	2095	2385	291	47570843	47571128	286	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	2489	2668	180	49986944	49987121	178	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	13011	13176	166	53891587	53891751	165	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	5104	5229	126	55971634	55971759	126	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	2898	3071	174	56688476	56688649	174	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	7814	8368	555	57204381	57204904	524	31	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13				68709371	68709905	535		Tao_Genes_2023
+13				73725632	73725713	82		Tao_Genes_2023
+13	9870	10038	169	75592239	75592407	169	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	10906	12783	1878	84520256	84522173	1918	40	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	10906	14300	3395	84520256	84524065	3810	415	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+13	12787	14300	1514	84522554	84524086	1533	19	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	13260	13825	566	88571651	88572210	560	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	13051	13340	290	95692540	95692829	290	0	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	13190	16569	3380	95693120	95696453	3334	46	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	1	60	60	95696454	95696513	60	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13	7471	7616	146	96697685	96697830	146	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+13				107058825	107058890	66		Tao_Genes_2023
+13	982	1237	256	109424125	109424380	256	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	2011	2079	69	23426464	23426531	68	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	5583	6606	1024	32484098	32485118	1021	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	574	977	404	51587368	51587768	401	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14				53833947	53834073	127		Tao_Genes_2023
+14				59520482	59520563	82		Tao_Genes_2023
+14				68719601	68719700	100		Tao_Genes_2023
+14	5313	5385	73	78854879	78854951	73	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	596	2214	1619	83587506	83589092	1587	32	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	1835	3314	1480	84171352	84172840	1489	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	11367	12333	967	84172843	84173800	958	9	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	11367	15411	4045	84172843	84177082	4240	195	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+14	12417	14322	1906	84173318	84175693	2376	470	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14	14333	15411	1079	84176009	84177083	1075	4	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+14				94136302	94136395	94		Tao_Genes_2023
+14	8717	8831	115	95199233	95199347	115	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	9653	10050	398	34394594	34394991	398	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	9653	10050	398	34540815	34541212	398	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	3798	3970	173	35396242	35396412	171	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15				35609735	35609847	113		Tao_Genes_2023
+15	11027	11168	142	39201373	39201515	143	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	11706	13134	1429	40133770	40135192	1423	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	11659	11784	126	41157175	41157300	126	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	12979	13186	208	46341391	46341598	208	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	13204	13291	88	48473906	48473993	88	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	11359	11417	59	57790218	57790276	59	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	9720	11042	1323	58150257	58151595	1339	16	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	9720	16019	6300	58150296	58156198	5903	397	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+15	11228	12237	1010	58151603	58152612	1010	0	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	12395	16019	3625	58152648	58156386	3739	114	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15	2174	2216	43	67040911	67040953	43	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15				67499576	67499691	116		Tao_Genes_2023
+15				78220934	78221042	109		Tao_Genes_2023
+15				84718022	84718125	104		Tao_Genes_2023
+15	5384	5435	52	88091357	88091408	52	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+15				100037013	100037088	76		Tao_Genes_2023
+16	5855	7686	1832	3367483	3369297	1815	17	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	2107	7686	5580	3367483	3372740	5258	322	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+16	2823	4615	1793	3369598	3371388	1791	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	2152	2514	363	3372177	3372536	360	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	3011	3069	59	7029727	7029785	59	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16				7100555	7100586	32		Tao_Genes_2023
+16	14492	16029	1538	10718483	10720013	1531	7	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	8499	14537	6039	10718483	10725324	6842	803	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16				13625562	13625742	181		Tao_Genes_2023
+16	10379	10451	73	13991926	13991999	74	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	12220	13574	1355	20721048	20722401	1354	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	10457	10612	156	49066600	49066743	144	12	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16				55007985	55008285	301		Tao_Genes_2023
+16				68600547	68600649	103		Tao_Genes_2023
+16	12196	12369	174	69358670	69358849	180	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	2653	2707	55	70682712	70682766	55	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	13904	16029	2126	82119859	82122609	2751	625	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	15104	16569	1466	82119919	82120186	268	1198	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+16	16085	16568	484	83673020	83673513	494	10	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17				6086277	6086333	57		Tao_Genes_2023
+17	598	2068	1471	17070759	17072226	1468	3	Daniela_Lascaro_BMC_Genomics_2008
+17	8789	8875	87	18983428	18983515	88	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	8690	8857	168	18986188	18986352	165	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	16296	16569	274	19597536	19597869	334	60	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	1	6392	6392	19597812	19605933	8122	1730	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+17	575	2097	1523	19598559	19600075	1517	6	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	2371	2970	600	19600825	19601422	598	2	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	3261	4613	1353	19602214	19603548	1335	18	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	4605	4919	315	19603846	19604166	321	6	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	4936	6392	1457	19604478	19605933	1456	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	11796	11899	104	19746394	19746494	101	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17				22519194	22532766	13573		Tao_Genes_2023
+17	14365	16569	2205	22519195	22521400	2206	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	1	458	458	22521401	22521855	455	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	287	11112	10826	22521718	22532515	10798	28	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	14327	14582	256	22532515	22532766	252	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	13121	13199	79	28974348	28974426	79	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17				33692136	33692484	349		Tao_Genes_2023
+17	2265	2594	330	35654871	35655194	324	6	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	10142	10209	68	43997716	43997783	68	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	6818	7470	653	53105733	53106385	653	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	12264	12338	75	54903101	54903174	74	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	12008	12081	74	61127328	61127401	74	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17	9338	9568	231	63393355	63393585	231	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17				66278040	66278112	73		Tao_Genes_2023
+17	9869	10290	422	68938714	68939123	410	12	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+17				70174110	70174269	160		Tao_Genes_2023
+17	6902	6948	47	80617576	80617622	47	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+18	14381	14503	123	2842232	2842354	123	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+18				13784159	13784252	94		Tao_Genes_2023
+18	7572	7638	67	14136791	14136857	67	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+18				26708782	26708948	167		Tao_Genes_2023
+18	3139	3208	70	34628925	34628995	71	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+18	7975	8166	192	47853246	47853437	192	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+18				48132012	48132125	114		Tao_Genes_2023
+18	11266	11619	354	50669528	50669878	351	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+18				55020683	55020766	84		Tao_Genes_2023
+18	934	1300	367	61874553	61874910	358	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+18				62776945	62777074	130		Tao_Genes_2023
+18	16290	16471	182	64154887	64155067	181	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	4214	4904	691	12095653	12096334	682	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	2536	2842	307	12104884	12105189	306	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	3659	4331	673	12203729	12203800	72	601	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	4643	9279	4637	12502675	12508103	5429	792	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+19	4718	5118	401	12502907	12503303	397	4	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19				12504673	12504896	224		Tao_Genes_2023
+19	7893	8245	353	12505652	12506060	409	56	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	8721	9279	559	12507551	12508108	558	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	6053	6105	53	17459193	17459245	53	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	832	905	74	27741809	27741878	70	4	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	987	1058	72	30022334	30022405	72	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	11033	16562	5530	37570479	37575676	5198	332	Calabrese_BMCBioinformatics_2012_高置信
+19	581	16562	15982	37570479	37580500	10022	5960	Simone_BMC_Genomics_2011_版本2_585_高置信
+19	12221	12320	100	37571814	37571912	99	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	13170	13925	756	37573877	37574619	743	13	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	16497	16562	66	37575585	37575681	97	31	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	581	2055	1475	37576253	37577744	1492	17	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	581	7254	6674	37576256	37580500	4245	2429	Calabrese_BMCBioinformatics_2012_高置信
+19	6322	7254	933	37579611	37580502	892	41	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	7085	7319	235	42190702	42190936	235	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	9066	9136	71	44146428	44146567	140	69	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	13993	14487	495	56691001	56691812	812	317	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+19	11916	12339	424	56922001	56922424	424	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	3080	3154	75	2188409	2188483	75	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	651	753	103	4728916	4729018	103	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	6170	6501	332	5965180	5965503	324	8	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	2180	2221	42	9168924	9168965	42	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	3499	3541	43	13167312	13167354	43	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20				13305197	13305232	36		Tao_Genes_2023
+20				30744397	30744928	532		Tao_Genes_2023
+20				30744983	30746322	1340		Tao_Genes_2023
+20				30746335	30747300	966		Tao_Genes_2023
+20	9654	10035	382	34688663	34689035	373	9	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20				35778756	35778794	39		Tao_Genes_2023
+20	12961	13030	70	57064054	57064123	70	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	573	4281	3709	57357408	57361061	3654	55	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	335	365	31	57361713	57361810	98	67	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+20	7709	8180	472	60414394	60414865	472	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21				8680250	8680404	155		Tao_Genes_2023
+21				8844304	8845274	971		Tao_Genes_2023
+21				8845287	8846627	1341		Tao_Genes_2023
+21				8846690	8847212	523		Tao_Genes_2023
+21				10014855	10015015	161		Tao_Genes_2023
+21	7572	7638	67	14021580	14021646	67	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	4941	5037	97	16470420	16470516	97	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21				17842917	17843020	104		Tao_Genes_2023
+21	13374	13470	97	24931381	24931477	97	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	5510	6444	935	35890274	35892124	1851	916	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	4535	4890	356	35891778	35892124	347	9	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	15855	16028	174	39611005	39611181	177	3	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	4883	5110	228	42406711	42406933	223	5	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	15174	15429	256	44470674	44470928	255	1	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	12257	15429	3173	44470675	44475175	4501	1328	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+21	13986	14232	247	44473655	44473892	238	9	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+21	5994	6190	197	45376188	45376384	197	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22				10657379	10657533	155		Tao_Genes_2023
+22				11854091	11855061	971		Tao_Genes_2023
+22				11854091	11871229	17139		Tao_Genes_2023
+22				11855074	11856416	1343		Tao_Genes_2023
+22				11856481	11857003	523		Tao_Genes_2023
+22				12135352	12135874	523		Tao_Genes_2023
+22				12135939	12137281	1343		Tao_Genes_2023
+22				12137294	12138262	969		Tao_Genes_2023
+22	3750	3890	141	16876224	16876364	141	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22				29135286	29135350	65		Tao_Genes_2023
+22	14773	15114	342	32894883	32895223	341	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22	6180	6226	47	35885672	35885718	47	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22				36075001	36075057	57		Tao_Genes_2023
+22	7089	7639	551	36172427	36173017	591	40	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22	7089	16568	9480	36172427	36177243	4817	4663	Calabrese_BMCBioinformatics_2012_高置信
+22	578	16568	15991	36172427	36179549	7123	8868	Simone_BMC_Genomics_2011_版本2_585_高置信
+22	7752	9019	1268	36173438	36174752	1315	47	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22	15481	15808	328	36176045	36176375	331	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22	3718	3939	222	36178529	36178757	229	7	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22	7297	7365	69	41764957	41765025	69	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22	12643	12710	68	46470266	46470333	68	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+22				50086164	50086393	230		Tao_Genes_2023
+X				4059580	4059845	266		Tao_Genes_2023
+X	14071	16005	1935	5168837	5170789	1953	18	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	16143	16250	108	5171069	5171444	376	268	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X				9805648	9805813	166		Tao_Genes_2023
+X				11478163	11478321	159		Tao_Genes_2023
+X				11588393	11588549	157		Tao_Genes_2023
+X				15727730	15727926	197		Tao_Genes_2023
+X				18810804	18810906	103		Tao_Genes_2023
+X				20331700	20331809	110		Tao_Genes_2023
+X				22173860	22173922	63		Tao_Genes_2023
+X				22459939	22460014	76		Tao_Genes_2023
+X				24056264	24056460	197		Tao_Genes_2023
+X				26824823	26825010	188		Tao_Genes_2023
+X				40037350	40037453	104		Tao_Genes_2023
+X				44924260	44924324	65		Tao_Genes_2023
+X				51271672	51271781	110		Tao_Genes_2023
+X				53384003	53384187	185		Tao_Genes_2023
+X				55038553	55038659	107		Tao_Genes_2023
+X	576	6406	5831	55178235	55184027	5793	38	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	1	10738	10738	62838721	62844145	5425	5313	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+X	15975	16023	49	62838757	62839033	277	228	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	577	2749	2173	62839625	62841826	2202	29	Calabrese_BMCBioinformatics_2012_低置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	2801	4906	2106	62842012	62844145	2134	28	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X				70119564	70121497	1934		Tao_Genes_2023
+X				70121980	70122039	60		Tao_Genes_2023
+X				70124888	70125272	385		Tao_Genes_2023
+X				70125839	70126808	970		Tao_Genes_2023
+X				70127116	70127949	834		Tao_Genes_2023
+X				70128929	70129100	172		Tao_Genes_2023
+X				78107667	78107772	106		Tao_Genes_2023
+X				84403924	84404023	100		Tao_Genes_2023
+X				87853380	87853467	88		Tao_Genes_2023
+X				97214840	97214876	37		Tao_Genes_2023
+X				100720529	100720636	108		Tao_Genes_2023
+X				102009164	102009467	304		Tao_Genes_2023
+X				102010283	102011776	1494		Tao_Genes_2023
+X				102012333	102012409	77		Tao_Genes_2023
+X	2886	3300	415	102772553	102773271	719	304	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X				102785689	102787206	1518		Tao_Genes_2023
+X				102787916	102788388	473		Tao_Genes_2023
+X				102796834	102797220	387		Tao_Genes_2023
+X				102797848	102798939	1092		Tao_Genes_2023
+X				102799458	102799891	434		Tao_Genes_2023
+X				102800061	102800973	913		Tao_Genes_2023
+X	12208	12337	130	102802913	102803045	133	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	12208	16569	4362	102802913	102808514	5602	1240	Calabrese_BMCBioinformatics_2012_高置信
+X	205	16569	16365	102802913	102810300	7388	8977	Simone_BMC_Genomics_2011_版本2_585_高置信
+X				102804639	102807943	3305		Tao_Genes_2023
+X	12610	13613	1004	102804641	102805623	983	21	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X				102806007	102806290	284		Tao_Genes_2023
+X	14435	16006	1572	102806440	102807943	1504	68	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	8255	8407	153	102808251	102808590	340	187	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	581	1795	1215	102809119	102810300	1182	33	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X				103613689	103613830	142		Tao_Genes_2023
+X				111416991	111417161	171		Tao_Genes_2023
+X				125367021	125367132	112		Tao_Genes_2023
+X	6553	7302	750	126472467	126472732	266	484	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	14679	16023	1345	126729042	126730366	1325	20	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X				126731718	126731849	132		Tao_Genes_2023
+X				129096740	129096849	110		Tao_Genes_2023
+X				136072828	136073189	362		Tao_Genes_2023
+X				136229854	136229934	81		Tao_Genes_2023
+X				140585208	140585363	156		Tao_Genes_2023
+X	16537	16569	33	143429276	143429368	93	60	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	1	10829	10829	143429293	143435147	5855	4974	Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本2_585_高置信
+X	576	2216	1641	143429925	143431537	1613	28	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	1054	4415	3362	143430381	143434110	3730	368	Daniela_Lascaro_BMC_Genomics_2008
+X	2289	2699	411	143431694	143432104	411	0	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	2714	4423	1710	143432440	143434118	1679	31	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X	4414	5088	675	143434475	143435149	675	0	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+X				143543785	143543853	69		Tao_Genes_2023
+X				146741527	146741606	80		Tao_Genes_2023
+Y	1272	1342	71	4344781	4344851	71	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	14274	16017	1744	8363562	8365288	1727	17	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	16294	16561	268	8365576	8365845	270	2	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	596	1175	580	8366617	8367199	583	3	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	596	4959	4364	8366628	8372714	6087	1723	Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本2_585_高置信
+Y	1159	3458	2300	8369519	8371814	2296	4	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	4057	4959	903	8371838	8372714	877	26	Calabrese_BMCBioinformatics_2012_低置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	6498	6563	66	9141896	9141961	66	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	9386	10302	917	11132098	11133053	956	39	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	5613	6982	1370	11133066	11134411	1346	24	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	1019	1508	490	11134474	11134991	518	28	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Daniela_Lascaro_BMC_Genomics_2008;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	3750	3890	141	11445424	11445564	141	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	13789	13922	134	14068156	14068288	133	1	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y	15565	15710	146	18872102	18872247	146	0	Calabrese_BMCBioinformatics_2012_低置信;Calabrese_BMCBioinformatics_2012_高置信;Simone_BMC_Genomics_2011_版本1_766_HSP;Simone_BMC_Genomics_2011_版本2_585_高置信;Tao_Genes_2023;UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/
+Y				22187748	22187828	81		Tao_Genes_2023
+Y				22398590	22398670	81		Tao_Genes_2023

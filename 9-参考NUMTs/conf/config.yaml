@@ -1,0 +1,44 @@
+project:
+  name: reference_numts_grch38_cleanup
+
+runtime:
+  python_bin: "python"
+  tmp_dir: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/tmp"
+  summary_path: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/tmp/整理参考NUMTs.summary.txt"
+
+input:
+  path: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/整合_未整理.tsv"
+  delimiter: "\t"
+
+filters:
+  include_sources:
+    - "Daniela_Lascaro_BMC_Genomics_2008"
+    - "Simone_BMC_Genomics_2011_版本1_766_HSP"
+    - "Simone_BMC_Genomics_2011_版本2_585_高置信"
+    - "Calabrese_BMCBioinformatics_2012_低置信"
+    - "Calabrese_BMCBioinformatics_2012_高置信"
+    - "UCSC_https://hgdownload.soe.ucsc.edu/goldenPath/hg18/database/"
+    - "Tao_Genes_2023"
+
+output:
+  path: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/整理后_参考NUMTs.tsv"
+
+dual_output:
+  nuc_only:
+    strict_path: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/output/整理后_仅考虑nuc断点_固定参考.tsv"
+    strict_summary_path: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/tmp/整理参考NUMTs_仅考虑nuc断点_固定参考.summary.txt"
+    all_sources_path: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/output/整理后_仅考虑nuc断点_全部来源.tsv"
+    all_sources_summary_path: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/tmp/整理参考NUMTs_仅考虑nuc断点_全部来源.summary.txt"
+
+liftover:
+  bin: "/home/luolintao/miniconda3/envs/BigLin/bin/liftOver"
+  min_match: 0.95
+  hg18_to_hg38_chain: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/data/hg18ToHg38.over.chain.gz"
+  hg19_to_hg38_chain: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/0-GRCH37-liftover/data/hg19ToHg38.over.chain.gz"
+  hs1_to_hg38_chain: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/9-参考NUMTs/data/hs1ToHg38.over.chain.gz"
+  hg18_to_hg38_chain_url: "https://hgdownload.soe.ucsc.edu/goldenPath/hg18/liftOver/hg18ToHg38.over.chain.gz"
+  hg19_to_hg38_chain_url: "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz"
+  hs1_to_hg38_chain_url: "https://hgdownload.soe.ucsc.edu/goldenPath/hs1/liftOver/hs1ToHg38.over.chain.gz"
+
+dedup:
+  max_breakpoint_distance: 1000

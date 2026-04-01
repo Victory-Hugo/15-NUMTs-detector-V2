@@ -8,7 +8,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 CONF_DIR="${PROJECT_DIR}/conf"
-CONF_FILE="circos_allNUMTs-10K.conf"
+CONF_FILE="circos_allNUMTs.conf"
 CIRCOS_BIN="${CIRCOS_BIN:-}"
 
 if [[ ! -d "${CONF_DIR}" ]]; then
@@ -67,6 +67,6 @@ echo -e "\e[36mCircos官方文档: http://circos.ca/documentation/\e[0m"
 
 # 黄色输出：输入输出文件修改提示
 echo -e "\e[33m===============================================\e[0m"
-echo -e "\e[33m如果需要修改输入文件,请修改 file = ../output/circos.txt\e[0m"
+echo -e "\e[33m如果需要修改输入文件,请修改 conf 文件中的 file = ../input/circos_SLE.txt\e[0m"
 echo -e "\e[33m如果需要修改输出文件,请修改 file* = ../output/CircosPlot_allNUMT\e[0m"
 echo -e "\e[33m===============================================\e[0m"

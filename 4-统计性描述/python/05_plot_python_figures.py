@@ -33,6 +33,16 @@ EDGE_COLOR = "#30203e"
 GRID_COLOR = "#d9d9d9"
 CLASS_ORDER = ["common", "low-frequency", "rare", "ultra-rare"]
 CLASS_COLORS = dict(zip(CLASS_ORDER, DISCRETE_PALETTE[: len(CLASS_ORDER)]))
+CLASS_LABELS = {
+    "common": "Common",
+    "low-frequency": "Low-frequency",
+    "rare": "Rare",
+    "ultra-rare": "Ultra-rare",
+    "private": "Private",
+}
+PRIVATE_CATEGORY = "private"
+PRIVATE_COLOR = DISCRETE_PALETTE[4]
+CATEGORY_COLORS = {**CLASS_COLORS, PRIVATE_CATEGORY: PRIVATE_COLOR}
 
 
 def configure_logging() -> None:
@@ -55,6 +65,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--freq-cluster-tsv", required=True)
     parser.add_argument("--freq-class-tsv", required=True)
     parser.add_argument("--support-summary-tsv", required=True)
+    parser.add_argument("--scatter-tsv")
+    parser.add_argument("--relative-frequency-tsv")
     parser.add_argument("--out-prefix", required=True)
     return parser
 
@@ -64,6 +76,63 @@ def save_figure(fig: plt.Figure, out_prefix: Path) -> None:
     fig.savefig(out_prefix.with_suffix(".svg"), bbox_inches="tight")
     fig.savefig(out_prefix.with_suffix(".png"), dpi=300, bbox_inches="tight")
     plt.close(fig)
+
+
+def save_scatter_table(plot_df: pd.DataFrame, out_tsv: Path) -> None:
+    out_tsv.parent.mkdir(parents=True, exist_ok=True)
+    export_df = plot_df.rename(
+        columns={
+            "midpoint": "region_midpoint",
+            "chosen_length": "numt_size_bp",
+            "frequency": "numt_frequency",
+            "neg_log2_frequency": "neg_log2_numt_frequency",
+        }
+    )[
+        [
+            "sampleID",
+            "region_id",
+            "region_chr",
+            "region_start",
+            "region_end",
+            "region_midpoint",
+            "numt_size_bp",
+            "numt_frequency",
+            "neg_log2_numt_frequency",
+            "frequency_class",
+            "cluster_min_midpoint",
+            "cluster_max_midpoint",
+        ]
+    ].copy()
+    export_df.to_csv(out_tsv, sep="\t", index=False)
+
+
+def save_relative_frequency_table(plot_df: pd.DataFrame, out_tsv: Path) -> None:
+    out_tsv.parent.mkdir(parents=True, exist_ok=True)
+    export_df = plot_df.rename(
+        columns={
+            "category": "frequency_category",
+            "label": "frequency_category_label",
+            "mean_frequency": "mean_numt_frequency",
+            "relative_percentage": "relative_percentage_vs_common",
+        }
+    )[
+        [
+            "sort_order",
+            "frequency_category",
+            "frequency_category_label",
+            "locus_count",
+            "mean_numt_frequency",
+            "relative_percentage_vs_common",
+        ]
+    ].copy()
+    export_df["common_reference"] = "Common mean frequency = 100%"
+    export_df["private_definition"] = export_df["frequency_category"].map(
+        lambda value: "singleton distinct NUMT loci (sample_count == 1)" if value == PRIVATE_CATEGORY else ""
+    )
+    export_df["relationship_to_ultra_rare"] = export_df["frequency_category"].map(
+        lambda value: "subset_of_ultra_rare" if value == PRIVATE_CATEGORY else ""
+    )
+    export_df.to_csv(out_tsv, sep="\t", index=False)
 
 
 def choose_histogram_bins(lengths: np.ndarray) -> np.ndarray:
@@ -239,6 +308,97 @@ def plot_support_sensitivity(ax: plt.Axes, support_df: pd.DataFrame) -> None:
     ax.set_axisbelow(True)
 
 
+def build_relative_frequency_percentage_df(freq_cluster_df: pd.DataFrame) -> pd.DataFrame:
+    working_df = freq_cluster_df.copy()
+    working_df["sample_count"] = pd.to_numeric(working_df["sample_count"], errors="coerce")
+    working_df["frequency"] = pd.to_numeric(working_df["frequency"], errors="coerce")
+    working_df = working_df.dropna(subset=["sample_count", "frequency", "frequency_class"]).copy()
+    if working_df.empty:
+        raise ValueError("频率聚类表为空，无法绘制频率百分比子图")
+
+    category_order = ["common", "low-frequency", "rare", "ultra-rare", PRIVATE_CATEGORY]
+    rows: list[dict[str, float | int | str]] = []
+    for category in CLASS_ORDER:
+        class_df = working_df.loc[working_df["frequency_class"] == category].copy()
+        rows.append(
+            {
+                "category": category,
+                "mean_frequency": float(class_df["frequency"].mean()) if not class_df.empty else 0.0,
+                "locus_count": int(len(class_df)),
+            }
+        )
+
+    private_df = working_df.loc[working_df["sample_count"].astype(int) == 1].copy()
+    rows.append(
+        {
+            "category": PRIVATE_CATEGORY,
+            "mean_frequency": float(private_df["frequency"].mean()) if not private_df.empty else 0.0,
+            "locus_count": int(len(private_df)),
+        }
+    )
+
+    plot_df = pd.DataFrame(rows)
+    common_reference = float(
+        plot_df.loc[plot_df["category"] == "common", "mean_frequency"].iloc[0]
+    )
+    if common_reference <= 0:
+        raise ValueError("Common 频率均值 <= 0，无法将其归一化为 100%")
+
+    plot_df["relative_percentage"] = plot_df["mean_frequency"] / common_reference * 100.0
+    plot_df["label"] = plot_df["category"].map(CLASS_LABELS)
+    plot_df["color"] = plot_df["category"].map(CATEGORY_COLORS)
+    plot_df["sort_order"] = plot_df["category"].map({category: idx for idx, category in enumerate(category_order)})
+    return plot_df.sort_values("sort_order").reset_index(drop=True)
+
+
+def plot_relative_frequency_percentage(ax: plt.Axes, freq_cluster_df: pd.DataFrame) -> None:
+    plot_df = build_relative_frequency_percentage_df(freq_cluster_df)
+    y_pos = np.arange(len(plot_df))
+    bar_values = plot_df["relative_percentage"].astype(float).to_numpy()
+
+    ax.barh(
+        y_pos,
+        bar_values,
+        color=plot_df["color"].tolist(),
+        edgecolor=EDGE_COLOR,
+        linewidth=0.7,
+        height=0.68,
+    )
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(plot_df["label"])
+    ax.invert_yaxis()
+    ax.set_xscale("log")
+    ax.set_xlabel("Percentage (Common mean frequency = 100%)")
+    ax.set_ylabel("Frequency class")
+    ax.set_title("I. Relative frequency scale across classes", loc="left", fontweight="bold")
+    ax.grid(axis="x", color=GRID_COLOR, linewidth=0.8, alpha=0.5)
+    ax.set_axisbelow(True)
+
+    min_positive = max(float(bar_values[bar_values > 0].min()), 1e-4)
+    ax.set_xlim(min_positive / 1.6, 140)
+
+    for idx, (_, row) in enumerate(plot_df.iterrows()):
+        value = float(row["relative_percentage"])
+        label_text = f"{value:.2f}%"
+        x_pos = min(value * 1.15, 132.0)
+        ha = "left"
+        if value >= 85:
+            x_pos = value / 1.15
+            ha = "right"
+        ax.text(x_pos, idx, label_text, va="center", ha=ha, fontsize=9.5, color=EDGE_COLOR)
+
+    private_count = int(plot_df.loc[plot_df["category"] == PRIVATE_CATEGORY, "locus_count"].iloc[0])
+    ultra_rare_count = int(plot_df.loc[plot_df["category"] == "ultra-rare", "locus_count"].iloc[0])
+    add_panel_stats_box(
+        ax,
+        [
+            "Private = singleton distinct loci",
+            "Private is a subset of Ultra-rare",
+            f"n(private) = {private_count:,}; n(ultra-rare) = {ultra_rare_count:,}",
+        ],
+    )
+
+
 def plot_genomewide_recurrence(ax: plt.Axes, freq_cluster_df: pd.DataFrame) -> None:
     plot_df = freq_cluster_df.copy()
     plot_df["chr_order"] = plot_df["chr"].map(chrom_sort_value)
@@ -278,6 +438,91 @@ def plot_genomewide_recurrence(ax: plt.Axes, freq_cluster_df: pd.DataFrame) -> N
     ax.set_axisbelow(True)
 
 
+def build_region_frequency_length_df(length_df: pd.DataFrame, freq_cluster_df: pd.DataFrame) -> pd.DataFrame:
+    region_df = length_df.copy()
+    region_df["region_start"] = pd.to_numeric(region_df["region_start"], errors="coerce")
+    region_df["region_end"] = pd.to_numeric(region_df["region_end"], errors="coerce")
+    region_df["chosen_length"] = pd.to_numeric(region_df["chosen_length"], errors="coerce")
+    region_df = region_df.dropna(subset=["region_chr", "region_start", "region_end", "chosen_length"]).copy()
+    region_df["midpoint"] = ((region_df["region_start"] + region_df["region_end"]) / 2).astype(int)
+
+    cluster_df = freq_cluster_df.copy()
+    cluster_df["cluster_min_midpoint"] = pd.to_numeric(cluster_df["cluster_min_midpoint"], errors="coerce")
+    cluster_df["cluster_max_midpoint"] = pd.to_numeric(cluster_df["cluster_max_midpoint"], errors="coerce")
+    cluster_df["frequency"] = pd.to_numeric(cluster_df["frequency"], errors="coerce")
+    cluster_df = cluster_df.dropna(
+        subset=["chr", "cluster_min_midpoint", "cluster_max_midpoint", "frequency", "frequency_class"]
+    ).copy()
+
+    merged_df = region_df.merge(
+        cluster_df[["chr", "cluster_min_midpoint", "cluster_max_midpoint", "frequency", "frequency_class"]],
+        left_on="region_chr",
+        right_on="chr",
+        how="left",
+    )
+    plot_df = merged_df.loc[
+        (merged_df["midpoint"] >= merged_df["cluster_min_midpoint"])
+        & (merged_df["midpoint"] <= merged_df["cluster_max_midpoint"])
+        & (merged_df["frequency"] > 0)
+    ].copy()
+    if plot_df.empty:
+        raise ValueError("未找到可用于频率-长度散点图的 region 与 cluster 映射")
+
+    matched_counts = plot_df.groupby("region_id").size()
+    duplicated_regions = matched_counts[matched_counts > 1]
+    if not duplicated_regions.empty:
+        raise ValueError("存在 region 映射到多个 frequency cluster，无法唯一绘图")
+
+    plot_df["neg_log2_frequency"] = -np.log2(plot_df["frequency"])
+    return plot_df
+
+
+def plot_frequency_length_scatter(ax: plt.Axes, length_df: pd.DataFrame, freq_cluster_df: pd.DataFrame) -> None:
+    plot_df = build_region_frequency_length_df(length_df=length_df, freq_cluster_df=freq_cluster_df)
+    class_colors = plot_df["frequency_class"].map(CLASS_COLORS).fillna(DISCRETE_PALETTE[5])
+    ax.scatter(
+        plot_df["neg_log2_frequency"],
+        plot_df["chosen_length"],
+        c=class_colors,
+        s=10,
+        alpha=0.55,
+        edgecolors="none",
+    )
+    ax.set_xlabel("-log2(frequency of NUMTs)")
+    ax.set_ylabel("Size of NUMTs (bp)")
+    ax.set_title("H. NUMT size versus frequency", loc="left", fontweight="bold")
+    ax.grid(color=GRID_COLOR, linewidth=0.8, alpha=0.5)
+    ax.set_axisbelow(True)
+
+    legend_handles = [
+        plt.Line2D(
+            [0],
+            [0],
+            marker="o",
+            linestyle="",
+            markersize=6,
+            markerfacecolor=CLASS_COLORS[class_name],
+            markeredgecolor="none",
+            label=class_name,
+        )
+        for class_name in CLASS_ORDER
+    ]
+    ax.legend(
+        handles=legend_handles,
+        title="Frequency class",
+        frameon=False,
+        loc="upper right",
+    )
+    add_panel_stats_box(
+        ax,
+        [
+            f"n = {len(plot_df):,}",
+            f"median X = {plot_df['neg_log2_frequency'].median():.2f}",
+            f"median Y = {plot_df['chosen_length'].median():.1f} bp",
+        ],
+    )
+
+
 def build_summary_text(length_df: pd.DataFrame, freq_cluster_df: pd.DataFrame, support_df: pd.DataFrame) -> str:
     locus_lengths = freq_cluster_df["chosen_region_length"].astype(float)
     sample_counts = freq_cluster_df["sample_count"].astype(int)
@@ -299,6 +544,8 @@ def run(
     freq_cluster_tsv: str,
     freq_class_tsv: str,
     support_summary_tsv: str,
+    scatter_tsv: str | None,
+    relative_frequency_tsv: str | None,
     out_prefix: str,
 ) -> int:
     configure_matplotlib()
@@ -310,8 +557,33 @@ def run(
     freq_cluster_df = pd.read_csv(freq_cluster_tsv, sep="\t")
     freq_class_df = pd.read_csv(freq_class_tsv, sep="\t")
     support_df = pd.read_csv(support_summary_tsv, sep="\t")
+    scatter_plot_df = build_region_frequency_length_df(length_df=length_df, freq_cluster_df=freq_cluster_df)
 
-    fig, axes = plt.subplots(4, 2, figsize=(18, 21))
+    if scatter_tsv:
+        scatter_out_path = Path(scatter_tsv)
+    else:
+        scatter_out_path = out_path.with_name(f"{out_path.name}-frequency-length-scatter.tsv")
+    save_scatter_table(scatter_plot_df, scatter_out_path)
+    relative_frequency_plot_df = build_relative_frequency_percentage_df(freq_cluster_df)
+    if relative_frequency_tsv:
+        relative_frequency_out_path = Path(relative_frequency_tsv)
+    else:
+        relative_frequency_out_path = out_path.with_name(f"{out_path.name}-relative-frequency-percentage.tsv")
+    save_relative_frequency_table(relative_frequency_plot_df, relative_frequency_out_path)
+
+    fig = plt.figure(figsize=(18, 25))
+    gridspec = fig.add_gridspec(5, 2, height_ratios=[1, 1, 1, 1, 0.95])
+    axes = np.empty((5, 2), dtype=object)
+    axes[0, 0] = fig.add_subplot(gridspec[0, 0])
+    axes[0, 1] = fig.add_subplot(gridspec[0, 1])
+    axes[1, 0] = fig.add_subplot(gridspec[1, 0])
+    axes[1, 1] = fig.add_subplot(gridspec[1, 1])
+    axes[2, 0] = fig.add_subplot(gridspec[2, 0])
+    axes[2, 1] = fig.add_subplot(gridspec[2, 1])
+    axes[3, 0] = fig.add_subplot(gridspec[3, 0])
+    axes[3, 1] = fig.add_subplot(gridspec[3, 1])
+    axes[4, 0] = fig.add_subplot(gridspec[4, :])
+    axes[4, 1] = None
     fig.patch.set_facecolor("white")
 
     plot_length_histogram(axes[0, 0], freq_cluster_df)
@@ -321,7 +593,43 @@ def run(
     plot_frequency_class(axes[2, 0], freq_class_df)
     plot_support_sensitivity(axes[2, 1], support_df)
     plot_genomewide_recurrence(axes[3, 0], freq_cluster_df)
-    axes[3, 1].axis("off")
+    class_colors = scatter_plot_df["frequency_class"].map(CLASS_COLORS).fillna(DISCRETE_PALETTE[5])
+    axes[3, 1].scatter(
+        scatter_plot_df["neg_log2_frequency"],
+        scatter_plot_df["chosen_length"],
+        c=class_colors,
+        s=10,
+        alpha=0.55,
+        edgecolors="none",
+    )
+    axes[3, 1].set_xlabel("-log2(frequency of NUMTs)")
+    axes[3, 1].set_ylabel("Size of NUMTs (bp)")
+    axes[3, 1].set_title("H. NUMT size versus frequency", loc="left", fontweight="bold")
+    axes[3, 1].grid(color=GRID_COLOR, linewidth=0.8, alpha=0.5)
+    axes[3, 1].set_axisbelow(True)
+    legend_handles = [
+        plt.Line2D(
+            [0],
+            [0],
+            marker="o",
+            linestyle="",
+            markersize=6,
+            markerfacecolor=CLASS_COLORS[class_name],
+            markeredgecolor="none",
+            label=class_name,
+        )
+        for class_name in CLASS_ORDER
+    ]
+    axes[3, 1].legend(handles=legend_handles, title="Frequency class", frameon=False, loc="upper right")
+    add_panel_stats_box(
+        axes[3, 1],
+        [
+            f"n = {len(scatter_plot_df):,}",
+            f"median X = {scatter_plot_df['neg_log2_frequency'].median():.2f}",
+            f"median Y = {scatter_plot_df['chosen_length'].median():.1f} bp",
+        ],
+    )
+    plot_relative_frequency_percentage(axes[4, 0], freq_cluster_df)
 
     summary_text = build_summary_text(length_df, freq_cluster_df, support_df)
     fig.suptitle("NUMT Statistical Description", fontsize=18, fontweight="bold", y=0.995)
@@ -335,10 +643,12 @@ def run(
         color=EDGE_COLOR,
         bbox={"boxstyle": "round,pad=0.4", "facecolor": "#f8f8f8", "edgecolor": "#d9d9d9"},
     )
-    fig.tight_layout(rect=(0, 0, 1, 0.95))
+    fig.tight_layout(rect=(0, 0, 1, 0.96))
 
     save_figure(fig, out_path)
     LOG.info("单一多面板图输出完成: %s", out_path)
+    LOG.info("频率-长度散点图数据表输出完成: %s", scatter_out_path)
+    LOG.info("频率百分比子图数据表输出完成: %s", relative_frequency_out_path)
     return 0
 
 
@@ -352,6 +662,8 @@ def main(argv: List[str] | None = None) -> int:
         freq_cluster_tsv=args.freq_cluster_tsv,
         freq_class_tsv=args.freq_class_tsv,
         support_summary_tsv=args.support_summary_tsv,
+        scatter_tsv=args.scatter_tsv,
+        relative_frequency_tsv=args.relative_frequency_tsv,
         out_prefix=args.out_prefix,
     )
 
