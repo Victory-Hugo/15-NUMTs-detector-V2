@@ -181,7 +181,6 @@ run_with_log "05_plot_python_figures" \
     --freq-cluster-tsv "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
     --freq-class-tsv "$TABLE_OUT_DIR/4-numt-frequency-class-summary.tsv" \
     --support-summary-tsv "$TABLE_OUT_DIR/4-numt-support-summary.tsv" \
-    --scatter-tsv "$TABLE_OUT_DIR/5-numt-size-vs-frequency-scatter.tsv" \
     --relative-frequency-tsv "$TABLE_OUT_DIR/5-numt-relative-frequency-percentage.tsv" \
     --out-prefix "$PYTHON_FIG_OUT_DIR/5-numt-statistical-summary" &
 pid_python_plots=$!

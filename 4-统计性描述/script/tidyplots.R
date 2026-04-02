@@ -2,7 +2,7 @@ library(tidyverse)
 library(tidyplots)
 
 #! 设置输入输出文件路径
-BASE_INPUT_DIR <- "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/4-统计性描述/output/严格阈值/"
+BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/output/排除参考NUMTs严格阈值/"
 df_1_file <- paste0(BASE_INPUT_DIR, "02-tables/2-numt-length-by-region.tsv")
 df_2_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-support-summary.tsv")
 df_3_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-frequency-class-summary.min-support-1.tsv")
@@ -16,7 +16,6 @@ df_3_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_3.pdf")
 df_4_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_4.pdf")
 df_5_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_5.pdf")
 df_6_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_6.pdf")
-df_7_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_7.pdf")
 
 
 
@@ -182,29 +181,7 @@ p5 <- df_Frequency |>
 
 df_Freq_Size <- read_tsv(df_4_file)
 
-p6 <- df_Freq_Size |>
-  select(numt_size_bp,neg_log2_numt_frequency,frequency_class) |>
-  tidyplot(
-    x = neg_log2_numt_frequency,
-    y = numt_size_bp,
-    color = frequency_class
-  ) |>
-  add_data_points(
-    size = 0.2, 
-    alpha = 0.3,
-  rasterize = TRUE,
-  rasterize_dpi = 1000
-                      ) |>
-  adjust_colors(
-    new_colors = c(
-      "common" = "#274753",
-      "low-frequency" = "#299d8f",
-      "rare" = "#f5c710",
-      "ultra-rare" = "#d55e00"
-    )) |>
-  adjust_y_axis_title("Size of NUMTs (bp)") |>
-  adjust_x_axis_title("-Log2 (frequency of NUMTs)") |>
-  save_plot(df_6_file_out)
+
 
 
 df_Freq_Relative <- read_tsv(df_5_file, show_col_types = FALSE) |>
@@ -274,4 +251,4 @@ p7 <- df_Freq_Relative |>
       "ultra-rare" = "#d55e00",
       "private" = "#1c6e97"
     )) |>
-  save_plot(df_7_file_out)
+  save_plot(df_6_file_out)
