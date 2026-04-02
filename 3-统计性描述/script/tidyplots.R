@@ -2,11 +2,10 @@ library(tidyverse)
 library(tidyplots)
 
 #! 设置输入输出文件路径
-BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/output/排除参考NUMTs严格阈值/"
+BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/output/"
 df_1_file <- paste0(BASE_INPUT_DIR, "02-tables/2-numt-length-by-region.tsv")
 df_2_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-support-summary.tsv")
 df_3_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-frequency-class-summary.min-support-1.tsv")
-df_4_file <- paste0(BASE_INPUT_DIR, "02-tables/5-numt-size-vs-frequency-scatter.tsv")
 df_5_file <- paste0(BASE_INPUT_DIR, "02-tables/5-numt-relative-frequency-percentage.tsv")
 
 
@@ -179,7 +178,6 @@ p5 <- df_Frequency |>
   adjust_y_axis_title("Count") |>
   save_plot(df_5_file_out)
 
-df_Freq_Size <- read_tsv(df_4_file)
 
 
 
