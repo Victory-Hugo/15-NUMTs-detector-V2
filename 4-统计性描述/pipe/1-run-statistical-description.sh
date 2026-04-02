@@ -22,6 +22,15 @@ require_var() {
     fi
 }
 
+resolve_path() {
+    local raw_path="$1"
+    if [[ "$raw_path" = /* ]]; then
+        printf '%s\n' "$raw_path"
+    else
+        printf '%s\n' "$PROJECT_ROOT/$raw_path"
+    fi
+}
+
 run_with_log() {
     local log_name="$1"
     shift
@@ -70,15 +79,6 @@ require_var CFG_RUNTIME_CONDA_SH
 require_var CFG_RUNTIME_CONDA_ENV
 require_var CFG_RUNTIME_THREADS
 require_var CFG_RUNTIME_CHUNK_ROWS
-require_var CFG_TIDYPLOTS_LENGTH_COLOR
-require_var CFG_TIDYPLOTS_FREQ_COMMON_COLOR
-require_var CFG_TIDYPLOTS_FREQ_LOW_FREQUENCY_COLOR
-require_var CFG_TIDYPLOTS_FREQ_RARE_COLOR
-require_var CFG_TIDYPLOTS_FREQ_ULTRA_RARE_COLOR
-require_var CFG_TIDYPLOTS_SINGLETON_COLOR
-require_var CFG_TIDYPLOTS_DOUBLETON_COLOR
-require_var CFG_TIDYPLOTS_TRIPLETON_COLOR
-require_var CFG_TIDYPLOTS_PRIVATE_COLOR
 require_var CFG_OUTPUT_TMP_DIR
 require_var CFG_OUTPUT_OUT_DIR
 require_var CFG_OUTPUT_QC_SUBDIR
@@ -107,10 +107,10 @@ fi
 log "Checking Python dependencies"
 "$PYTHON_BIN" -c "import pandas, numpy, matplotlib, seaborn"
 log "Checking R dependencies"
-"$RSCRIPT_BIN" -e "pkgs <- c('RIdeogram','ggplot2','readr','dplyr','tidyr','forcats','patchwork','scales','svglite','tidyplots'); miss <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]; if (length(miss) > 0) { stop(paste('Missing R packages:', paste(miss, collapse=', '))) }"
+"$RSCRIPT_BIN" -e "pkgs <- c('RIdeogram','ggplot2','readr','dplyr','tidyr','forcats','patchwork','scales','svglite'); miss <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]; if (length(miss) > 0) { stop(paste('Missing R packages:', paste(miss, collapse=', '))) }"
 
-TMP_DIR="$PROJECT_ROOT/$CFG_OUTPUT_TMP_DIR"
-OUT_DIR="$PROJECT_ROOT/$CFG_OUTPUT_OUT_DIR"
+TMP_DIR=$(resolve_path "$CFG_OUTPUT_TMP_DIR")
+OUT_DIR=$(resolve_path "$CFG_OUTPUT_OUT_DIR")
 QC_OUT_DIR="$OUT_DIR/$CFG_OUTPUT_QC_SUBDIR"
 TABLE_OUT_DIR="$OUT_DIR/$CFG_OUTPUT_TABLE_SUBDIR"
 PYTHON_FIG_OUT_DIR="$OUT_DIR/$CFG_OUTPUT_FIGURE_PYTHON_SUBDIR"
@@ -214,24 +214,5 @@ wait "$pid_cluster_r"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-marker.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.png"
-
-run_with_log "03_plot_tidyplots" \
-    "$RSCRIPT_BIN" "$PROJECT_ROOT/script/1-tidyplots.R" \
-    --length-tsv "$TABLE_OUT_DIR/2-numt-length-by-region.tsv" \
-    --freq-class-tsv "$PRIMARY_FREQ_CLASS_TSV" \
-    --support-summary-tsv "$TABLE_OUT_DIR/4-numt-support-summary.tsv" \
-    --scatter-tsv "$TABLE_OUT_DIR/5-numt-size-vs-frequency-scatter.tsv" \
-    --relative-frequency-tsv "$TABLE_OUT_DIR/5-numt-relative-frequency-percentage.tsv" \
-    --out-dir "$R_FIG_OUT_DIR" \
-    --primary-min-support "$PRIMARY_MIN_SUPPORT" \
-    --length-color "$CFG_TIDYPLOTS_LENGTH_COLOR" \
-    --freq-common-color "$CFG_TIDYPLOTS_FREQ_COMMON_COLOR" \
-    --freq-low-frequency-color "$CFG_TIDYPLOTS_FREQ_LOW_FREQUENCY_COLOR" \
-    --freq-rare-color "$CFG_TIDYPLOTS_FREQ_RARE_COLOR" \
-    --freq-ultra-rare-color "$CFG_TIDYPLOTS_FREQ_ULTRA_RARE_COLOR" \
-    --singleton-color "$CFG_TIDYPLOTS_SINGLETON_COLOR" \
-    --doubleton-color "$CFG_TIDYPLOTS_DOUBLETON_COLOR" \
-    --tripleton-color "$CFG_TIDYPLOTS_TRIPLETON_COLOR" \
-    --private-color "$CFG_TIDYPLOTS_PRIVATE_COLOR"
 
 log "Pipeline finished successfully"
