@@ -1,6 +1,6 @@
 # Simple YAML subset for shell loading: two-space indentation and scalar values.
 paths:
-  input_file: "input/circos_10K.txt"
+  input_file: "input/circos_SLE.txt"
   reference_dir: "conf/reference"
   output_dir: "output"
   runtime_dir: "output/runtime"

@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
+# v2 版本：在 v1 基础上修复两个问题：
+#   1. Step 02：使用 02_build_length_table_v2.py，chosen_length 改为 mt_start 位置跨度（含环形矫正）
+#   2. Step 04：cluster input 先经 01_filter_qc_samples_v2.py 过滤 QC 不通过样本，再传给聚类步骤
 set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 PROJECT_ROOT=$(cd "$SCRIPT_DIR/.." && pwd)
-CONFIG_PATH="$PROJECT_ROOT/conf/Config.yaml"
-PIPELINE_LOG="$PROJECT_ROOT/tmp/logs/pipeline.log"
+CONFIG_PATH="$PROJECT_ROOT/conf/Config_v2.yaml"
+PIPELINE_LOG="$PROJECT_ROOT/tmp/logs/pipeline_v2.log"
 
 mkdir -p "$PROJECT_ROOT/tmp/logs"
 : > "$PIPELINE_LOG"
@@ -75,6 +78,7 @@ require_var CFG_ANALYSIS_DISTINCT_NUMT_MIN_SAMPLE_SUPPORTS
 require_var CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT
 require_var CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP
 require_var CFG_ANALYSIS_FREQUENCY_DENOMINATOR
+require_var CFG_ANALYSIS_MT_GENOME_LENGTH
 require_var CFG_RUNTIME_CONDA_SH
 require_var CFG_RUNTIME_CONDA_ENV
 require_var CFG_RUNTIME_THREADS
@@ -119,16 +123,22 @@ THREADS="$CFG_RUNTIME_THREADS"
 CHUNK_ROWS="$CFG_RUNTIME_CHUNK_ROWS"
 KARYOTYPE_TXT="$CFG_REFERENCE_KARYOTYPE_TXT"
 
+# v2：QC 过滤后的 cluster input 存放路径（由 step 01v2 产生，step 04 使用）
+CLUSTER_INPUT_PASS_GZ="$TMP_DIR/4-mt_disc_breakpoint_input.pass.tsv.gz"
+
 mkdir -p "$TMP_DIR" "$OUT_DIR" "$TMP_DIR/logs" "$QC_OUT_DIR" "$TABLE_OUT_DIR" "$PYTHON_FIG_OUT_DIR" "$R_FIG_OUT_DIR"
 
 PRIMARY_MIN_SUPPORT="$CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT"
 PRIMARY_FREQ_CLASS_TSV="$TABLE_OUT_DIR/4-numt-frequency-class-summary.min-support-${PRIMARY_MIN_SUPPORT}.tsv"
 
-run_with_log "01_filter_qc_samples" \
-    "$PYTHON_BIN" "$PROJECT_ROOT/python/01_filter_qc_samples.py" \
+# Step 01（v2）：QC 过滤 —— 同时过滤 breakpoint、merge_bed、cluster_input 三个文件
+run_with_log "01_filter_qc_samples_v2" \
+    "$PYTHON_BIN" "$PROJECT_ROOT/python/01_filter_qc_samples_v2.py" \
     --meta-tsv "$CFG_INPUT_META_TSV" \
     --breakpoint-tsv-gz "$CFG_INPUT_BREAKPOINT_TSV_GZ" \
     --merge-bed-tsv-gz "$CFG_INPUT_MERGE_BED_TSV_GZ" \
+    --cluster-input-gz "$CFG_INPUT_DISTINCT_NUMT_CLUSTER_INPUT_TSV_GZ" \
+    --cluster-out-gz "$CLUSTER_INPUT_PASS_GZ" \
     --meta-id-col "$CFG_META_ID_COL" \
     --meta-qc-col "$CFG_META_QC_COL" \
     --meta-qc-pass-value "$CFG_META_QC_PASS_VALUE" \
@@ -138,15 +148,18 @@ run_with_log "01_filter_qc_samples" \
     --summary-out "$QC_OUT_DIR/1-qc-filter-summary.tsv" \
     --threads "$THREADS"
 
-run_with_log "02_build_length_table" \
-    "$PYTHON_BIN" "$PROJECT_ROOT/python/02_build_length_table.py" \
+# Step 02（v2）：长度统计 —— chosen_length 改为 mt_start 跨度（含环形矫正）
+run_with_log "02_build_length_table_v2" \
+    "$PYTHON_BIN" "$PROJECT_ROOT/python/02_build_length_table_v2.py" \
     --input-gz "$TMP_DIR/3-merge_bed.pass.tsv.gz" \
     --output-tsv "$TABLE_OUT_DIR/2-numt-length-by-region.tsv" \
     --summary-tsv "$TABLE_OUT_DIR/2-numt-length-summary.tsv" \
+    --mt-genome-length "$CFG_ANALYSIS_MT_GENOME_LENGTH" \
     --chunk-rows "$CHUNK_ROWS" \
     --temp-dir "$TMP_DIR/length_buckets" &
 pid_length=$!
 
+# Step 03（不变）：事件表
 run_with_log "03_build_event_table" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/03_build_event_table.py" \
     --input-gz "$TMP_DIR/2-confident_breakpoints.pass.tsv.gz" \
@@ -158,9 +171,10 @@ pid_events=$!
 
 wait "$pid_events"
 
+# Step 04（v2 修复）：跨样本聚类 —— 使用 QC 过滤后的 cluster input
 run_with_log "04_cluster_frequency" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/04_cluster_frequency.py" \
-    --cluster-input-file "$CFG_INPUT_DISTINCT_NUMT_CLUSTER_INPUT_TSV_GZ" \
+    --cluster-input-file "$CLUSTER_INPUT_PASS_GZ" \
     --cluster-prefix "$TMP_DIR/4-mt_disc_breakpoint_input" \
     --cluster-out "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
     --class-summary-out "$TABLE_OUT_DIR/4-numt-frequency-class-summary.tsv" \
@@ -206,22 +220,12 @@ run_with_log "02_plot_cluster_distribution" \
     --frequency-denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" &
 pid_cluster_r=$!
 
-run_with_log "06_mtdna_length_frequency" \
-    "$PYTHON_BIN" "$PROJECT_ROOT/python/06_mtdna_length_frequency.py" \
-    --merge-bed-gz "$TMP_DIR/3-merge_bed.pass.tsv.gz" \
-    --cluster-detail-tsv "$TMP_DIR/4-mt_disc_breakpoint_input.min-support-1.allCluster.tsv" \
-    --freq-cluster-tsv "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
-    --output-tsv "$TABLE_OUT_DIR/6-numt-mtdna-length-by-cluster.tsv" \
-    --output-pdf "$PYTHON_FIG_OUT_DIR/6-numt-mtdna-length-frequency.pdf" &
-pid_mtdna_scatter=$!
-
 wait "$pid_python_plots"
 wait "$pid_ideogram"
 wait "$pid_cluster_r"
-wait "$pid_mtdna_scatter"
 
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-marker.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.png"
 
-log "Pipeline finished successfully"
+log "Pipeline v2 finished successfully"
