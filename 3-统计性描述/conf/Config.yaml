@@ -25,17 +25,6 @@ runtime:
   threads: "8"
   chunk_rows: "1000000"
 
-tidyplots:
-  length_color: "#0e4c70"
-  freq_common_color: "#274753"
-  freq_low_frequency_color: "#299d8f"
-  freq_rare_color: "#f5c710"
-  freq_ultra_rare_color: "#d55e00"
-  singleton_color: "#01275c"
-  doubleton_color: "#1c6e97"
-  tripleton_color: "#1c9389"
-  private_color: "#1c6e97"
-
 output:
   tmp_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v1/tmp"
   out_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/"

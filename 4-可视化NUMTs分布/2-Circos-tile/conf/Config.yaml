@@ -1,11 +1,12 @@
 # Simple YAML subset for shell loading: two-space indentation and scalar values.
 paths:
+  # 输入文件路径
   input_file: "input/circos_SLE.txt"
+  tile_input_file: "input/Circos_tile.txt"
   reference_dir: "conf/reference"
   output_dir: "output"
   runtime_dir: "output/runtime"
-  circos_template: "conf/circos.conf.template"
-  rendered_circos_config: "conf/circos.conf"
+  circos_config: "conf/circos.conf"
   links_file: "output/runtime/data/links_numts_breakpoints.txt"
   mt_fragments_file: "output/runtime/data/mtFragments_germline.txt"
   png_output: "output/CircosPlot_allBreakpoint.germline.png"

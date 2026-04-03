@@ -2,12 +2,12 @@ library(tidyverse)
 library(tidyplots)
 
 #! 设置输入输出文件路径
-BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/output/"
+BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v1/output/"
 df_1_file <- paste0(BASE_INPUT_DIR, "02-tables/2-numt-length-by-region.tsv")
 df_2_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-support-summary.tsv")
 df_3_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-frequency-class-summary.min-support-1.tsv")
 df_5_file <- paste0(BASE_INPUT_DIR, "02-tables/5-numt-relative-frequency-percentage.tsv")
-
+df_7_file <- paste0(BASE_INPUT_DIR, "02-tables/6-numt-mtdna-length-by-cluster.tsv")
 
 df_1_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_1.pdf")
 df_2_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_2.pdf")
@@ -15,6 +15,7 @@ df_3_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_3.pdf")
 df_4_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_4.pdf")
 df_5_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_5.pdf")
 df_6_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_6.pdf")
+df_7_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_7.pdf")
 
 
 
@@ -213,7 +214,7 @@ df_Freq_Relative <- df_Freq_Relative |>
       TRUE ~ 0
     ))
 
-p7 <- df_Freq_Relative |>
+p6 <- df_Freq_Relative |>
   tidyplot(
     y = frequency_category_label_rev,
     x = relative_percentage_vs_common,
@@ -250,3 +251,26 @@ p7 <- df_Freq_Relative |>
       "private" = "#1c6e97"
     )) |>
   save_plot(df_6_file_out)
+
+df_length_by_cluster <- read_tsv(df_7_file)
+p7 <- df_length_by_cluster |>
+  filter(is_dloop_artifact == FALSE)  |>
+  drop_na()  |>
+  tidyplot(
+    x = neg_log2_frequency,
+    y = numt_length_bp,
+    color = frequency_class
+  ) |>
+  add_data_points() |>
+  adjust_colors(
+    new_colors = c(
+      "common" = "#274753",
+      "low-frequency" = "#299d8f",
+      "rare" = "#f5c710",
+      "ultra-rare" = "#d55e00"
+    )
+  ) |>
+  adjust_x_axis(title = "-Log2 (frequency of NUMTs)") |>
+  adjust_y_axis(title = "Size of NUMTs (bp)") |>
+  adjust_title("NUMTs length vs. frequency") |>
+  save_plot(df_7_file_out)

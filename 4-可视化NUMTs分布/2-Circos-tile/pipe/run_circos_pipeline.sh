@@ -22,11 +22,11 @@ require_var() {
 }
 
 require_var CFG_PATHS_INPUT_FILE
+require_var CFG_PATHS_TILE_INPUT_FILE
 require_var CFG_PATHS_REFERENCE_DIR
 require_var CFG_PATHS_OUTPUT_DIR
 require_var CFG_PATHS_RUNTIME_DIR
-require_var CFG_PATHS_CIRCOS_TEMPLATE
-require_var CFG_PATHS_RENDERED_CIRCOS_CONFIG
+require_var CFG_PATHS_CIRCOS_CONFIG
 require_var CFG_PATHS_LINKS_FILE
 require_var CFG_PATHS_MT_FRAGMENTS_FILE
 require_var CFG_PATHS_PNG_OUTPUT
@@ -37,11 +37,11 @@ require_var CFG_TOOLS_CIRCOS_ENV_NAME
 require_var CFG_TOOLS_CIRCOS_ETC_DIR
 
 INPUT_FILE="$PROJECT_ROOT/$CFG_PATHS_INPUT_FILE"
+TILE_INPUT_FILE="$PROJECT_ROOT/$CFG_PATHS_TILE_INPUT_FILE"
 REFERENCE_DIR="$PROJECT_ROOT/$CFG_PATHS_REFERENCE_DIR"
 OUTPUT_DIR="$PROJECT_ROOT/$CFG_PATHS_OUTPUT_DIR"
 RUNTIME_DIR="$PROJECT_ROOT/$CFG_PATHS_RUNTIME_DIR"
-TEMPLATE_PATH="$PROJECT_ROOT/$CFG_PATHS_CIRCOS_TEMPLATE"
-RENDERED_CIRCOS_CONFIG="$PROJECT_ROOT/$CFG_PATHS_RENDERED_CIRCOS_CONFIG"
+CIRCOS_CONFIG="$PROJECT_ROOT/$CFG_PATHS_CIRCOS_CONFIG"
 LINKS_FILE="$PROJECT_ROOT/$CFG_PATHS_LINKS_FILE"
 MT_FRAGMENTS_FILE="$PROJECT_ROOT/$CFG_PATHS_MT_FRAGMENTS_FILE"
 PNG_OUTPUT="$PROJECT_ROOT/$CFG_PATHS_PNG_OUTPUT"
@@ -58,15 +58,41 @@ if [[ ! -d "$REFERENCE_DIR" ]]; then
     exit 1
 fi
 
+if [[ ! -f "$TILE_INPUT_FILE" ]]; then
+    echo "[ERROR] Tile input file not found: $TILE_INPUT_FILE" >&2
+    exit 1
+fi
+
 bash "$PROJECT_ROOT/script/build_runtime_inputs.sh" \
     --input "$INPUT_FILE" \
     --links-output "$LINKS_FILE" \
     --mt-output "$MT_FRAGMENTS_FILE"
 
+awk '
+NF == 0 {
+    next
+}
+
+NF != 3 {
+    printf "[ERROR] Expected 3 columns at line %d, got %d\n", NR, NF > "/dev/stderr"
+    exit 1
+}
+
+{
+    mt_chr = $1
+    mt_start = $2 + 0
+    mt_end = $3 + 0
+    printf "%s\t%d\t%d\n", mt_chr, mt_start, mt_end
+}
+' "$TILE_INPUT_FILE" > "$MT_FRAGMENTS_FILE"
+
+RENDERED_CIRCOS_CONFIG=$(mktemp "$RUNTIME_DIR/circos.XXXXXX.conf")
+trap 'rm -f "$RENDERED_CIRCOS_CONFIG"' EXIT
+
 sed \
     -e "s|__CIRCOS_ETC_DIR__|$CIRCOS_ETC_DIR|g" \
     -e "s|__PROJECT_ROOT__|$PROJECT_ROOT|g" \
-    "$TEMPLATE_PATH" > "$RENDERED_CIRCOS_CONFIG"
+    "$CIRCOS_CONFIG" > "$RENDERED_CIRCOS_CONFIG"
 
 "$CONDA_BIN" run -n "$CIRCOS_ENV_NAME" "$CIRCOS_BIN" -conf "$RENDERED_CIRCOS_CONFIG" -outputdir "$OUTPUT_DIR"
 
