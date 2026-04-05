@@ -261,7 +261,8 @@ p7 <- df_length_by_cluster |>
     y = numt_length_bp,
     color = frequency_class
   ) |>
-  add_data_points() |>
+  add_data_points(alpha = 0.3) |>
+  remove_legend() |>
   adjust_colors(
     new_colors = c(
       "common" = "#274753",
