@@ -123,13 +123,14 @@ THREADS="$CFG_RUNTIME_THREADS"
 CHUNK_ROWS="$CFG_RUNTIME_CHUNK_ROWS"
 KARYOTYPE_TXT="$CFG_REFERENCE_KARYOTYPE_TXT"
 
-# v2：QC 过滤后的 cluster input 存放路径（由 step 01v2 产生，step 04 使用）
-CLUSTER_INPUT_PASS_GZ="$TMP_DIR/4-mt_disc_breakpoint_input.pass.tsv.gz"
-
 mkdir -p "$TMP_DIR" "$OUT_DIR" "$TMP_DIR/logs" "$QC_OUT_DIR" "$TABLE_OUT_DIR" "$PYTHON_FIG_OUT_DIR" "$R_FIG_OUT_DIR"
 
 PRIMARY_MIN_SUPPORT="$CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT"
 PRIMARY_FREQ_CLASS_TSV="$TABLE_OUT_DIR/4-numt-frequency-class-summary.min-support-${PRIMARY_MIN_SUPPORT}.tsv"
+BREAKPOINT_PASS_GZ="$QC_OUT_DIR/2-confident_breakpoints.pass.tsv.gz"
+MERGE_BED_PASS_GZ="$QC_OUT_DIR/3-merge_bed.pass.tsv.gz"
+CLUSTER_INPUT_PASS_GZ="$QC_OUT_DIR/4-mt_disc_breakpoint_input.pass.tsv.gz"
+CLUSTER_PREFIX="$TABLE_OUT_DIR/4-mt_disc_breakpoint_input"
 
 # Step 01（v2）：QC 过滤 —— 同时过滤 breakpoint、merge_bed、cluster_input 三个文件
 run_with_log "01_filter_qc_samples_v2" \
@@ -143,15 +144,15 @@ run_with_log "01_filter_qc_samples_v2" \
     --meta-qc-col "$CFG_META_QC_COL" \
     --meta-qc-pass-value "$CFG_META_QC_PASS_VALUE" \
     --pass-sample-tsv "$TMP_DIR/1-pass-samples.tsv" \
-    --breakpoint-out-gz "$TMP_DIR/2-confident_breakpoints.pass.tsv.gz" \
-    --merge-bed-out-gz "$TMP_DIR/3-merge_bed.pass.tsv.gz" \
+    --breakpoint-out-gz "$BREAKPOINT_PASS_GZ" \
+    --merge-bed-out-gz "$MERGE_BED_PASS_GZ" \
     --summary-out "$QC_OUT_DIR/1-qc-filter-summary.tsv" \
     --threads "$THREADS"
 
 # Step 02（v2）：长度统计 —— chosen_length 改为 mt_start 跨度（含环形矫正）
 run_with_log "02_build_length_table_v2" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/02_build_length_table_v2.py" \
-    --input-gz "$TMP_DIR/3-merge_bed.pass.tsv.gz" \
+    --input-gz "$MERGE_BED_PASS_GZ" \
     --output-tsv "$TABLE_OUT_DIR/2-numt-length-by-region.tsv" \
     --summary-tsv "$TABLE_OUT_DIR/2-numt-length-summary.tsv" \
     --mt-genome-length "$CFG_ANALYSIS_MT_GENOME_LENGTH" \
@@ -162,7 +163,7 @@ pid_length=$!
 # Step 03（不变）：事件表
 run_with_log "03_build_event_table" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/03_build_event_table.py" \
-    --input-gz "$TMP_DIR/2-confident_breakpoints.pass.tsv.gz" \
+    --input-gz "$BREAKPOINT_PASS_GZ" \
     --events-out "$TABLE_OUT_DIR/3-numt-events.tsv" \
     --ideogram-out "$TABLE_OUT_DIR/3-numt-events-for-ideogram.tsv" \
     --chr-count-out "$TABLE_OUT_DIR/3-numt-chromosome-counts.tsv" \
@@ -175,7 +176,7 @@ wait "$pid_events"
 run_with_log "04_cluster_frequency" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/04_cluster_frequency.py" \
     --cluster-input-file "$CLUSTER_INPUT_PASS_GZ" \
-    --cluster-prefix "$TMP_DIR/4-mt_disc_breakpoint_input" \
+    --cluster-prefix "$CLUSTER_PREFIX" \
     --cluster-out "$TABLE_OUT_DIR/4-numt-frequency-by-cluster.tsv" \
     --class-summary-out "$TABLE_OUT_DIR/4-numt-frequency-class-summary.tsv" \
     --support-summary-out "$TABLE_OUT_DIR/4-numt-support-summary.tsv" \

@@ -1,0 +1,41 @@
+# =====================================================================
+# NUMT nuclear breakpoint flank enrichment pipeline - central configuration
+# Paths support absolute paths or paths relative to project.base_dir.
+# =====================================================================
+
+project:
+  base_dir: "."  # Project root; "." means this pipeline directory.
+  breakpoint_tsv_gz: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/01-qc/2-confident_breakpoints.pass.tsv.gz"  # QC-filtered confident breakpoint table.
+  cluster_input_tsv_gz: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/01-qc/4-mt_disc_breakpoint_input.pass.tsv.gz"  # QC-filtered sample-level NUMT cluster input table.
+  cluster_detail_tsv: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/02-tables/4-mt_disc_breakpoint_input.min-support-1.allCluster.tsv"  # Cross-sample cluster detail table for mapping event midpoints to merged_cluster_id.
+  frequency_cluster_tsv: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/02-tables/4-numt-frequency-by-cluster.tsv"  # Distinct NUMT frequency table used only for frequency strata.
+
+# --------------------------------------------------------------------- #
+# Directory layout                                                       #
+# --------------------------------------------------------------------- #
+paths:
+  python_dir: "python"  # Python module directory.
+  src_dir: "src"  # Non-Python module directory.
+  helper_dir: "script"  # Shell helper script directory.
+  regions_dir: "data/regions"  # All target genomic region BED files included in enrichment.
+  output_dir: "output"  # Output root directory.
+  report_dir: "report"  # Markdown report directory.
+
+# --------------------------------------------------------------------- #
+# Tool paths and commands                                                #
+# --------------------------------------------------------------------- #
+tools:
+  python_bin: "python3"  # Python interpreter command or path.
+  bedtools_bin: "bedtools"  # bedtools command or path.
+
+# --------------------------------------------------------------------- #
+# Runtime parameters                                                     #
+# --------------------------------------------------------------------- #
+runtime:
+  target_bed_glob: "*.bed"  # BED files in paths.regions_dir to analyze.
+  frequency_classes: "all,common,low-frequency,rare,ultra-rare"  # Distinct NUMT strata to run.
+  flank_bp: 100  # Paper-aligned nuclear breakpoint flank size on each side.
+  simulation_runs: 10000  # Full permutation runs per target-region/class task.
+  random_seed: 20260407  # Base seed; each task derives a deterministic task-specific seed.
+  jobs: 8  # Shell-level parallel jobs.
+  genome_length: 3088269832  # GRCh38 chr1-22,X,Y total length used by the original enrichment logic.
