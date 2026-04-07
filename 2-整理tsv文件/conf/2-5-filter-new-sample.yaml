@@ -1,0 +1,30 @@
+# =====================================================================
+# 2-5 filter new sample — configuration
+# All relative paths are resolved against project.base_dir
+# =====================================================================
+
+project:
+  base_dir: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-整理tsv文件"  # 2-整理tsv文件 project root
+
+# --------------------------------------------------------------------- #
+# Paths: sample ID list, all-sample inputs, new-sample outputs, modules
+# --------------------------------------------------------------------- #
+paths:
+  python_dir: "python"  # Python module directory
+  log_dir: "log"  # Shell wrapper log directory
+  id_file: "meta/1-新测序数据ID.tsv"  # One-column sample ID list
+  input_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/3-严格阈值-排除参考NUMTs/1-所有样本"  # All-sample strict TSV.GZ directory
+  output_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/3-严格阈值-排除参考NUMTs/2-新样本"  # New-sample TSV.GZ output directory
+
+# --------------------------------------------------------------------- #
+# Tools
+# --------------------------------------------------------------------- #
+tools:
+  python_bin: "python3"  # Python interpreter
+
+# --------------------------------------------------------------------- #
+# Runtime
+# --------------------------------------------------------------------- #
+runtime:
+  jobs: 8  # Number of TSV.GZ files to filter in parallel
+  overwrite: false  # Whether to overwrite existing outputs; CLI --overwrite forces true

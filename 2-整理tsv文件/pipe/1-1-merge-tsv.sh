@@ -10,7 +10,7 @@ MERGE_HELPER="$SCRIPT_DIR/merge_tsv_group.sh"
 
 mkdir -p "$LOG_DIR"
 
-CONFIG_PATH="$PROJECT_DIR/conf/merge_config.yaml"
+CONFIG_PATH="$PROJECT_DIR/conf/1-1-merge.yaml"
 JOBS=""
 FORCE=0
 
