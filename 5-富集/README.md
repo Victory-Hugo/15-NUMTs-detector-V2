@@ -1,6 +1,6 @@
 # NUMTs 核断点富集分析 pipeline
 
-本流程用于复现论文 Figure 7D 思路：以 confident NUMT nuclear breakpoints 上下游各 `100 bp` 的 flank 作为分析区间，在多个核基因组功能区域中做 permutation 富集分析。频率分层保留本项目当前分类：
+本流程用于复现论文思路：以 confident NUMT nuclear breakpoints 上下游各 `100 bp` 的 flank 作为分析区间，在多个核基因组功能区域中做 permutation 富集分析。频率分层保留本项目当前分类：
 
 ```text
 all
@@ -15,10 +15,10 @@ ultra-rare
 主流程需要四类输入：
 
 ```text
-/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/01-qc/2-confident_breakpoints.pass.tsv.gz
-/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/01-qc/4-mt_disc_breakpoint_input.pass.tsv.gz
-/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/02-tables/4-mt_disc_breakpoint_input.min-support-1.allCluster.tsv
-/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/02-tables/4-numt-frequency-by-cluster.tsv
+/01-qc/2-confident_breakpoints.pass.tsv.gz
+/01-qc/4-mt_disc_breakpoint_input.pass.tsv.gz
+/02-tables/4-mt_disc_breakpoint_input.min-support-1.allCluster.tsv
+/02-tables/4-numt-frequency-by-cluster.tsv
 ```
 
 其中 `4-numt-frequency-by-cluster.tsv` 只用于给 breakpoint flank 赋予 `common/low-frequency/rare/ultra-rare` 分层；核基因组位置主输入来自 confident nuclear breakpoint 表。
@@ -31,7 +31,7 @@ data/regions/*.bed
 
 ## BED 资源准备
 
-`data/regions/` 是长期可复用资源，不接入主流程。当前目录同时包含论文 Figure 7D 的 22 个区域 BED 和本项目原有的 4 个自定义区域 BED。需要重新构建文章区域 BED 时，单独运行：
+`data/regions/` 是长期可复用资源，不接入主流程。当前目录同时包含论文的 22 个区域 BED 和本项目原有的 4 个自定义区域 BED。需要重新构建文章区域 BED 时，单独运行：
 
 ```bash
 bash script/prepare_article_regions_bed.sh \

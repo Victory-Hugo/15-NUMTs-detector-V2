@@ -98,7 +98,7 @@ def run(summary_tsv: str | Path, prepared_summary: str | Path, output_md: str | 
     lines.append("## 中文摘要")
     lines.append("")
     lines.append(
-        "本分析按照文献 Figure 7D 的核基因组富集思路，使用 confident nuclear breakpoints "
+        "本分析按照已有研究的富集思路，使用 confident nuclear breakpoints "
         "上下游各 100 bp 的 flanks 作为分析区间，并按 `all`、`common`、`low-frequency`、"
         "`rare` 和 `ultra-rare` 分层，对目标基因组区域进行全量 permutation 富集分析。"
     )
