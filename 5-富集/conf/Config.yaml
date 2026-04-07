@@ -26,6 +26,7 @@ paths:
 # --------------------------------------------------------------------- #
 tools:
   python_bin: "python3"  # Python interpreter command or path.
+  rscript_bin: "Rscript"  # Rscript command or path for pheatmap heatmap output.
   bedtools_bin: "bedtools"  # bedtools command or path.
 
 # --------------------------------------------------------------------- #

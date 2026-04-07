@@ -43,10 +43,12 @@ require_var CFG_PROJECT_CLUSTER_INPUT_TSV_GZ
 require_var CFG_PROJECT_CLUSTER_DETAIL_TSV
 require_var CFG_PROJECT_FREQUENCY_CLUSTER_TSV
 require_var CFG_PATHS_PYTHON_DIR
+require_var CFG_PATHS_SRC_DIR
 require_var CFG_PATHS_REGIONS_DIR
 require_var CFG_PATHS_OUTPUT_DIR
 require_var CFG_PATHS_REPORT_DIR
 require_var CFG_TOOLS_PYTHON_BIN
+require_var CFG_TOOLS_RSCRIPT_BIN
 require_var CFG_TOOLS_BEDTOOLS_BIN
 require_var CFG_RUNTIME_TARGET_BED_GLOB
 require_var CFG_RUNTIME_FREQUENCY_CLASSES
@@ -58,6 +60,7 @@ require_var CFG_RUNTIME_GENOME_LENGTH
 
 BASE_DIR=$(resolve_path "$PROJECT_ROOT" "$CFG_PROJECT_BASE_DIR")
 PYTHON_DIR=$(resolve_path "$BASE_DIR" "$CFG_PATHS_PYTHON_DIR")
+SRC_DIR=$(resolve_path "$BASE_DIR" "$CFG_PATHS_SRC_DIR")
 REGIONS_DIR=$(resolve_path "$BASE_DIR" "$CFG_PATHS_REGIONS_DIR")
 OUTPUT_DIR=$(resolve_path "$BASE_DIR" "$CFG_PATHS_OUTPUT_DIR")
 REPORT_DIR=$(resolve_path "$BASE_DIR" "$CFG_PATHS_REPORT_DIR")
@@ -66,6 +69,7 @@ BREAKPOINT_TSV_GZ=$(resolve_path "$BASE_DIR" "$CFG_PROJECT_BREAKPOINT_TSV_GZ")
 CLUSTER_INPUT_TSV_GZ=$(resolve_path "$BASE_DIR" "$CFG_PROJECT_CLUSTER_INPUT_TSV_GZ")
 CLUSTER_DETAIL_TSV=$(resolve_path "$BASE_DIR" "$CFG_PROJECT_CLUSTER_DETAIL_TSV")
 PYTHON_BIN=$(resolve_tool "$BASE_DIR" "$CFG_TOOLS_PYTHON_BIN")
+RSCRIPT_BIN=$(resolve_tool "$BASE_DIR" "$CFG_TOOLS_RSCRIPT_BIN")
 BEDTOOLS_BIN=$(resolve_tool "$BASE_DIR" "$CFG_TOOLS_BEDTOOLS_BIN")
 TARGET_BED_GLOB="$CFG_RUNTIME_TARGET_BED_GLOB"
 FREQUENCY_CLASSES="$CFG_RUNTIME_FREQUENCY_CLASSES"
@@ -94,6 +98,11 @@ fi
 
 if ! command -v "$BEDTOOLS_BIN" >/dev/null 2>&1; then
     echo "错误: 找不到 bedtools: $BEDTOOLS_BIN" >&2
+    exit 1
+fi
+
+if ! command -v "$RSCRIPT_BIN" >/dev/null 2>&1; then
+    echo "错误: 找不到 Rscript: $RSCRIPT_BIN" >&2
     exit 1
 fi
 
@@ -185,6 +194,12 @@ echo "=== Step 4: plot enrichment summaries ==="
     --summary-tsv "$COMBINED_SUMMARY" \
     --output-dir "$FIGURE_DIR" \
     2>&1 | tee "$LOG_DIR/4-plot_enrichment_results.log"
+
+"$RSCRIPT_BIN" "$SRC_DIR/03_plot_enrichment_pheatmap.R" \
+    --summary-tsv "$COMBINED_SUMMARY" \
+    --output-dir "$FIGURE_DIR" \
+    --frequency-classes "all,ultra-rare,rare,low-frequency,common" \
+    2>&1 | tee "$LOG_DIR/4-plot_enrichment_pheatmap.log"
 
 echo "=== Step 5: write Markdown report ==="
 "$PYTHON_BIN" "$PYTHON_DIR/write_enrichment_report.py" \

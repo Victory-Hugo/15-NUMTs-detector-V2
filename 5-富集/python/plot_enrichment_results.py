@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Plot enrichment summary heatmap and barplot."""
+"""Plot enrichment summary barplot."""
 
 from __future__ import annotations
 
@@ -10,7 +10,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.colors import LinearSegmentedColormap
 
 log = logging.getLogger(__name__)
 
@@ -50,20 +49,6 @@ REGION_LABELS = {
     "25-Intron.bed": "Intron",
     "26-Regulatory_elements.bed": "Regulatory elements",
 }
-SINGLE_HUE_COLORS = [
-    "#0b0405",
-    "#30203e",
-    "#3e4d93",
-    "#366b9f",
-    "#3488a6",
-    "#36a4ab",
-    "#49c1ad",
-    "#60ceac",
-    "#84d8b0",
-    "#c4e9cf",
-    "#def5e5",
-]
-
 
 def display_region_name(region_name: str) -> str:
     """Return an ASCII label suitable for manuscript figures."""
@@ -88,27 +73,6 @@ def run(summary_tsv: str | Path, output_dir: str | Path) -> dict[str, str]:
     df["frequency_class"] = pd.Categorical(df["frequency_class"], categories=CLASS_ORDER, ordered=True)
     df["region_label"] = df["region_name"].map(display_region_name)
     df = df.sort_values(["region_name", "frequency_class"]).copy()
-
-    heatmap_df = df.pivot(index="region_label", columns="frequency_class", values="p_value_greater")
-    heatmap_df = heatmap_df.reindex(columns=[item for item in CLASS_ORDER if item in heatmap_df.columns])
-    heatmap_values = -np.log10(heatmap_df.clip(lower=1e-300).astype(float))
-
-    cmap = LinearSegmentedColormap.from_list("continuous_single_2", SINGLE_HUE_COLORS)
-    fig, ax = plt.subplots(figsize=(max(7, 1.2 * heatmap_values.shape[1]), max(4, 0.6 * heatmap_values.shape[0] + 2)))
-    image = ax.imshow(heatmap_values.values, aspect="auto", cmap=cmap)
-    ax.set_xticks(np.arange(len(heatmap_values.columns)))
-    ax.set_xticklabels(heatmap_values.columns, rotation=35, ha="right")
-    ax.set_yticks(np.arange(len(heatmap_values.index)))
-    ax.set_yticklabels(heatmap_values.index)
-    ax.set_title("NUMT nuclear breakpoint flank enrichment")
-    ax.set_xlabel("NUMT frequency class")
-    ax.set_ylabel("Target region")
-    colorbar = fig.colorbar(image, ax=ax)
-    colorbar.set_label("-log10(P value for enrichment)")
-    fig.tight_layout()
-    heatmap_prefix = output_path / "enrichment_pvalue_heatmap"
-    save_figure(fig, heatmap_prefix)
-    plt.close(fig)
 
     bar_df = df.copy()
     regions = list(dict.fromkeys(bar_df["region_label"].tolist()))
@@ -142,8 +106,8 @@ def run(summary_tsv: str | Path, output_dir: str | Path) -> dict[str, str]:
     save_figure(fig, barplot_prefix)
     plt.close(fig)
 
-    log.info("Wrote figures to %s", output_path)
-    return {"heatmap": str(heatmap_prefix), "barplot": str(barplot_prefix)}
+    log.info("Wrote barplot to %s", output_path)
+    return {"barplot": str(barplot_prefix)}
 
 
 def build_parser() -> argparse.ArgumentParser:
