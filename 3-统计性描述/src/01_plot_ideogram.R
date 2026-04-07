@@ -21,10 +21,16 @@ output_heatmap <- get_arg_value(args, "--output-heatmap", NA_character_)
 output_heatmap_1kb <- get_arg_value(args, "--output-heatmap-1kb", NA_character_)
 conf_karyotype <- get_arg_value(args, "--karyotype", NA_character_)
 bin_size <- as.numeric(get_arg_value(args, "--bin-size", "1000000"))
-frequency_denominator <- as.numeric(get_arg_value(args, "--frequency-denominator", "8372"))
+frequency_denominator <- as.numeric(get_arg_value(args, "--frequency-denominator"))
 
 gene_palette <- c("#273e55", "#6aa18a", "#b5c3b1", "#d7bbaf", "#b26966", "#782b55", "#591c4b")
 marker_class_palette <- c(
+  "ultra-rare" = "#0072b2",
+  "rare" = "#56b4e9",
+  "low-frequency" = "#009e73",
+  "common" = "#f0e442"
+)
+heatmap_class_palette <- c(
   "singleton" = "#0072b2",
   "rare" = "#56b4e9",
   "low-frequency" = "#009e73",
@@ -37,7 +43,7 @@ heatmap_palette <- c(
   "#5f1f4d"
 )
 
-annotate_svg_with_frequency_legend <- function(svg_path, mode = c("marker", "heatmap"), bin_label = NULL, denominator = 8372) {
+annotate_svg_with_frequency_legend <- function(svg_path, mode = c("marker", "heatmap"), bin_label = NULL, denominator) {
   mode <- match.arg(mode)
   if (!file.exists(svg_path)) {
     return(invisible(NULL))
@@ -69,14 +75,28 @@ annotate_svg_with_frequency_legend <- function(svg_path, mode = c("marker", "hea
     paste0("Heatmap color = highest cluster frequency class within each ", bin_label, " bin")
   }
 
-  legend_lines <- c(
-    header_line,
-    paste0("Frequency = sample_count / ", denominator),
-    "singleton: sample_count = 1",
-    "rare: sample_count = 2-83",
-    "low-frequency: sample_count = 84-418 (1% to <5%)",
-    "common: sample_count >= 419 (>=5%)"
-  )
+  if (mode == "marker") {
+    common_min <- ceiling(0.05 * denominator)
+    low_min <- ceiling(0.01 * denominator)
+    rare_min <- ceiling(0.001 * denominator)
+    legend_lines <- c(
+      header_line,
+      paste0("Frequency = sample_count / ", denominator),
+      paste0("ultra-rare: sample_count < ", rare_min, " (<0.1%)"),
+      paste0("rare: sample_count = ", rare_min, "-", low_min - 1, " (0.1% to <1%)"),
+      paste0("low-frequency: sample_count = ", low_min, "-", common_min - 1, " (1% to <5%)"),
+      paste0("common: sample_count >= ", common_min, " (>=5%)")
+    )
+  } else {
+    legend_lines <- c(
+      header_line,
+      paste0("Frequency = sample_count / ", denominator),
+      "singleton: sample_count = 1",
+      "rare: sample_count = 2-83",
+      "low-frequency: sample_count = 84-418 (1% to <5%)",
+      "common: sample_count >= 419 (>=5%)"
+    )
+  }
 
   legend_text <- paste(
     vapply(seq_along(legend_lines), function(i) {
@@ -196,7 +216,8 @@ marker_df <- data.frame(
   End = as.numeric(marker_df$cluster_max_midpoint),
   Midpoint = as.numeric(marker_df$cluster_midpoint_mean),
   Value = as.numeric(marker_df$frequency),
-  Class = ifelse(
+  MarkerClass = as.character(marker_df$frequency_class),
+  HeatmapClass = ifelse(
     as.numeric(marker_df$sample_count) == 1,
     "singleton",
     ifelse(
@@ -231,12 +252,17 @@ if (nrow(marker_df) == 0) {
 }
 
 marker_df$Class <- factor(
-  marker_df$Class,
+  marker_df$HeatmapClass,
   levels = c("singleton", "rare", "low-frequency", "common")
 )
 marker_df$ClassRank <- as.numeric(marker_df$Class)
 
-marker_df$Color <- marker_class_palette[as.character(marker_df$Class)]
+marker_df$HeatmapColor <- heatmap_class_palette[as.character(marker_df$Class)]
+marker_df$MarkerClass <- factor(
+  marker_df$MarkerClass,
+  levels = c("ultra-rare", "rare", "low-frequency", "common")
+)
+marker_df$MarkerColor <- marker_class_palette[as.character(marker_df$MarkerClass)]
 
 build_heatmap_data <- function(marker_data, karyotype_data, karyotype_end_map, current_bin_size) {
   heatmap_bins <- data.frame(
@@ -261,7 +287,7 @@ numt_labels <- data.frame(
   Chr = marker_df$Chr,
   Start = marker_df$Start,
   End = marker_df$End,
-  color = gsub("#", "", as.character(marker_df$Color)),
+  color = gsub("#", "", as.character(marker_df$MarkerColor)),
   stringsAsFactors = FALSE
 )
 

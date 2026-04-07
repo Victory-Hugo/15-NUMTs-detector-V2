@@ -74,7 +74,6 @@ require_var CFG_ANALYSIS_FREQUENCY_CLUSTER_GAP_BP
 require_var CFG_ANALYSIS_DISTINCT_NUMT_MIN_SAMPLE_SUPPORTS
 require_var CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT
 require_var CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP
-require_var CFG_ANALYSIS_FREQUENCY_DENOMINATOR
 require_var CFG_RUNTIME_CONDA_SH
 require_var CFG_RUNTIME_CONDA_ENV
 require_var CFG_RUNTIME_THREADS
@@ -138,6 +137,15 @@ run_with_log "01_filter_qc_samples" \
     --summary-out "$QC_OUT_DIR/1-qc-filter-summary.tsv" \
     --threads "$THREADS"
 
+# 从 QC summary 读取通过质控的样本数作为 frequency denominator
+QC_SUMMARY_TSV="$QC_OUT_DIR/1-qc-filter-summary.tsv"
+FREQUENCY_DENOMINATOR=$(awk -F'\t' '$1=="meta_pass_samples"{print $2}' "$QC_SUMMARY_TSV")
+if [[ -z "$FREQUENCY_DENOMINATOR" ]]; then
+    log "Failed to read meta_pass_samples from $QC_SUMMARY_TSV"
+    exit 1
+fi
+log "Frequency denominator (meta_pass_samples): $FREQUENCY_DENOMINATOR"
+
 run_with_log "02_build_length_table" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/02_build_length_table.py" \
     --input-gz "$TMP_DIR/3-merge_bed.pass.tsv.gz" \
@@ -167,7 +175,7 @@ run_with_log "04_cluster_frequency" \
     --support-summary-out "$TABLE_OUT_DIR/4-numt-support-summary.tsv" \
     --top-out "$TABLE_OUT_DIR/4-numt-top-recurrent-clusters.tsv" \
     --cluster-gap-bp "$CFG_ANALYSIS_FREQUENCY_CLUSTER_GAP_BP" \
-    --denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" \
+    --denominator "$FREQUENCY_DENOMINATOR" \
     --min-supports "$CFG_ANALYSIS_DISTINCT_NUMT_MIN_SAMPLE_SUPPORTS" \
     --primary-min-support "$CFG_ANALYSIS_DISTINCT_NUMT_PRIMARY_MIN_SAMPLE_SUPPORT" \
     --threads "$THREADS"
@@ -194,7 +202,7 @@ run_with_log "01_plot_ideogram" \
     --output-heatmap-1kb "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.svg" \
     --karyotype "$KARYOTYPE_TXT" \
     --bin-size "$CFG_ANALYSIS_IDEOGRAM_BIN_SIZE_BP" \
-    --frequency-denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" &
+    --frequency-denominator "$FREQUENCY_DENOMINATOR" &
 pid_ideogram=$!
 
 run_with_log "02_plot_cluster_distribution" \
@@ -203,7 +211,7 @@ run_with_log "02_plot_cluster_distribution" \
     --output-pdf "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.pdf" \
     --output-png "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.png" \
     --output-svg "$R_FIG_OUT_DIR/4-numt-cluster-distribution-combined.svg" \
-    --frequency-denominator "$CFG_ANALYSIS_FREQUENCY_DENOMINATOR" &
+    --frequency-denominator "$FREQUENCY_DENOMINATOR" &
 pid_cluster_r=$!
 
 run_with_log "06_mtdna_length_frequency" \

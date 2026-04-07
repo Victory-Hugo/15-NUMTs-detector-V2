@@ -1,8 +1,16 @@
 input:
-  breakpoint_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值/3-confident_breakpoints.tsv.gz"
-  distinct_numt_cluster_input_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值/4-mt_disc_breakpoint_input.tsv.gz"
-  merge_bed_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值/8-merge_bed.tsv.gz"
+  breakpoint_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值/1-所有样本/3-confident_breakpoints.tsv.gz"
+  distinct_numt_cluster_input_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值/1-所有样本/4-mt_disc_breakpoint_input.tsv.gz"
+  merge_bed_tsv_gz: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值/1-所有样本/8-merge_bed.tsv.gz"
   meta_tsv: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/3-统计性描述/meta/0-基础信息表.tsv"
+
+output:
+  tmp_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/1-严格阈值/1-所有样本/tmp"
+  out_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/1-严格阈值/1-所有样本/output/"
+  qc_subdir: "01-qc"
+  table_subdir: "02-tables"
+  figure_python_subdir: "03-figures/python"
+  figure_r_subdir: "03-figures/r"
 
 meta:
   id_col: "ID"
@@ -17,7 +25,6 @@ analysis:
   distinct_numt_min_sample_supports: "1,2,3,4,5,6,7,8,9,10"
   distinct_numt_primary_min_sample_support: "1"
   ideogram_bin_size_bp: "1000000"
-  frequency_denominator: "8372"
 
 runtime:
   conda_sh: "/home/luolintao/miniconda3/etc/profile.d/conda.sh"
@@ -25,10 +32,4 @@ runtime:
   threads: "8"
   chunk_rows: "1000000"
 
-output:
-  tmp_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v1/tmp"
-  out_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/"
-  qc_subdir: "01-qc"
-  table_subdir: "02-tables"
-  figure_python_subdir: "03-figures/python"
-  figure_r_subdir: "03-figures/r"
+

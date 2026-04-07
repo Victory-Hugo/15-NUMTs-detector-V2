@@ -30,7 +30,7 @@ input_file <- get_arg_value(args, "--input", NA_character_)
 output_pdf <- get_arg_value(args, "--output-pdf", NA_character_)
 output_png <- get_arg_value(args, "--output-png", NA_character_)
 output_svg <- get_arg_value(args, "--output-svg", NA_character_)
-frequency_denominator <- as.numeric(get_arg_value(args, "--frequency-denominator", "8372"))
+frequency_denominator <- as.numeric(get_arg_value(args, "--frequency-denominator"))
 
 if (is.na(input_file) || !nzchar(input_file)) {
   stop("Missing required --input")

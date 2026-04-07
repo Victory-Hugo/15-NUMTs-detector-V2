@@ -1,0 +1,26 @@
+Category	Variable	Summary statistic	Value	Unit	Description
+Cohort overview	Retained samples included in downstream analyses	Count	8379	samples	Samples that passed final quality control and were retained for subsequent analyses
+Nuclear DNA contamination	Retained samples with available FREEMIX estimates	Count	8375	samples	Samples with non-missing contamination estimates from VerifyBamID2
+Nuclear DNA contamination	FREEMIX	Median	0.02	%	Contamination estimate assessed by VerifyBamID2
+Nuclear DNA contamination	FREEMIX	Interquartile range, lower bound	0.00	%	Contamination estimate assessed by VerifyBamID2
+Nuclear DNA contamination	FREEMIX	Interquartile range, upper bound	0.06	%	Contamination estimate assessed by VerifyBamID2
+Nuclear DNA contamination	FREEMIX	Maximum	1.99	%	Contamination estimate assessed by VerifyBamID2
+Nuclear DNA contamination	Samples with FREEMIX <1%	Proportion	96.28	%	Indicates minimal influence of exogenous contamination across the retained cohort
+Nuclear genome sequencing quality	Mean nuclear genome sequencing depth	Median	33.42	x	Estimated from 10,000 marker sites
+Nuclear genome sequencing quality	Mean nuclear genome sequencing depth	Interquartile range, lower bound	31.25	x	Estimated from 10,000 marker sites
+Nuclear genome sequencing quality	Mean nuclear genome sequencing depth	Interquartile range, upper bound	36.74	x	Estimated from 10,000 marker sites
+Nuclear genome sequencing quality	Mean autosomal sequencing depth	Median	33.49	x	Highly consistent with the mean nuclear genome sequencing depth
+Nuclear genome sequencing quality	Mean autosomal sequencing depth	Interquartile range, lower bound	31.43	x	Highly consistent with the mean nuclear genome sequencing depth
+Nuclear genome sequencing quality	Mean autosomal sequencing depth	Interquartile range, upper bound	35.79	x	Highly consistent with the mean nuclear genome sequencing depth
+Nuclear genome sequencing quality	Samples with mean autosomal depth >=25x	Proportion	99.27	%	Supports sufficient and stable nuclear genome sequencing coverage
+Mitochondrial sequencing quality	Mean mtDNA sequencing depth	Median	5559.95	x	Summary across retained samples
+Mitochondrial sequencing quality	Mean mtDNA sequencing depth	Interquartile range, lower bound	2519.30	x	Summary across retained samples
+Mitochondrial sequencing quality	Mean mtDNA sequencing depth	Interquartile range, upper bound	12236.48	x	Summary across retained samples
+Mitochondrial sequencing quality	Mean mtDNA sequencing depth	Minimum	293.45	x	Observed lower bound
+Mitochondrial sequencing quality	Mean mtDNA sequencing depth	Maximum	34608.65	x	Observed upper bound
+Mitochondrial sequencing quality	Samples with mtDNA depth >=1000x	Proportion	99.34	%	Supports sufficient mitochondrial sequencing coverage
+Mitochondrial sequencing quality	Estimated mtDNA copy number	Median	322.63	NA	Derived estimate
+Mitochondrial sequencing quality	Estimated mtDNA copy number	Interquartile range, lower bound	147.96	NA	Derived estimate
+Mitochondrial sequencing quality	Estimated mtDNA copy number	Interquartile range, upper bound	738.86	NA	Derived estimate
+Mitochondrial sequencing quality	Estimated mtDNA copy number	Minimum	50.53	NA	All retained samples exceeded the predefined inclusion threshold
+Mitochondrial sequencing quality	Samples with estimated mtDNA copy number >=100	Proportion	91.20	%	Supports robust mitochondrial signal intensity

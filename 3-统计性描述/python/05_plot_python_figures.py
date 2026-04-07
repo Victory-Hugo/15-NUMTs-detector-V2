@@ -86,17 +86,35 @@ def save_relative_frequency_table(plot_df: pd.DataFrame, out_tsv: Path) -> None:
             "mean_frequency": "mean_numt_frequency",
             "relative_percentage": "relative_percentage_vs_common",
         }
-    )[
+    ).copy()
+    export_df["relative_reference_category"] = plot_df["reference_category"]
+    export_df["relative_reference_label"] = plot_df["reference_label"]
+    export_df["relative_reference_mean_frequency"] = plot_df["reference_mean_frequency"]
+    export_df["relative_percentage_vs_reference"] = plot_df["relative_percentage"]
+    export_df["relative_percentage_vs_common"] = np.where(
+        plot_df["reference_category"] == "common",
+        plot_df["relative_percentage"],
+        np.nan,
+    )
+    export_df = export_df[
         [
             "sort_order",
             "frequency_category",
             "frequency_category_label",
             "locus_count",
             "mean_numt_frequency",
+            "relative_reference_category",
+            "relative_reference_label",
+            "relative_reference_mean_frequency",
+            "relative_percentage_vs_reference",
             "relative_percentage_vs_common",
         ]
-    ].copy()
-    export_df["common_reference"] = "Common mean frequency = 100%"
+    ]
+    export_df["common_reference"] = np.where(
+        export_df["relative_reference_category"] == "common",
+        "Common mean frequency = 100%",
+        "No Common loci; relative percentage uses the highest-frequency observed class as 100%",
+    )
     export_df["private_definition"] = export_df["frequency_category"].map(
         lambda value: "singleton distinct NUMT loci (sample_count == 1)" if value == PRIVATE_CATEGORY else ""
     )
@@ -312,12 +330,29 @@ def build_relative_frequency_percentage_df(freq_cluster_df: pd.DataFrame) -> pd.
     common_reference = float(
         plot_df.loc[plot_df["category"] == "common", "mean_frequency"].iloc[0]
     )
-    if common_reference <= 0:
-        raise ValueError("Common 频率均值 <= 0，无法将其归一化为 100%")
+    reference_category = "common"
+    reference_value = common_reference
+    if reference_value <= 0:
+        observed_df = plot_df.loc[(plot_df["locus_count"] > 0) & (plot_df["mean_frequency"] > 0)].copy()
+        if observed_df.empty:
+            raise ValueError("所有频率类别均为空或均值 <= 0，无法绘制频率百分比子图")
+        observed_df["sort_order"] = observed_df["category"].map(
+            {category: idx for idx, category in enumerate(category_order)}
+        )
+        reference_row = observed_df.sort_values(["sort_order", "mean_frequency"], ascending=[True, False]).iloc[0]
+        reference_category = str(reference_row["category"])
+        reference_value = float(reference_row["mean_frequency"])
+        LOG.warning(
+            "Common 类别没有可用频率，改用 %s 类别均值作为相对频率 100%% 基准",
+            CLASS_LABELS.get(reference_category, reference_category),
+        )
 
-    plot_df["relative_percentage"] = plot_df["mean_frequency"] / common_reference * 100.0
+    plot_df["relative_percentage"] = plot_df["mean_frequency"] / reference_value * 100.0
     plot_df["label"] = plot_df["category"].map(CLASS_LABELS)
     plot_df["color"] = plot_df["category"].map(CATEGORY_COLORS)
+    plot_df["reference_category"] = reference_category
+    plot_df["reference_label"] = CLASS_LABELS.get(reference_category, reference_category)
+    plot_df["reference_mean_frequency"] = reference_value
     plot_df["sort_order"] = plot_df["category"].map({category: idx for idx, category in enumerate(category_order)})
     return plot_df.sort_values("sort_order").reset_index(drop=True)
 
@@ -339,7 +374,8 @@ def plot_relative_frequency_percentage(ax: plt.Axes, freq_cluster_df: pd.DataFra
     ax.set_yticklabels(plot_df["label"])
     ax.invert_yaxis()
     ax.set_xscale("log")
-    ax.set_xlabel("Percentage (Common mean frequency = 100%)")
+    reference_label = str(plot_df["reference_label"].iloc[0])
+    ax.set_xlabel(f"Percentage ({reference_label} mean frequency = 100%)")
     ax.set_ylabel("Frequency class")
     ax.set_title("H. Relative frequency scale across classes", loc="left", fontweight="bold")
     ax.grid(axis="x", color=GRID_COLOR, linewidth=0.8, alpha=0.5)
@@ -351,7 +387,7 @@ def plot_relative_frequency_percentage(ax: plt.Axes, freq_cluster_df: pd.DataFra
     for idx, (_, row) in enumerate(plot_df.iterrows()):
         value = float(row["relative_percentage"])
         label_text = f"{value:.2f}%"
-        x_pos = min(value * 1.15, 132.0)
+        x_pos = min(max(value, min_positive) * 1.15, 132.0)
         ha = "left"
         if value >= 85:
             x_pos = value / 1.15
