@@ -38,3 +38,5 @@ nohup.out
 0-质控指标/META
 
 3-统计性描述/meta/0-基础信息表.tsv
+
+*/.agent/*
