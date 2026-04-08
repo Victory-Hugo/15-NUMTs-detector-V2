@@ -2,12 +2,13 @@ library(tidyverse)
 library(tidyplots)
 
 #! 设置输入输出文件路径
-BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v1/output/"
+BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-排除参考NUMTs/2-新样本/output/"
 df_1_file <- paste0(BASE_INPUT_DIR, "02-tables/2-numt-length-by-region.tsv")
 df_2_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-support-summary.tsv")
 df_3_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-frequency-class-summary.min-support-1.tsv")
 df_5_file <- paste0(BASE_INPUT_DIR, "02-tables/5-numt-relative-frequency-percentage.tsv")
 df_7_file <- paste0(BASE_INPUT_DIR, "02-tables/6-numt-mtdna-length-by-cluster.tsv")
+df_8_file <- paste0(BASE_INPUT_DIR, "02-tables/7-per-sample-numt-distribution.tsv")
 
 df_1_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_1.pdf")
 df_2_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_2.pdf")
@@ -16,7 +17,7 @@ df_4_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_4.pdf")
 df_5_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_5.pdf")
 df_6_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_6.pdf")
 df_7_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_7.pdf")
-
+df_8_file_out <- paste0(BASE_INPUT_DIR, "03-figures/r/tidyplots_8.pdf")
 
 
 # 第一部分
@@ -39,7 +40,7 @@ p1 <- df_length |>
   adjust_colors(new_colors ="#0e4c70") |>
   save_plot(df_1_file_out)
 
-p2 <- df_length |> filter(chosen_length <= 750) |>
+p2 <- df_length |> filter(chosen_length <= 400) |>
   tidyplot(x = chosen_length) |>  
   add(
     ggplot2::geom_histogram(
@@ -49,7 +50,7 @@ p2 <- df_length |> filter(chosen_length <= 750) |>
   ) |>
   adjust_y_axis(labels = scales::label_percent(accuracy = 1)) |>
   adjust_size(width = 100, height = 100) |>
-  adjust_title("NUMT length distribution (<= 750 bp)") |>
+  adjust_title("NUMT length distribution (<= 400 bp)") |>
   adjust_y_axis_title("Frequency") |>
   adjust_x_axis_title("Length (bp)") |>
   adjust_colors(new_colors ="#0e4c70") |>
@@ -275,3 +276,20 @@ p7 <- df_length_by_cluster |>
   adjust_y_axis(title = "Size of NUMTs (bp)") |>
   adjust_title("NUMTs length vs. frequency") |>
   save_plot(df_7_file_out)
+
+df_per_sample_distribution <- read_tsv(df_8_file)
+
+p8 <- df_per_sample_distribution |>
+    filter(numt_count > 0) |>
+    filter(numt_count <= 20) |>
+    tidyplot(
+      x = numt_count,
+      y = sample_count
+    ) |>
+  add_mean_bar(width = 0.9) |>
+  # add_curve_fit(se = FALSE,color = "#0e4c70") |>
+  adjust_colors(new_colors = "#0e4c70") |>
+  adjust_title("Distribution of NUMT count per sample") |>
+  adjust_x_axis(title = "Number of NUMTs per sample") |>
+  adjust_y_axis(title = "Number of samples") |>
+  save_plot(df_8_file_out)

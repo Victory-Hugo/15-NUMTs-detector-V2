@@ -223,10 +223,23 @@ run_with_log "06_mtdna_length_frequency" \
     --output-pdf "$PYTHON_FIG_OUT_DIR/6-numt-mtdna-length-frequency.pdf" &
 pid_mtdna_scatter=$!
 
+run_with_log "07_per_sample_numt_count" \
+    "$PYTHON_BIN" "$PROJECT_ROOT/python/07_per_sample_numt_count.py" \
+    --breakpoint-tsv-gz "$CFG_INPUT_BREAKPOINT_TSV_GZ" \
+    --meta-tsv "$CFG_INPUT_META_TSV" \
+    --meta-id-col "$CFG_META_ID_COL" \
+    --meta-qc-col "$CFG_META_QC_COL" \
+    --meta-qc-pass-value "$CFG_META_QC_PASS_VALUE" \
+    --output-per-sample-tsv "$TABLE_OUT_DIR/7-per-sample-numt-count.tsv" \
+    --output-distribution-tsv "$TABLE_OUT_DIR/7-per-sample-numt-distribution.tsv" \
+    --out-prefix "$PYTHON_FIG_OUT_DIR/7-per-sample-numt-count" &
+pid_per_sample=$!
+
 wait "$pid_python_plots"
 wait "$pid_ideogram"
 wait "$pid_cluster_r"
 wait "$pid_mtdna_scatter"
+wait "$pid_per_sample"
 
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-marker.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.png"

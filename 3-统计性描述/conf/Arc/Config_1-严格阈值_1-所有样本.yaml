@@ -6,7 +6,7 @@ input:
 
 output:
   tmp_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/1-严格阈值/1-所有样本/tmp"
-  out_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/1-严格阈值/1-所有样本/output/"
+  out_dir: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/1-严格阈值/1-所有样本/output"
   qc_subdir: "01-qc"
   table_subdir: "02-tables"
   figure_python_subdir: "03-figures/python"
@@ -31,5 +31,3 @@ runtime:
   conda_env: "BigLin"
   threads: "8"
   chunk_rows: "1000000"
-
-
