@@ -12,8 +12,8 @@ project:
 paths:
   python_dir: "python"  # Python 脚本目录
   log_dir: "log"  # shell wrapper 日志目录
-  input_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值"  # 严格阈值 tsv.gz 输入目录
-  output_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/3-排除参考NUMTs后的严格阈值"  # 过滤后输出目录
+  input_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/1-宽松阈值/1-所有样本"  # 严格阈值 tsv.gz 输入目录
+  output_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/4-宽松阈值-排除参考NUMTs/1-所有样本"  # 过滤后输出目录
   ref_file: "../9-参考NUMTs/output/整理后_仅考虑nuc断点_固定参考.tsv"  # 参考 NUMTs 表，需含 Chr/Nuc Start/Nuc End
 
 # --------------------------------------------------------------------- #

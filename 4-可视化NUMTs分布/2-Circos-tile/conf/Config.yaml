@@ -2,7 +2,7 @@
 paths:
   # 输入文件路径
   input_file: "input/circos_SLE.txt"
-  tile_input_file: "input/Circos_tile.txt"
+  tile_input_file: "input/Circos_tile_SLE_Newsample_allNUMT.txt"
   reference_dir: "conf/reference"
   output_dir: "output"
   runtime_dir: "output/runtime"

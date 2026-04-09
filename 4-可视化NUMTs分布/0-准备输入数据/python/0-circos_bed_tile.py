@@ -7,14 +7,14 @@ import pandas as pd
 log = logging.getLogger(__name__)
 
 INPUT_NAME = "6-numt-mtdna-length-by-cluster.tsv"
-OUTPUT_NAME = "Circos_tile.txt"
+OUTPUT_NAME = "Circos_tile_SLE_Newsample_allNUMT.txt"
 REQUIRED_COLUMNS = [
     "is_dloop_artifact",
     "cluster_min_mt_start",
     "cluster_max_mt_end",
 ]
 DEFAULT_INPUT = (
-    "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v1/output/02-tables/"
+    "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/1-严格阈值/2-新样本/output/02-tables/"
     + INPUT_NAME
 )
 DEFAULT_OUTPUT = (
