@@ -5,7 +5,7 @@
 ## 需要安装CAP3、blat和clustalo
 ################################################################################
 
-# set -euo pipefail # 注释掉 set -e 来允许单个样本失败而不影响整个批次的处理
+set -u -o pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF_FILE="${1:-${SCRIPT_DIR}/../conf/VarDetection_fromDiscSplitReads.conf}"
@@ -22,10 +22,67 @@ fi
 : "${CAP3_BIN:=cap3}"
 : "${BLAT_BIN:=blat}"
 : "${CLUSTALO_BIN:=clustalo}"
+: "${CLUSTALO_THREADS:=1}"
+: "${STEP_TIMEOUT_SEC:=0}"
+: "${FAIL_LOG:=${LOGS_DIR}/fail.log}"
 
 tool_exists() {
     local tool="$1"
     [ -x "${tool}" ] || command -v "${tool}" > /dev/null 2>&1
+}
+
+timestamp() {
+    date '+%Y-%m-%d %H:%M:%S'
+}
+
+log_msg() {
+    local level="$1"
+    local sample_id="$2"
+    local contig_id="$3"
+    shift 3
+    local prefix
+    prefix="$(timestamp) [${level}] [sample:${sample_id}]"
+    if [ -n "${contig_id}" ]; then
+        prefix="${prefix} [contig:${contig_id}]"
+    fi
+    echo "${prefix} $*"
+}
+
+run_with_optional_timeout() {
+    if [ "${STEP_TIMEOUT_SEC}" -gt 0 ] && command -v timeout > /dev/null 2>&1; then
+        timeout --preserve-status "${STEP_TIMEOUT_SEC}" "$@"
+    else
+        "$@"
+    fi
+}
+
+record_sample_status() {
+    local lock_file="$1"
+    local status_file="$2"
+    local sample_id="$3"
+    local message="$4"
+
+    (
+        flock -x 200
+        if [ -f "${status_file}" ] && grep -Fxq "${sample_id}" "${status_file}"; then
+            exit 0
+        fi
+        if [ -n "${message}" ]; then
+            printf '%s\t%s\n' "${sample_id}" "${message}" >> "${status_file}"
+        else
+            printf '%s\n' "${sample_id}" >> "${status_file}"
+        fi
+    ) 200>"${lock_file}"
+}
+
+require_nonempty_file() {
+    local path="$1"
+    local description="$2"
+    if [ ! -s "${path}" ]; then
+        echo "error: ${description} missing or empty: ${path}" >&2
+        return 1
+    fi
+    return 0
 }
 
 if [ ! -f "${LIST_PATH}" ]; then
@@ -51,6 +108,8 @@ process_sample() {
     local logs_dir="${LOGS_DIR}"
     local success_log="${logs_dir}/success.log"
     local success_lock="${logs_dir}/success.lock"
+    local fail_log="${FAIL_LOG}"
+    local fail_lock="${logs_dir}/fail.lock"
     local output_dir_cap3="${output_dir}/assembly"
     local outputdir_psl_human="${output_dir}/pslHuman"
     local outputdir_psl_chimp="${output_dir}/pslChimp"
@@ -63,7 +122,7 @@ process_sample() {
     mkdir -p "${output_dir}" "${output_dir_cap3}" "${outputdir_psl_human}" "${outputdir_psl_chimp}" "${outputdir_aln_human}" "${outputdir_aln_humanchimp}" "${logs_dir}"
 
     if [ -f "${success_log}" ] && grep -Fxq "${sample_id}" "${success_log}"; then
-        echo "skip ${sample_id}: already completed"
+        log_msg "INFO" "${sample_id}" "" "skip already completed"
         return 0
     fi
 
@@ -71,16 +130,29 @@ process_sample() {
         find "${input_dir}" -name "*.fasta" > "${fasta_list}"
     fi
 
-    while IFS= read -r contigINPUT; do
+    if [ ! -s "${fasta_list}" ]; then
+        log_msg "ERROR" "${sample_id}" "" "fasta list missing or empty: ${fasta_list}"
+        record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "empty_fasta_list"
+        return 1
+    fi
+
+    exec 3< "${fasta_list}"
+    while IFS= read -r contigINPUT <&3; do
         if [ -z "${contigINPUT}" ]; then
             continue
         fi
-        echo "processing ${contigINPUT} ..."
+        if [ ! -f "${contigINPUT}" ]; then
+            log_msg "ERROR" "${sample_id}" "" "contig input not found: ${contigINPUT}"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_contig_input"
+            return 1
+        fi
 
         local sampleIndex
         local contigBasename
         sampleIndex="$(basename "${contigINPUT}" .fasta)"
         contigBasename="$(basename "${contigINPUT}")"
+        log_msg "INFO" "${sample_id}" "${sampleIndex}" "processing ${contigINPUT}"
 
         ### assembly ###
         local cap3_out
@@ -93,33 +165,36 @@ process_sample() {
         local max_seq_for_cap3="${MAX_SEQ_FOR_CAP3:-500}"
 
         if [ "${seq_count}" -gt "${max_seq_for_cap3}" ]; then
-            echo "INFO: Skipping CAP3 assembly for ${contigINPUT}"
-            echo "  Reason: Input contains ${seq_count} sequences (threshold: ${max_seq_for_cap3})"
-            echo "  CAP3 may cause memory overflow or segmentation fault with large inputs"
-            echo "  Impact: Using original reads instead of assembled contigs"
-            echo "  Note: This does NOT affect variant detection or age inference results"
-            echo "  Note: Output may contain redundant variant calls from overlapping reads"
+            log_msg "INFO" "${sample_id}" "${sampleIndex}" "skip CAP3: ${seq_count} sequences exceed threshold ${max_seq_for_cap3}"
             assembled_fasta="${contigINPUT}"
         elif tool_exists "${CAP3_BIN}"; then
-            (cd "${output_dir_cap3}" && "${CAP3_BIN}" "${contigINPUT}" > "${cap3_out}") || {
-                echo "warning: CAP3 failed, fallback to original fasta"
-                assembled_fasta="${contigINPUT}"
-            }
-            assembled_fasta="${cap3_out}.contigs"
-            if [ ! -f "${assembled_fasta}" ]; then
-                echo "warning: CAP3 output missing, fallback to original fasta"
+            if (cd "${output_dir_cap3}" && run_with_optional_timeout "${CAP3_BIN}" "${contigINPUT}" > "${cap3_out}" < /dev/null); then
+                if [ -s "${cap3_out}.contigs" ]; then
+                    assembled_fasta="${cap3_out}.contigs"
+                else
+                    log_msg "WARNING" "${sample_id}" "${sampleIndex}" "CAP3 completed but contigs output missing; fallback to original fasta"
+                    assembled_fasta="${contigINPUT}"
+                fi
+            else
+                log_msg "WARNING" "${sample_id}" "${sampleIndex}" "CAP3 failed; fallback to original fasta"
                 assembled_fasta="${contigINPUT}"
             fi
         else
+            log_msg "WARNING" "${sample_id}" "${sampleIndex}" "CAP3 not found; fallback to original fasta"
             assembled_fasta="${contigINPUT}"
         fi
 
         ### filter fasta to avoid empty/invalid sequences ###
         local filtered_fasta
         filtered_fasta="${output_dir}/${sampleIndex}.filtered.fasta"
-        "${PYTHON_BIN}" "${FILTER_FASTA_PY}" --input "${assembled_fasta}" --output "${filtered_fasta}" --min-acgt "${MIN_ACGT}"
+        if ! run_with_optional_timeout "${PYTHON_BIN}" "${FILTER_FASTA_PY}" --input "${assembled_fasta}" --output "${filtered_fasta}" --min-acgt "${MIN_ACGT}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "filter_fasta_nonempty.py failed"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "filter_fasta_failed:${sampleIndex}"
+            return 1
+        fi
         if [ ! -s "${filtered_fasta}" ]; then
-            echo "warning: filtered fasta empty, skip ${contigINPUT}"
+            log_msg "WARNING" "${sample_id}" "${sampleIndex}" "filtered fasta empty; skip contig"
             continue
         fi
 
@@ -128,18 +203,42 @@ process_sample() {
         local psl_chimp
         psl_human="${outputdir_psl_human}/${sampleIndex}.human.psl"
         psl_chimp="${outputdir_psl_chimp}/${sampleIndex}.chimp.psl"
-        if tool_exists "${BLAT_BIN}"; then
-            "${BLAT_BIN}" "${REF_HUMAN}" "${filtered_fasta}" "${psl_human}"
-            "${BLAT_BIN}" "${REF_CHIMP}" "${filtered_fasta}" "${psl_chimp}"
-        else
-            echo "warning: blat not found, skip PSL generation"
+        if ! tool_exists "${BLAT_BIN}"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "blat not found"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_blat"
+            return 1
+        fi
+        if ! run_with_optional_timeout "${BLAT_BIN}" "${REF_HUMAN}" "${filtered_fasta}" "${psl_human}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "blat failed for human reference"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "blat_human_failed:${sampleIndex}"
+            return 1
+        fi
+        if ! run_with_optional_timeout "${BLAT_BIN}" "${REF_CHIMP}" "${filtered_fasta}" "${psl_chimp}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "blat failed for chimp reference"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "blat_chimp_failed:${sampleIndex}"
+            return 1
         fi
 
         ### build numts.bed from psl ###
-        if [ -f "${psl_human}" ]; then
-            "${PYTHON_BIN}" "${PSL_TO_BED_PY}" "${psl_human}" "${numts_bed}"
-        else
-            echo "error: PSL file not found: ${psl_human}"
+        if ! require_nonempty_file "${psl_human}" "human PSL file"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "PSL file not found: ${psl_human}"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_psl:${sampleIndex}"
+            return 1
+        fi
+        if ! run_with_optional_timeout "${PYTHON_BIN}" "${PSL_TO_BED_PY}" "${psl_human}" "${numts_bed}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "psl_to_numts_bed.py failed"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "psl_to_bed_failed:${sampleIndex}"
+            return 1
+        fi
+        if ! require_nonempty_file "${numts_bed}" "NUMTs BED"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "NUMTs BED missing or empty"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_numts_bed:${sampleIndex}"
             return 1
         fi
 
@@ -149,66 +248,136 @@ process_sample() {
         humanMT_fasta="${output_dir}/${sampleIndex}.humanMT.fasta"
         humanchimpMT_fasta="${output_dir}/${sampleIndex}.humanchimpMT.fasta"
 
-        cat "${REF_HUMAN}" "${contigINPUT}" > "${humanMT_fasta}"
-        cat "${REF_HUMANCHIMP}" "${contigINPUT}" > "${humanchimpMT_fasta}"
+        if ! cat "${REF_HUMAN}" "${contigINPUT}" > "${humanMT_fasta}"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "failed to build humanMT fasta"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "build_human_fasta_failed:${sampleIndex}"
+            return 1
+        fi
+        if ! cat "${REF_HUMANCHIMP}" "${contigINPUT}" > "${humanchimpMT_fasta}"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "failed to build humanchimpMT fasta"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "build_humanchimp_fasta_failed:${sampleIndex}"
+            return 1
+        fi
 
         local alnHuman
         local alnHumanChimp
         alnHuman="${outputdir_aln_human}/${sampleIndex}"
         alnHumanChimp="${outputdir_aln_humanchimp}/${sampleIndex}"
-        if tool_exists "${CLUSTALO_BIN}"; then
-            "${CLUSTALO_BIN}" -i "${humanMT_fasta}" -o "${alnHuman}.humanMTaln.fa" --outfmt=fa --force
-            "${CLUSTALO_BIN}" -i "${humanchimpMT_fasta}" -o "${alnHumanChimp}.humanchimpMTaln.fa" --outfmt=fa --force
-        else
-            echo "warning: clustalo not found, skip alignment"
-            continue
+        if ! tool_exists "${CLUSTALO_BIN}"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "clustalo not found"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_clustalo"
+            return 1
+        fi
+        if ! run_with_optional_timeout "${CLUSTALO_BIN}" -i "${humanMT_fasta}" -o "${alnHuman}.humanMTaln.fa" --outfmt=fa --force --threads="${CLUSTALO_THREADS}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "clustalo failed for human alignment"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "clustalo_human_failed:${sampleIndex}"
+            return 1
+        fi
+        if ! require_nonempty_file "${alnHuman}.humanMTaln.fa" "human alignment"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "human alignment missing or empty"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_human_alignment:${sampleIndex}"
+            return 1
+        fi
+        if ! run_with_optional_timeout "${CLUSTALO_BIN}" -i "${humanchimpMT_fasta}" -o "${alnHumanChimp}.humanchimpMTaln.fa" --outfmt=fa --force --threads="${CLUSTALO_THREADS}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "clustalo failed for human+chimp alignment"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "clustalo_humanchimp_failed:${sampleIndex}"
+            return 1
+        fi
+        if ! require_nonempty_file "${alnHumanChimp}.humanchimpMTaln.fa" "human+chimp alignment"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "human+chimp alignment missing or empty"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_humanchimp_alignment:${sampleIndex}"
+            return 1
         fi
 
         ### variant detection ###
-        "${PYTHON_BIN}" "${PY_HUMAN}" "${alnHuman}.humanMTaln.fa" "${numts_bed}"
-        "${PYTHON_BIN}" "${PY_HUMANCHIMP}" "${alnHumanChimp}.humanchimpMTaln.fa" "${numts_bed}"
-    done < "${fasta_list}"
-
-    (
-        flock -x 200
-        if [ -f "${success_log}" ] && grep -Fxq "${sample_id}" "${success_log}"; then
-            exit 0
+        if ! run_with_optional_timeout "${PYTHON_BIN}" "${PY_HUMAN}" "${alnHuman}.humanMTaln.fa" "${numts_bed}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "generateVariantTable.Human.py failed"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "human_variant_failed:${sampleIndex}"
+            return 1
         fi
-        echo "${sample_id}" >> "${success_log}"
-    ) 200>"${success_lock}"
+        if ! require_nonempty_file "${alnHuman}.humanMTaln.fa.numt.tsv" "human numt output"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "human numt output missing or empty"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_human_numt:${sampleIndex}"
+            return 1
+        fi
+        if ! run_with_optional_timeout "${PYTHON_BIN}" "${PY_HUMANCHIMP}" "${alnHumanChimp}.humanchimpMTaln.fa" "${numts_bed}" < /dev/null; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "generateVariantTable.HumanChimp.py failed"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "humanchimp_variant_failed:${sampleIndex}"
+            return 1
+        fi
+        if ! require_nonempty_file "${alnHumanChimp}.humanchimpMTaln.fa.numtDhumanChimp.sum.tsv" "human+chimp summary output"; then
+            log_msg "ERROR" "${sample_id}" "${sampleIndex}" "human+chimp summary output missing or empty"
+            exec 3<&-
+            record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "missing_humanchimp_summary:${sampleIndex}"
+            return 1
+        fi
+        log_msg "INFO" "${sample_id}" "${sampleIndex}" "contig completed"
+    done
+    exec 3<&-
+
+    record_sample_status "${success_lock}" "${success_log}" "${sample_id}" ""
+    log_msg "INFO" "${sample_id}" "" "sample completed"
+    return 0
 }
 
+wait_for_active_pids() {
+    local pid
+    local status=0
+    for pid in "$@"; do
+        if ! wait "${pid}"; then
+            status=1
+        fi
+    done
+    return "${status}"
+}
+
+overall_status=0
+
 if [ "${JOBS}" -le 1 ]; then
-    while IFS=$'\t' read -r sample_id input_dir; do
+    exec 4< "${LIST_PATH}"
+    while IFS=$'\t' read -r sample_id input_dir <&4; do
         if [ -z "${sample_id}" ] || [[ "${sample_id}" =~ ^# ]]; then
             continue
         fi
-        process_sample "${sample_id}" "${input_dir}"
-    done < "${LIST_PATH}"
+        if ! process_sample "${sample_id}" "${input_dir}"; then
+            overall_status=1
+        fi
+    done
+    exec 4<&-
 else
     pids=()
-    while IFS=$'\t' read -r sample_id input_dir; do
+    all_pids=()
+    exec 4< "${LIST_PATH}"
+    while IFS=$'\t' read -r sample_id input_dir <&4; do
         if [ -z "${sample_id}" ] || [[ "${sample_id}" =~ ^# ]]; then
             continue
         fi
         process_sample "${sample_id}" "${input_dir}" &
         pids+=("$!")
+        all_pids+=("$!")
         if [ "${#pids[@]}" -ge "${JOBS}" ]; then
-            # wait -n requires Bash 4.3+; use a portable polling loop instead
-            while true; do
-                new_pids=()
-                for pid in "${pids[@]}"; do
-                    if kill -0 "${pid}" 2>/dev/null; then
-                        new_pids+=("${pid}")
-                    fi
-                done
-                pids=("${new_pids[@]}")
-                if [ "${#pids[@]}" -lt "${JOBS}" ]; then
-                    break
-                fi
-                sleep 1
-            done
+            if ! wait_for_active_pids "${pids[@]}"; then
+                overall_status=1
+            fi
+            pids=()
         fi
-    done < "${LIST_PATH}"
-    wait
+    done
+    exec 4<&-
+    if [ "${#pids[@]}" -gt 0 ]; then
+        if ! wait_for_active_pids "${pids[@]}"; then
+            overall_status=1
+        fi
+    fi
 fi
+
+exit "${overall_status}"
