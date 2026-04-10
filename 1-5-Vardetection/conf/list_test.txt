@@ -1,0 +1,3 @@
+1000434	/mnt/d/5-NCBI-Reference/3-Human/example/output/1000434
+1000592	/mnt/d/5-NCBI-Reference/3-Human/example/output/1000592
+1000612	/mnt/d/5-NCBI-Reference/3-Human/example/output/1000612

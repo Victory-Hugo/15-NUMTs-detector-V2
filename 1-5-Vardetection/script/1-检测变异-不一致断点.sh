@@ -18,6 +18,8 @@ fi
 # shellcheck disable=SC1090
 . "${CONF_FILE}"
 
+: "${USE_PSL_FILTER:=1}"   # 默认开启；可在 .conf 中覆盖
+
 : "${PYTHON_BIN:=python3}"
 : "${CAP3_BIN:=cap3}"
 : "${BLAT_BIN:=blat}"
@@ -242,19 +244,50 @@ process_sample() {
             return 1
         fi
 
+        ### PSL pre-filter for clustalo (controlled by USE_PSL_FILTER) ###
+        local clustalo_input_fasta
+        if [ "${USE_PSL_FILTER:-1}" = "1" ]; then
+            local psl_filtered_fasta
+            psl_filtered_fasta="${output_dir}/${sampleIndex}.psl_filtered.fasta"
+            local _filter_rc=0
+            run_with_optional_timeout "${PYTHON_BIN}" "${FILTER_FASTA_BY_PSL_PY}" \
+                --fasta "${filtered_fasta}" \
+                --psl   "${psl_human}" \
+                --output "${psl_filtered_fasta}" < /dev/null || _filter_rc=$?
+            if [ "${_filter_rc}" -eq 2 ] || [ ! -s "${psl_filtered_fasta}" ]; then
+                log_msg "WARNING" "${sample_id}" "${sampleIndex}" \
+                    "PSL filter: no MT hits; skipping clustalo for this contig"
+                continue
+            elif [ "${_filter_rc}" -ne 0 ]; then
+                log_msg "ERROR" "${sample_id}" "${sampleIndex}" \
+                    "filter_fasta_by_psl.py failed (exit ${_filter_rc})"
+                exec 3<&-
+                record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" \
+                    "psl_filter_failed:${sampleIndex}"
+                return 1
+            fi
+            clustalo_input_fasta="${psl_filtered_fasta}"
+            log_msg "INFO" "${sample_id}" "${sampleIndex}" \
+                "PSL filter: $(grep -c '^>' "${psl_filtered_fasta}") seqs kept for clustalo"
+        else
+            clustalo_input_fasta="${filtered_fasta}"
+            log_msg "INFO" "${sample_id}" "${sampleIndex}" \
+                "PSL filter disabled; using full filtered_fasta for clustalo"
+        fi
+
         ### multiple alignment ###
         local humanMT_fasta
         local humanchimpMT_fasta
         humanMT_fasta="${output_dir}/${sampleIndex}.humanMT.fasta"
         humanchimpMT_fasta="${output_dir}/${sampleIndex}.humanchimpMT.fasta"
 
-        if ! cat "${REF_HUMAN}" "${contigINPUT}" > "${humanMT_fasta}"; then
+        if ! cat "${REF_HUMAN}" "${clustalo_input_fasta}" > "${humanMT_fasta}"; then
             log_msg "ERROR" "${sample_id}" "${sampleIndex}" "failed to build humanMT fasta"
             exec 3<&-
             record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "build_human_fasta_failed:${sampleIndex}"
             return 1
         fi
-        if ! cat "${REF_HUMANCHIMP}" "${contigINPUT}" > "${humanchimpMT_fasta}"; then
+        if ! cat "${REF_HUMANCHIMP}" "${clustalo_input_fasta}" > "${humanchimpMT_fasta}"; then
             log_msg "ERROR" "${sample_id}" "${sampleIndex}" "failed to build humanchimpMT fasta"
             exec 3<&-
             record_sample_status "${fail_lock}" "${fail_log}" "${sample_id}" "build_humanchimp_fasta_failed:${sampleIndex}"
