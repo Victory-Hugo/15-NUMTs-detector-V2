@@ -62,12 +62,226 @@ def resolve_index(index: Optional[int], index_from_end: Optional[int], row_len: 
     raise ValueError("Column index not configured.")
 
 
+def _run_liftover_cmd(
+    liftover_bin: str,
+    chain: str,
+    min_match: Optional[float],
+    bed_in: str,
+    bed_out: str,
+    bed_unmapped: str,
+) -> None:
+    cmd = [liftover_bin]
+    if min_match is not None:
+        cmd.append(f"-minMatch={min_match}")
+    cmd.extend([bed_in, chain, bed_out, bed_unmapped])
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        raise RuntimeError(
+            "liftOver failed:\n"
+            f"STDOUT: {result.stdout}\n"
+            f"STDERR: {result.stderr}"
+        )
+
+
+def _read_lifted_pos(bed_out: str) -> Dict[str, Tuple[int, int]]:
+    lifted_pos: Dict[str, Tuple[int, int]] = {}
+    with open(bed_out, "r", encoding="utf-8") as f:
+        for line in f:
+            fields = line.rstrip("\n").split("\t")
+            if len(fields) < 4:
+                continue
+            lifted_pos[fields[3]] = (int(fields[1]) + 1, int(fields[2]))
+    return lifted_pos
+
+
+def _cleanup(*paths: str) -> None:
+    for path in paths:
+        if os.path.exists(path):
+            os.remove(path)
+
+
+def run_dual_pos(input_path: str, output_path: str, config: Dict) -> Dict:
+    """无表头双位置列格式：chr 在固定列，有效位置在 pos_col_index_a 或 pos_col_index_b（另一列为 -1）。"""
+    delimiter = config["input"]["delimiter"]
+    chr_col_idx: int = config["input"]["chr_col_index"]
+    pos_col_a: int = config["input"]["pos_col_index_a"]
+    pos_col_b: int = config["input"]["pos_col_index_b"]
+    chr_prefix: str = config["input"]["chr_prefix"]
+    mt_chroms: List[str] = config["input"]["mt_chroms"]
+    liftover_bin: str = config["liftover"]["bin"]
+    chain: str = config["liftover"]["chain"]
+    min_match: Optional[float] = config["liftover"].get("min_match")
+    tmp_dir: str = config["runtime"]["tmp_dir"]
+    os.makedirs(tmp_dir, exist_ok=True)
+
+    run_id = uuid.uuid4().hex
+    bed_in = os.path.join(tmp_dir, f"liftover_in_{run_id}.bed")
+    bed_out = os.path.join(tmp_dir, f"liftover_out_{run_id}.bed")
+    bed_unmapped = os.path.join(tmp_dir, f"liftover_unmapped_{run_id}.bed")
+
+    rows: List[List[str]] = []
+    bed_lines: List[str] = []
+    mt_row_ids: set = set()
+    pos_a_submitted = 0
+    pos_b_submitted = 0
+
+    with open(input_path, "r", encoding="utf-8") as f:
+        reader = csv.reader(f, delimiter=delimiter)
+        for idx, row in enumerate(reader):
+            if not row:
+                continue
+            rows.append(row)
+            raw_chr = row[chr_col_idx]
+            if is_mt_chr(raw_chr, mt_chroms):
+                mt_row_ids.add(idx)
+                continue
+            chrom = normalize_chr(raw_chr, chr_prefix)
+            val_a = row[pos_col_a].strip()
+            if val_a not in ("-1", ""):
+                bed_lines.append(f"{chrom}\t{parse_pos(val_a) - 1}\t{parse_pos(val_a)}\t{idx}:A")
+                pos_a_submitted += 1
+            val_b = row[pos_col_b].strip()
+            if val_b not in ("-1", ""):
+                bed_lines.append(f"{chrom}\t{parse_pos(val_b) - 1}\t{parse_pos(val_b)}\t{idx}:B")
+                pos_b_submitted += 1
+
+    lifted_pos: Dict[str, Tuple[int, int]] = {}
+    if bed_lines:
+        with open(bed_in, "w", encoding="utf-8") as f:
+            f.write("\n".join(bed_lines) + "\n")
+        _run_liftover_cmd(liftover_bin, chain, min_match, bed_in, bed_out, bed_unmapped)
+        lifted_pos = _read_lifted_pos(bed_out)
+
+    pos_a_lifted = sum(1 for k in lifted_pos if k.endswith(":A"))
+    pos_b_lifted = sum(1 for k in lifted_pos if k.endswith(":B"))
+    nuclear_rows = len(rows) - len(mt_row_ids)
+
+    os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+    with open(output_path, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f, delimiter=delimiter)
+        for idx, row in enumerate(rows):
+            if idx in mt_row_ids:
+                writer.writerow(row)
+                continue
+            if f"{idx}:A" in lifted_pos:
+                row[pos_col_a] = str(lifted_pos[f"{idx}:A"][0])
+            if f"{idx}:B" in lifted_pos:
+                row[pos_col_b] = str(lifted_pos[f"{idx}:B"][0])
+            writer.writerow(row)
+
+    _cleanup(bed_in, bed_out, bed_unmapped)
+    return {
+        "format": "dual_pos",
+        "total_rows": len(rows),
+        "mt_rows": len(mt_row_ids),
+        "nuclear_rows": nuclear_rows,
+        "pos_a_submitted": pos_a_submitted,
+        "pos_a_lifted": pos_a_lifted,
+        "pos_a_failed": pos_a_submitted - pos_a_lifted,
+        "pos_b_submitted": pos_b_submitted,
+        "pos_b_lifted": pos_b_lifted,
+        "pos_b_failed": pos_b_submitted - pos_b_lifted,
+        "on_fail_action": "keep",
+        "rows_output": len(rows),
+    }
+
+
+def run_encoded_key(input_path: str, output_path: str, config: Dict) -> Dict:
+    """无表头编码键格式：核基因组坐标编码于指定列，格式 {SampleID}_{chr}.{start}.{end}|{readname}。"""
+    import re as _re
+    KEY_PATTERN = _re.compile(r'^(.+)_([^_.]+)\.(\d+)\.(\d+)\|(.+)$')
+
+    delimiter = config["input"]["delimiter"]
+    key_col: int = config["input"]["key_col_index"]
+    chr_prefix: str = config["input"]["chr_prefix"]
+    mt_chroms: List[str] = config["input"]["mt_chroms"]
+    liftover_bin: str = config["liftover"]["bin"]
+    chain: str = config["liftover"]["chain"]
+    min_match: Optional[float] = config["liftover"].get("min_match")
+    tmp_dir: str = config["runtime"]["tmp_dir"]
+    os.makedirs(tmp_dir, exist_ok=True)
+
+    run_id = uuid.uuid4().hex
+    bed_in = os.path.join(tmp_dir, f"liftover_in_{run_id}.bed")
+    bed_out = os.path.join(tmp_dir, f"liftover_out_{run_id}.bed")
+    bed_unmapped = os.path.join(tmp_dir, f"liftover_unmapped_{run_id}.bed")
+
+    rows: List[List[str]] = []
+    bed_lines: List[str] = []
+    mt_row_ids: set = set()
+    key_meta: Dict[int, Tuple[str, str, int, int, str]] = {}  # idx -> (sample_id, raw_chr, start, end, rest)
+
+    with open(input_path, "r", encoding="utf-8") as f:
+        reader = csv.reader(f, delimiter=delimiter)
+        for idx, row in enumerate(reader):
+            if not row:
+                continue
+            rows.append(row)
+            m = KEY_PATTERN.match(row[key_col])
+            if not m:
+                continue
+            sample_id, raw_chr, start_str, end_str, rest = m.groups()
+            start, end = int(start_str), int(end_str)
+            if is_mt_chr(raw_chr, mt_chroms):
+                mt_row_ids.add(idx)
+                continue
+            chrom = normalize_chr(raw_chr, chr_prefix)
+            key_meta[idx] = (sample_id, raw_chr, start, end, rest)
+            bed_lines.append(f"{chrom}\t{start - 1}\t{end}\t{idx}")
+
+    lifted_pos: Dict[str, Tuple[int, int]] = {}
+    if bed_lines:
+        with open(bed_in, "w", encoding="utf-8") as f:
+            f.write("\n".join(bed_lines) + "\n")
+        _run_liftover_cmd(liftover_bin, chain, min_match, bed_in, bed_out, bed_unmapped)
+        lifted_pos = _read_lifted_pos(bed_out)
+
+    keys_parsed = len(key_meta)
+    keys_lifted = sum(1 for idx in key_meta if str(idx) in lifted_pos)
+    keys_failed = keys_parsed - keys_lifted
+
+    os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+    with open(output_path, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f, delimiter=delimiter)
+        for idx, row in enumerate(rows):
+            row_key = str(idx)
+            if idx in mt_row_ids or idx not in key_meta:
+                writer.writerow(row)
+                continue
+            sample_id, raw_chr, orig_start, orig_end, rest = key_meta[idx]
+            if row_key in lifted_pos:
+                new_start, new_end = lifted_pos[row_key]
+                row[key_col] = f"{sample_id}_{raw_chr}.{new_start}.{new_end}|{rest}"
+            writer.writerow(row)
+
+    _cleanup(bed_in, bed_out, bed_unmapped)
+    return {
+        "format": "encoded_key",
+        "total_rows": len(rows),
+        "mt_rows": len(mt_row_ids),
+        "nuclear_rows": len(rows) - len(mt_row_ids),
+        "keys_parsed": keys_parsed,
+        "keys_lifted": keys_lifted,
+        "keys_failed": keys_failed,
+        "on_fail_action": "keep",
+        "rows_output": len(rows),
+    }
+
+
 def run(
     input_path: str,
     output_path: str,
-    config_path: str,
+    config_path: Optional[str] = None,
+    config: Optional[Dict] = None,
 ) -> None:
-    config = load_config(config_path)
+    if config is None:
+        config = load_config(config_path)
+
+    fmt = config["input"].get("format")
+    if fmt == "dual_pos":
+        return run_dual_pos(input_path, output_path, config)
+    if fmt == "encoded_key":
+        return run_encoded_key(input_path, output_path, config)
 
     delimiter = config["input"]["delimiter"]
     has_header = config["input"]["has_header"]
@@ -194,6 +408,11 @@ def run(
                     chrom = normalize_chr(chr_token, chr_prefix)
                     bed_lines.append(f"{chrom}\t{c_start - 1}\t{c_end}\t{idx}:C")
 
+    # 统计 bed 提交量：核心坐标 + reads列表 + cluster_id
+    nuclear_bed_count = sum(1 for l in bed_lines if ":" not in l.split("\t")[3])
+    reads_list_bed_count = sum(1 for l in bed_lines if ":L" in l.split("\t")[3])
+    cluster_bed_count = sum(1 for l in bed_lines if l.split("\t")[3].endswith(":C"))
+
     if bed_lines:
         with open(bed_in, "w", encoding="utf-8") as f:
             f.write("\n".join(bed_lines))
@@ -235,6 +454,11 @@ def run(
     else:
         lifted_pos = {}
         failed_ids = set()
+
+    nuclear_lifted = sum(1 for k in lifted_pos if ":" not in k)
+    nuclear_failed = sum(1 for k in failed_ids if ":" not in k)
+    reads_lifted = sum(1 for k in lifted_pos if ":L" in k)
+    cluster_lifted = sum(1 for k in lifted_pos if k.endswith(":C"))
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     if has_header:
@@ -321,6 +545,26 @@ def run(
     for path in (bed_in, bed_out, bed_unmapped):
         if os.path.exists(path):
             os.remove(path)
+
+    stats: Dict = {
+        "format": "standard",
+        "total_rows": len(rows),
+        "mt_rows": len(mt_row_ids),
+        "nuclear_rows": len(rows) - len(mt_row_ids),
+        "nuclear_bed_submitted": nuclear_bed_count,
+        "nuclear_lifted": nuclear_lifted,
+        "nuclear_failed": nuclear_failed,
+        "reads_list_positions_submitted": reads_list_bed_count,
+        "reads_list_positions_lifted": reads_lifted,
+        "cluster_ids_submitted": cluster_bed_count,
+        "cluster_ids_lifted": cluster_lifted,
+        "on_fail_action": on_fail,
+        "rows_output": len(rows),
+        "has_header": has_header,
+        "has_reads_list": reads_list_col is not None,
+        "has_cluster_id": (cluster_id_col is not None or "cluster_id" in index_meta),
+    }
+    return stats
 
 
 def main() -> None:

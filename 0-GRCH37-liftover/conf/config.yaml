@@ -1,28 +1,106 @@
+# =====================================================================
+# NUMTs GRCh37 → GRCh38 批量 Liftover — 配置文件
+# 路径：绝对路径；tmp_dir/log_dir 相对于 project.base_dir
+# =====================================================================
+
 project:
   name: numts_liftover_grch37_to_grch38
+  base_dir: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/0-GRCH37-liftover"
 
+# --------------------------------------------------------------------- #
+# 工具路径：集中管理解释器与第三方二进制                                   #
+# --------------------------------------------------------------------- #
+tools:
+  python_bin: "python"                                                   # Python 解释器
+  liftover_bin: "/home/luolintao/miniconda3/envs/BigLin/bin/liftOver"   # UCSC liftOver
+
+# --------------------------------------------------------------------- #
+# Liftover 参数                                                          #
+# --------------------------------------------------------------------- #
 liftover:
-  bin: "/home/luolintao/miniconda3/envs/BigLin/bin/liftOver"
   chain: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/0-GRCH37-liftover/data/hg19ToHg38.over.chain.gz"
-  min_match: 0.95
+  min_match: 0.95              # liftOver -minMatch 参数
 
-input:
-  path: "/mnt/l/20-NUMTs/1-原始结果/data/1-10K/all_individuals_AllBreakpoints.concat.tsv"
-  delimiter: "\t"
-  has_header: true
-  chr_col: "chr"
-  pos_col: "pos"
-  chr_prefix: "chr"
-  mt_chroms:
+# --------------------------------------------------------------------- #
+# 运行参数                                                               #
+# --------------------------------------------------------------------- #
+runtime:
+  tmp_dir: "tmp"               # 临时目录，相对于 base_dir
+  log_dir: "log"               # 日志目录，相对于 base_dir
+
+# --------------------------------------------------------------------- #
+# 公共输入/输出默认值（各文件可在 batch.files 中覆盖）                    #
+# --------------------------------------------------------------------- #
+input_defaults:
+  delimiter: "\t"              # 字段分隔符
+  chr_prefix: "chr"            # 标准化后的染色体前缀
+  mt_chroms:                   # 线粒体染色体别名（跳过 liftover）
     - "MT"
     - "M"
     - "chrM"
     - "chrMT"
+  on_fail: "keep"              # liftover 失败行处理：keep | drop | na
 
-output:
-  path: "/mnt/l/20-NUMTs/1-原始结果/data/1-10K/all_individuals_AllBreakpoints_GRCH38.concat.tsv"
-  on_fail: "keep"  # keep|drop|na
+# --------------------------------------------------------------------- #
+# 批量任务：input_dir → output_dir，文件名保持不变                        #
+# --------------------------------------------------------------------- #
+batch:
+  input_dir: "/mnt/l/20-NUMTs/1-原始结果/data/1-10K/1-宽松阈值/1-所有样本/Arc-GRCH37"
+  output_dir: "/mnt/l/20-NUMTs/1-原始结果/data/1-10K/1-宽松阈值/1-所有样本/Arc-GRCH38"
+  files:
 
-runtime:
-  threads: 4
-  tmp_dir: "/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/0-GRCH37-liftover/tmp"
+    # 1. AllBreakpoints：有表头，按 chr/pos 列坐标转换
+    - filename: "1-all_breakpoints.tsv"
+      has_header: true
+      chr_col: "chr"
+      pos_col: "pos"
+
+    # 2. Breakpoints.old：无表头，双位置列格式
+    #    col 2 = chr，col 3 或 col 6 为有效位置（另一列为 -1）
+    - filename: "2-breakpoints_old.tsv"
+      has_header: false
+      format: "dual_pos"
+      chr_col_index: 2
+      pos_col_index_a: 3
+      pos_col_index_b: 6
+
+    # 3. ConfidentBreakpoints：有表头，按 chr/pos 列坐标转换
+    - filename: "3-confident_breakpoints.tsv"
+      has_header: true
+      chr_col: "chr"
+      pos_col: "pos"
+
+    # 4. mt.disc.sam.breakpointINPUT：无表头，chr/start/end 从末尾算列索引
+    - filename: "4-mt_disc_breakpoint_input.tsv"
+      has_header: false
+      chr_col_index_from_end: 3
+      start_col_index_from_end: 2
+      end_col_index_from_end: 1
+
+    # 5. mt.disc.sam.cluster.old（SAM 格式）：有表头，RNAME/POS + Cluster_ID
+    - filename: "5-mt_disc_cluster_old.tsv"
+      has_header: true
+      chr_col: "RNAME"
+      pos_col: "POS"
+      cluster_id_col: "Cluster_ID"
+
+    # 6. mt.disc.sam.cluster.summary：无表头，仅含 Cluster_ID 列（0-based 索引 2）
+    - filename: "6-mt_disc_cluster_summary.tsv"
+      has_header: false
+      cluster_id_col_index: 2
+
+    # 7. mt.disc.sam.cluster：有表头，chr/start/end + reads 位置列表 + Cluster_ID
+    - filename: "7-mt_disc_cluster.tsv"
+      has_header: true
+      chr_col: "chr"
+      start_col: "start"
+      end_col: "end"
+      reads_list_col: "reads"
+      cluster_id_col: "Cluster_ID"
+
+    # 8. merge_bed：无表头，核基因组坐标编码于第 0 列
+    #    格式：{SampleID}_{chr}.{start}.{end}|{readname}
+    - filename: "8-merge_bed.tsv"
+      has_header: false
+      format: "encoded_key"
+      key_col_index: 0

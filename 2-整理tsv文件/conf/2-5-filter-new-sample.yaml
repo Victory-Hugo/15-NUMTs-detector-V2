@@ -13,8 +13,8 @@ paths:
   python_dir: "python"  # Python module directory
   log_dir: "log"  # Shell wrapper log directory
   id_file: "meta/1-新测序数据ID.tsv"  # One-column sample ID list
-  input_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/4-宽松阈值-排除参考NUMTs/1-所有样本"  # All-sample strict TSV.GZ directory
-  output_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/4-宽松阈值-排除参考NUMTs/2-新样本"  # New-sample TSV.GZ output directory
+  input_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/3-严格阈值-排除参考NUMTs/1-所有样本"  # All-sample strict TSV.GZ directory
+  output_dir: "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/3-严格阈值-排除参考NUMTs/2-新样本"  # New-sample TSV.GZ output directory
 
 # --------------------------------------------------------------------- #
 # Tools

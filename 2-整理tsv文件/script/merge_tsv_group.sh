@@ -94,7 +94,7 @@ awk -v list_file="$FILES_LIST" -v out_file="$TEMP_OUTPUT" -v source_mode="$SOURC
 
     base_name = file_basename(file_path)
     if (mode == "breakpoint_region") {
-      if (match(base_name, /^(.*)_(chr[^.]+)\.([0-9]+)\.([0-9]+)\.(chr[^.]+)\.(AllBreakpoints|ConfidentBreakpoints)\.tsv$/, matches)) {
+      if (match(base_name, /^(.*)_([^.]+)\.([0-9]+)\.([0-9]+)\.([^.]+)\.(AllBreakpoints|ConfidentBreakpoints)\.tsv$/, matches)) {
         sample_id = matches[1]
         region_chr = matches[2]
         region_start = matches[3]
