@@ -26,5 +26,5 @@ tools:
 # Runtime
 # --------------------------------------------------------------------- #
 runtime:
-  jobs: 8  # Number of TSV.GZ files to filter in parallel
-  overwrite: false  # Whether to overwrite existing outputs; CLI --overwrite forces true
+  jobs: 9  # Number of TSV.GZ files to filter in parallel
+  overwrite: true  # Whether to overwrite existing outputs; CLI --overwrite forces true

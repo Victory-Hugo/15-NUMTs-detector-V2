@@ -20,6 +20,7 @@ fi
 : "${PSL_HUMAN_SUBDIR:=pslHuman}"
 : "${PSL_HUMAN_SUFFIX:=_all_regions.human.psl}"
 : "${BED_SUFFIX:=_numts.bed}"
+: "${JOBS:=8}"
 
 if [ ! -f "${LIST_PATH}" ]; then
     echo "error: list_path not found: ${LIST_PATH}" >&2
@@ -75,22 +76,45 @@ process_sample() {
     return 0
 }
 
-main() {
-    local has_error=0
-    local sample_id
-    local sample_dir
+run_parallel() {
+    local tmp_samples
+    tmp_samples="$(mktemp)"
+    trap "rm -f '${tmp_samples}'" RETURN
 
     while IFS=$'\t' read -r sample_id sample_dir _; do
         if [ -z "${sample_id}${sample_dir}" ]; then
             continue
         fi
-
-        if ! process_sample "${sample_id}" "${sample_dir}"; then
-            has_error=1
-        fi
+        printf '%s\t%s\n' "${sample_id}" "${sample_dir}" >> "${tmp_samples}"
     done < "${LIST_PATH}"
 
-    return "${has_error}"
+    if [ ! -s "${tmp_samples}" ]; then
+        return 0
+    fi
+
+    export PYTHON_BIN
+    export PSL_TO_BED_PY
+    export PSL_SUFFIX
+    export PSL_HUMAN_SUBDIR
+    export PSL_HUMAN_SUFFIX
+    export BED_SUFFIX
+    export -f process_sample
+
+    if command -v parallel > /dev/null 2>&1; then
+        parallel --colsep '\t' -j "${JOBS}" process_sample {1} {2} :::: "${tmp_samples}"
+        return $?
+    fi
+
+    xargs -a "${tmp_samples}" -d $'\n' -P "${JOBS}" -I{} bash -lc '
+        line="$1"
+        sample_id="${line%%$'\''\t'\''*}"
+        sample_dir="${line#*$'\''\t'\''}"
+        process_sample "${sample_id}" "${sample_dir}"
+    ' _ {}
+}
+
+main() {
+    run_parallel
 }
 
 main "$@"
