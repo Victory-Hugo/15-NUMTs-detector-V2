@@ -29,6 +29,9 @@ EXPECTED_FILES = (
     "6-mt_disc_cluster_summary.tsv.gz",
     "7-mt_disc_cluster.tsv.gz",
     "8-merge_bed.tsv.gz",
+)
+
+OPTIONAL_FILES = (
     "9-merge_bed_confident.tsv.gz",
 )
 
@@ -81,7 +84,8 @@ def load_sample_ids(id_file: Path) -> Set[str]:
 
 def ensure_outputs_can_be_written(output_dir: Path, overwrite: bool) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    existing = [output_dir / name for name in EXPECTED_FILES if (output_dir / name).exists()]
+    known_outputs = EXPECTED_FILES + OPTIONAL_FILES
+    existing = [output_dir / name for name in known_outputs if (output_dir / name).exists()]
     if existing and not overwrite:
         existing_text = "\n".join(str(path) for path in existing)
         raise FileExistsError("Output exists; use --overwrite to replace:\n" + existing_text)
@@ -101,7 +105,14 @@ def validate_input_dir(input_dir: Path) -> Dict[str, Path]:
     if missing:
         raise FileNotFoundError("Missing required inputs:\n" + "\n".join(missing))
 
-    known = set(EXPECTED_FILES)
+    for name in OPTIONAL_FILES:
+        path = input_dir / name
+        if path.exists():
+            paths[name] = path
+        else:
+            LOG.warning("Optional input missing; skipping: %s", path)
+
+    known = set(EXPECTED_FILES + OPTIONAL_FILES)
     unexpected = sorted(path.name for path in input_dir.glob("*.tsv.gz") if path.name not in known)
     if unexpected:
         raise ValueError("Unexpected TSV.GZ files in input directory:\n" + "\n".join(unexpected))
@@ -242,11 +253,11 @@ def run(
     LOG.info("Parallel jobs: %d", jobs)
 
     results: Dict[str, FileStats] = {}
-    max_workers = min(jobs, len(EXPECTED_FILES))
+    max_workers = min(jobs, len(input_paths))
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         future_to_name = {
             executor.submit(filter_one_file, input_paths[name], output_path / name, sample_ids): name
-            for name in EXPECTED_FILES
+            for name in input_paths
         }
         for future in as_completed(future_to_name):
             name = future_to_name[future]
