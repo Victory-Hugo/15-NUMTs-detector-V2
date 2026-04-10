@@ -1,5 +1,0 @@
-# 变异检测流水线优化配置
-# 修改 use_psl_filter_for_clustalo 开关：
-#   true  - BLAT后用PSL结果过滤序列，只保留MT命中的reads再输入clustalo（推荐，大幅加速）
-#   false - 使用原始全量序列输入clustalo（旧版行为，用于对照）
-use_psl_filter_for_clustalo: true
