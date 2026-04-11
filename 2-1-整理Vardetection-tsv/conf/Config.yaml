@@ -1,0 +1,33 @@
+# =====================================================================
+# Vardetection TSV 合并流程 — 配置文件
+# 由 pipe/1-merge-vardetection-tsv.sh 读取
+# =====================================================================
+
+# --------------------------------------------------------------------- #
+# 输入/输出/临时目录：使用绝对路径                                       #
+# --------------------------------------------------------------------- #
+input_dir: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/output  # 上游 Vardetection 输出根目录
+output_dir: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-1-整理Vardetection-tsv/output  # 合并结果输出目录
+tmp_dir: /mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/2-1-整理Vardetection-tsv/tmp  # 临时文件目录
+
+# --------------------------------------------------------------------- #
+# 运行参数                                                               #
+# --------------------------------------------------------------------- #
+jobs: 3          # 并行合并组数
+force: true     # true = 覆盖已有输出；false = 跳过
+
+# --------------------------------------------------------------------- #
+# 合并分组：每组对应一类结果文件                                          #
+# pattern      — find 使用的文件名通配符（在 input_dir 下递归搜索）       #
+# output_name  — 合并后写入 output_dir 的文件名                          #
+# --------------------------------------------------------------------- #
+suffix_groups:
+  numt_var_filter_pos:
+    pattern: '*.humanMTaln.fa.numtVarFilterPos.tsv'
+    output_name: '10-numtVarFilterPos.tsv'
+  numt_d_human_chimp:
+    pattern: '*.humanchimpMTaln.fa.numtDhumanChimp.tsv'
+    output_name: '11-numtDhumanChimp.tsv'
+  numt_d_human_chimp_sum:
+    pattern: '*.humanchimpMTaln.fa.numtDhumanChimp.sum.tsv'
+    output_name: '12-numtDhumanChimp.sum.tsv'

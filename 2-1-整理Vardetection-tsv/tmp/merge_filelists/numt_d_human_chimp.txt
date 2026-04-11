@@ -1,0 +1,3 @@
+/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/output/HG001/alnHumanChimp/HG001_all_regions.humanchimpMTaln.fa.numtDhumanChimp.tsv
+/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/output/HG002/alnHumanChimp/HG002_all_regions.humanchimpMTaln.fa.numtDhumanChimp.tsv
+/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/output/HG006/alnHumanChimp/HG006_all_regions.humanchimpMTaln.fa.numtDhumanChimp.tsv

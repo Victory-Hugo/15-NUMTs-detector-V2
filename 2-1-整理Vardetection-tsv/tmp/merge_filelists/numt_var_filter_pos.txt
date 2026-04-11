@@ -1,0 +1,3 @@
+/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/output/HG001/alnHuman/HG001_all_regions.humanMTaln.fa.numtVarFilterPos.tsv
+/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/output/HG002/alnHuman/HG002_all_regions.humanMTaln.fa.numtVarFilterPos.tsv
+/mnt/f/Onedrive/文档（科研）/脚本/Download/15-NUMTs-detector-V2/1-5-Vardetection/output/HG006/alnHuman/HG006_all_regions.humanMTaln.fa.numtVarFilterPos.tsv
