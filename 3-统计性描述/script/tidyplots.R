@@ -2,7 +2,7 @@ library(tidyverse)
 library(tidyplots)
 
 #! 设置输入输出文件路径
-BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/1-所有样本/output/"
+BASE_INPUT_DIR <- "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/3-严格阈值-排除参考NUMTs/2-新样本/output/"
 df_1_file <- paste0(BASE_INPUT_DIR, "02-tables/2-numt-length-by-region.tsv")
 df_2_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-support-summary.tsv")
 df_3_file <- paste0(BASE_INPUT_DIR, "02-tables/4-numt-frequency-class-summary.min-support-1.tsv")
@@ -281,7 +281,7 @@ df_per_sample_distribution <- read_tsv(df_8_file)
 
 p8 <- df_per_sample_distribution |>
     filter(numt_count > 0) |>
-    filter(numt_count <= 20) |>
+    filter(numt_count <= 15) |>
     tidyplot(
       x = numt_count,
       y = sample_count

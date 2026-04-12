@@ -226,10 +226,6 @@ pid_mtdna_scatter=$!
 run_with_log "07_per_sample_numt_count" \
     "$PYTHON_BIN" "$PROJECT_ROOT/python/07_per_sample_numt_count.py" \
     --breakpoint-tsv-gz "$CFG_INPUT_BREAKPOINT_TSV_GZ" \
-    --meta-tsv "$CFG_INPUT_META_TSV" \
-    --meta-id-col "$CFG_META_ID_COL" \
-    --meta-qc-col "$CFG_META_QC_COL" \
-    --meta-qc-pass-value "$CFG_META_QC_PASS_VALUE" \
     --output-per-sample-tsv "$TABLE_OUT_DIR/7-per-sample-numt-count.tsv" \
     --output-distribution-tsv "$TABLE_OUT_DIR/7-per-sample-numt-distribution.tsv" \
     --out-prefix "$PYTHON_FIG_OUT_DIR/7-per-sample-numt-count" &

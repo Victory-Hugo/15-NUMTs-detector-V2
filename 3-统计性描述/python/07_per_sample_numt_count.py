@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""统计每个 QC-pass 个体携带的非参考 NUMT 数量，并生成分布图。
+"""统计每个个体携带的非参考 NUMT 数量，并生成分布图。
 
-数据来源: 3-confident_breakpoints.tsv.gz
+数据来源: breakpoint TSV.gz
 算法:
-  1. 读取 3-confident_breakpoints.tsv.gz；
+  1. 读取 breakpoint TSV.gz，提取所有唯一 sampleID 作为样本宇宙；
   2. 按 (sampleID, source_region_key) 去重，每个唯一 insertion region 算 1 个 NUMT；
-  3. 从 meta TSV 中筛选 QC-pass 样本；
-  4. 统计每人 NUMT 数量，对无检出的 QC-pass 样本补 0；
-  5. 输出每样本计数表、分布汇总表，以及双面板分布图。
+  3. 统计每人 NUMT 数量，对无检出的样本补 0；
+  4. 输出每样本计数表、分布汇总表，以及双面板分布图。
 """
 
 from __future__ import annotations
@@ -38,18 +37,10 @@ def configure_logging() -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="统计每个 QC-pass 个体携带的非参考 NUMT 数量，并生成分布图。"
+        description="统计每个个体携带的非参考 NUMT 数量，并生成分布图。"
     )
     parser.add_argument("--breakpoint-tsv-gz", required=True,
-                        help="3-confident_breakpoints.tsv.gz，含 sampleID 和 source_region_key 列")
-    parser.add_argument("--meta-tsv", required=True,
-                        help="样本元数据表（含 id_col 和 qc_col）")
-    parser.add_argument("--meta-id-col", required=True,
-                        help="元数据表中样本 ID 的列名")
-    parser.add_argument("--meta-qc-col", required=True,
-                        help="元数据表中 QC 状态的列名")
-    parser.add_argument("--meta-qc-pass-value", required=True,
-                        help="代表 QC 通过的值（如 PASS）")
+                        help="breakpoint TSV.gz，含 sampleID 和 source_region_key 列")
     parser.add_argument("--output-per-sample-tsv", required=True,
                         help="每样本 NUMT 数量输出表（sampleID, numt_count）")
     parser.add_argument("--output-distribution-tsv", required=True,
@@ -63,28 +54,10 @@ def build_parser() -> argparse.ArgumentParser:
 # 核心计算
 # ---------------------------------------------------------------------------
 
-def load_pass_sample_ids(meta_tsv: str, id_col: str, qc_col: str, qc_pass_value: str) -> set[str]:
-    """从 meta 表中读取 QC-pass 样本 ID 集合。"""
-    meta_df = pd.read_csv(meta_tsv, sep="\t", dtype=str)
-    pass_ids: set[str] = set(
-        meta_df.loc[meta_df[qc_col].str.strip() == qc_pass_value, id_col]
-        .astype(str)
-        .tolist()
-    )
-    LOG.info("QC-pass 样本数: %d", len(pass_ids))
-    return pass_ids
-
-
 def compute_per_sample_counts(
     breakpoint_tsv_gz: str,
-    meta_tsv: str,
-    meta_id_col: str,
-    meta_qc_col: str,
-    meta_qc_pass_value: str,
 ) -> pd.DataFrame:
-    """返回 DataFrame，列为 [sampleID, numt_count]，涵盖所有 QC-pass 样本（含 0）。"""
-
-    pass_ids = load_pass_sample_ids(meta_tsv, meta_id_col, meta_qc_col, meta_qc_pass_value)
+    """返回 DataFrame，列为 [sampleID, numt_count]，涵盖 breakpoint 文件中所有样本（含 0）。"""
 
     LOG.info("读取 breakpoint 文件: %s", breakpoint_tsv_gz)
     bp_df = pd.read_csv(
@@ -94,8 +67,9 @@ def compute_per_sample_counts(
     )
     LOG.info("总 breakpoint 行数: %d", len(bp_df))
 
-    # 过滤到 QC-pass 样本
-    bp_df = bp_df.loc[bp_df["sampleID"].isin(pass_ids)].copy()
+    # 从 breakpoint 文件中提取全部唯一样本 ID 作为样本宇宙
+    all_ids: set[str] = set(bp_df["sampleID"].tolist())
+    LOG.info("breakpoint 文件中唯一样本数: %d", len(all_ids))
 
     # 每个 (sampleID, source_region_key) 唯一组合 = 1 个 NUMT
     bp_df = bp_df.drop_duplicates(["sampleID", "source_region_key"])
@@ -106,9 +80,9 @@ def compute_per_sample_counts(
         .rename(columns={"size": "numt_count"})
     )
 
-    # 对 QC-pass 但无检出的样本补 0
+    # 对出现在 breakpoint 文件但去重后无检出的样本补 0
     detected_ids = set(per_sample["sampleID"].tolist())
-    zero_ids = sorted(pass_ids - detected_ids)
+    zero_ids = sorted(all_ids - detected_ids)
     if zero_ids:
         zero_df = pd.DataFrame({"sampleID": zero_ids, "numt_count": 0})
         per_sample = pd.concat([per_sample, zero_df], ignore_index=True)
@@ -120,7 +94,7 @@ def compute_per_sample_counts(
     max_val = int(per_sample["numt_count"].max()) if not per_sample.empty else 0
     median_val = float(per_sample["numt_count"].median()) if not per_sample.empty else 0.0
     LOG.info(
-        "每样本 NUMT 计数完成: QC-pass=%d  有NUMT=%d  max=%d  median=%.1f",
+        "每样本 NUMT 计数完成: 样本总数=%d  有NUMT=%d  max=%d  median=%.1f",
         len(per_sample), n_with, max_val, median_val,
     )
     return per_sample
@@ -231,20 +205,12 @@ def plot_per_sample_distribution(per_sample_df: pd.DataFrame, out_prefix: Path) 
 
 def run(
     breakpoint_tsv_gz: str,
-    meta_tsv: str,
-    meta_id_col: str,
-    meta_qc_col: str,
-    meta_qc_pass_value: str,
     output_per_sample_tsv: str,
     output_distribution_tsv: str,
     out_prefix: str,
 ) -> int:
     per_sample_df = compute_per_sample_counts(
         breakpoint_tsv_gz=breakpoint_tsv_gz,
-        meta_tsv=meta_tsv,
-        meta_id_col=meta_id_col,
-        meta_qc_col=meta_qc_col,
-        meta_qc_pass_value=meta_qc_pass_value,
     )
 
     out_per_sample = Path(output_per_sample_tsv)
@@ -271,10 +237,6 @@ def main(argv: List[str] | None = None) -> int:
     args = parser.parse_args(argv)
     return run(
         breakpoint_tsv_gz=args.breakpoint_tsv_gz,
-        meta_tsv=args.meta_tsv,
-        meta_id_col=args.meta_id_col,
-        meta_qc_col=args.meta_qc_col,
-        meta_qc_pass_value=args.meta_qc_pass_value,
         output_per_sample_tsv=args.output_per_sample_tsv,
         output_distribution_tsv=args.output_distribution_tsv,
         out_prefix=args.out_prefix,
