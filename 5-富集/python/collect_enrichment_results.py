@@ -12,13 +12,15 @@ import pandas as pd
 log = logging.getLogger(__name__)
 
 
-def run(task_manifest: str | Path, output_tsv: str | Path) -> dict[str, str | int]:
+def run(task_manifest: str | Path, output_tsv: str | Path, filter_class: str | None = None) -> dict[str, str | int]:
     manifest_path = Path(task_manifest)
     output_path = Path(output_tsv)
     if not manifest_path.is_file():
         raise FileNotFoundError(f"Task manifest not found: {manifest_path}")
 
     manifest = pd.read_csv(manifest_path, sep="\t")
+    if filter_class:
+        manifest = manifest.loc[manifest["frequency_class"] == filter_class]
     frames = []
     missing = []
     for row in manifest.itertuples(index=False):
@@ -44,6 +46,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Collect per-task enrichment summaries.")
     parser.add_argument("--task-manifest", required=True)
     parser.add_argument("--output-tsv", required=True)
+    parser.add_argument("--filter-class", default=None)
     return parser
 
 

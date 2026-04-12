@@ -5,10 +5,10 @@
 
 project:
   base_dir: "."  # Project root; "." means this pipeline directory.
-  breakpoint_tsv_gz: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/01-qc/2-confident_breakpoints.pass.tsv.gz"  # QC-filtered confident breakpoint table.
-  cluster_input_tsv_gz: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/01-qc/4-mt_disc_breakpoint_input.pass.tsv.gz"  # QC-filtered sample-level NUMT cluster input table.
-  cluster_detail_tsv: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/02-tables/4-mt_disc_breakpoint_input.min-support-1.allCluster.tsv"  # Cross-sample cluster detail table for mapping event midpoints to merged_cluster_id.
-  frequency_cluster_tsv: "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值-v2/output/02-tables/4-numt-frequency-by-cluster.tsv"  # Distinct NUMT frequency table used only for frequency strata.
+  breakpoint_tsv_gz:      "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/2-新样本/tmp/2-confident_breakpoints.pass.tsv.gz"  #? 高置信的断点输入文件，由3-统计性描述分析产生.
+  cluster_input_tsv_gz:   "/mnt/l/20-NUMTs/1-原始结果/data/3-SLE/2-严格阈值/2-新样本/4-mt_disc_breakpoint_input.tsv.gz"  #? 原始的断点输入文件.
+  cluster_detail_tsv:     "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/2-新样本/tmp/4-mt_disc_breakpoint_input.min-support-1.allCluster.tsv"  #? 断点输入聚类文件，由3-统计性描述分析产生.
+  frequency_cluster_tsv:  "/mnt/l/20-NUMTs/6-NUMTs频率分布描述/2-严格阈值/2-新样本/output/02-tables/4-numt-frequency-by-cluster.tsv"  #? NUMTs频率文件，由3-统计性描述分析产生.
 
 # --------------------------------------------------------------------- #
 # Directory layout                                                       #
@@ -40,3 +40,7 @@ runtime:
   random_seed: 20260407  # Base seed; each task derives a deterministic task-specific seed.
   jobs: 8  # Shell-level parallel jobs.
   genome_length: 3088269832  # GRCh38 chr1-22,X,Y total length used by the original enrichment logic.
+
+mtdna:
+  mt_genome_length: 16569
+  mt_regions_dir: "data/mtDNA-region/beds"
