@@ -40,3 +40,5 @@ nohup.out
 3-统计性描述/meta/0-基础信息表.tsv
 
 */.agent/*
+
+*/report/*

@@ -237,6 +237,11 @@ wait "$pid_cluster_r"
 wait "$pid_mtdna_scatter"
 wait "$pid_per_sample"
 
+run_with_log "08_size_frequency_correlation" \
+    "$PYTHON_BIN" "$PROJECT_ROOT/python/08_size_frequency_correlation.py" \
+    --input-tsv "$TABLE_OUT_DIR/6-numt-mtdna-length-by-cluster.tsv" \
+    --output-tsv "$TABLE_OUT_DIR/8-numt-size-frequency-correlation.tsv"
+
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-marker.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-marker.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap.png"
 convert_svg_to_png "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.svg" "$R_FIG_OUT_DIR/3-numt-ideogram-heatmap-1kb.png"
