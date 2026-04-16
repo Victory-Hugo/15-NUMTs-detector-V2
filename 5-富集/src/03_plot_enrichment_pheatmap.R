@@ -70,7 +70,19 @@ for (idx in seq_len(nrow(summary_df))) {
   }
 }
 
-triangle_matrix <- ifelse(!is.na(p_matrix) & p_matrix <= 0.05, "\u25b2", "")
+significance_matrix <- ifelse(
+  is.na(p_matrix),
+  "",
+  ifelse(
+    p_matrix <= 0.001,
+    "***",
+    ifelse(
+      p_matrix <= 0.01,
+      "**",
+      ifelse(p_matrix <= 0.05, "*", "")
+    )
+  )
+)
 
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 output_pdf <- file.path(output_dir, "enrichment_pvalue_heatmap.pdf")
@@ -106,7 +118,7 @@ draw_heatmap <- function(filename, device = c("pdf", "png", "svg")) {
     cluster_rows = FALSE,
     cluster_cols = TRUE,
     border_color = "grey85",
-    display_numbers = triangle_matrix,
+    display_numbers = significance_matrix,
     number_color = "black",
     fontsize_number = 9,
     fontsize = 8,

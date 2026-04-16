@@ -98,6 +98,8 @@ MT_FINE_FIGURE_DIR="$OUTPUT_DIR/4-mt-figures-fine"
 MT_FINE_TASK_MANIFEST="$MT_FINE_PREPARED_DIR/mt_enrichment_task_manifest.tsv"
 MT_FINE_COMBINED_SUMMARY="$MT_FINE_SUMMARY_DIR/mt_enrichment_summary.fine.tsv"
 MT_FINE_REPORT_MD="$REPORT_DIR/mt_enrichment_report.fine.md"
+CENTROMERE_BED="$REGIONS_DIR/15-Centromeres.bed"
+TELOMERE_BED="$BASE_DIR/data/landmark-beds/Telomeres.bed"
 
 for input_file in "$BREAKPOINT_TSV_GZ" "$CLUSTER_INPUT_TSV_GZ" "$CLUSTER_DETAIL_TSV" "$FREQUENCY_CLUSTER_TSV"; do
     if [[ ! -f "$input_file" ]]; then
@@ -105,6 +107,16 @@ for input_file in "$BREAKPOINT_TSV_GZ" "$CLUSTER_INPUT_TSV_GZ" "$CLUSTER_DETAIL_
         exit 1
     fi
 done
+
+if [[ ! -f "$CENTROMERE_BED" ]]; then
+    echo "错误: 着丝粒BED文件不存在: $CENTROMERE_BED" >&2
+    exit 1
+fi
+
+if [[ ! -f "$TELOMERE_BED" ]]; then
+    echo "错误: 端粒BED文件不存在: $TELOMERE_BED" >&2
+    exit 1
+fi
 
 if [[ ! -d "$REGIONS_DIR" ]]; then
     echo "错误: 目标区域BED目录不存在: $REGIONS_DIR" >&2
@@ -258,6 +270,15 @@ echo "=== Step 5: write Markdown report ==="
     --prepared-summary "$PREPARED_DIR/prepared_breakpoint_flanks_summary.tsv" \
     --output-md "$REPORT_MD" \
     2>&1 | tee "$LOG_DIR/5-write_enrichment_report.log"
+
+echo "=== Step 5b: plot nuclear breakpoint distances to centromeres and telomeres ==="
+"$RSCRIPT_BIN" "$SRC_DIR/04_plot_centromere_telomere_distance.R" \
+    --breakpoint-bed "$PREPARED_DIR/nuclear_breakpoint_flanks.all_records.bed" \
+    --centromere-bed "$CENTROMERE_BED" \
+    --telomere-bed "$TELOMERE_BED" \
+    --output-dir "$FIGURE_DIR" \
+    --frequency-classes "$FREQUENCY_CLASSES" \
+    2>&1 | tee "$LOG_DIR/5b-plot_centromere_telomere_distance.log"
 
 echo "=== Step 6: prepare mtDNA breakpoint flank BED files ==="
 "$PYTHON_BIN" "$PYTHON_DIR/prepare_mt_breakpoint_flanks.py" \
