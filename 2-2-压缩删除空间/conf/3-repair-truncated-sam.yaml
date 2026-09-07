@@ -1,0 +1,50 @@
+# =====================================================================
+# 步骤 3：修复步骤 1 中压缩失败的截断 SAM
+#
+# 这些 SAM 是上游 1-1 流程写入中断留下的（文件大小恰为 4096 的整数倍，
+# samtools 在某行报 Parse error）。步骤 1 的 verify 机制已拦截它们，
+# 原 SAM 完好保留。本步骤把可解析的前半部分转为规范 BAM，丢弃损坏尾部。
+#
+# 由 pipe/3-repair-truncated-sam.sh 读取。
+# =====================================================================
+
+project:
+  name: "3-repair-truncated-sam"
+  base_dir: "/share/home/grp-wangyf/luolintao/2-2-压缩删除空间"
+
+paths:
+  input_root: "/share/home/grp-wangyf/Result_NUMT/1-NUMTs"
+  output_result: "{base_dir}/output/result/3-repair-truncated-sam"
+  temp: "{base_dir}/temp/3-repair-truncated-sam"
+  log: "{base_dir}/log"
+
+tools:
+  samtools_bin: "/share/home/grp-wangyf/luolintao/miniconda/envs/LinHui/bin/samtools"
+
+# --------------------------------------------------------------------- #
+# 待修复样本，空格分隔。来自步骤 1 报告中 status=compress_failed 的样本。
+# CC226C 的 SAM 为 0 字节（上游 bwa mem 未产出），无 header 无法修复，
+# 不列入此处，保留原样。
+# --------------------------------------------------------------------- #
+samples:
+  ids: "HG04222 HG03815 CC231C"
+
+compress:
+  source_suffix: "_all_regions.bwa.sam"
+  target_suffix: "_all_regions.bwa.bam"
+  threads: "2"
+
+# --------------------------------------------------------------------- #
+# dry_run  true = 只报告可解析记录数，不写 BAM、不删 SAM
+# keep_sam true = 修复后保留原 SAM（更保守）；false = 删除原 SAM
+# --------------------------------------------------------------------- #
+runtime:
+  dry_run: "true"
+  keep_sam: "false"
+
+lsf:
+  queue: "q6240"
+  cores: "4"
+  walltime: "04:00"
+  job_prefix: "repairSAM"
+  submit: "false"

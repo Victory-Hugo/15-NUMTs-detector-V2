@@ -1,0 +1,74 @@
+# =====================================================================
+# 步骤 1：清理 1-1-获得NUMTs分布 的 output（服务器上为 1-NUMTs/）
+#
+# 保留原则：*_all_regions.bwa.sam 是链条上唯一同时含
+#           「序列 + read名 + 比对坐标」的文件，其余下游文件全部可由它重算。
+#           该 SAM 压缩为 BAM，校验通过后删除原 SAM。
+#
+# 由 pipe/1-clean-numts-output.sh 读取。
+# =====================================================================
+
+project:
+  name: "1-clean-numts-output"
+  base_dir: "/share/home/grp-wangyf/luolintao/2-2-压缩删除空间"
+
+paths:
+  input_root: "/share/home/grp-wangyf/Result_NUMT/1-NUMTs"
+  output_result: "{base_dir}/output/result/1-clean-numts-output"
+  temp: "{base_dir}/temp/1-clean-numts-output"
+  log: "{base_dir}/log"
+
+tools:
+  samtools_bin: "/share/home/grp-wangyf/luolintao/miniconda/envs/LinHui/bin/samtools"
+  parallel_bin: "/share/home/grp-wangyf/luolintao/miniconda/envs/LinHui/bin/parallel"
+
+# --------------------------------------------------------------------- #
+# 需要删除的文件名通配符（在样本目录下 maxdepth 1 匹配）                  #
+# 以空格分隔；load_config.sh 不支持 YAML 列表，故用单行字符串。          #
+#                                                                        #
+# *_all_regions.fasta.cap.*  CAP3 中间产物（.ace/.info/.contigs/.qual/   #
+#                            .singlets/.links），占该目录约 95% 体积      #
+# *_all_regions.fasta        可由 bwa.sam 的 primary 记录无损还原         #
+# *_all_regions.psl          可由 bwa.sam 经 0_2_sam2psl.py 重算          #
+# *.psl（按区域拆分）        all_regions.psl 的子集，同样可重算           #
+# *.Breakpoints.old.tsv      legacy 对照文件，已被 AllBreakpoints 取代    #
+# *.cluster.old.tsv          legacy 对照文件                              #
+# --------------------------------------------------------------------- #
+delete:
+  patterns: "*_all_regions.fasta.cap.* *_all_regions.fasta *_all_regions.psl *.psl *.Breakpoints.old.tsv *.cluster.old.tsv"
+
+# --------------------------------------------------------------------- #
+# 需要保留的文件名通配符。仅用于「未知文件」审计：既不匹配 delete 也不   #
+# 匹配 keep 的文件会被记为 unknown 并原样保留，绝不删除。                 #
+# --------------------------------------------------------------------- #
+keep:
+  patterns: "*_all_regions.bwa.sam *_all_regions.bwa.bam *.mt.disc.sam *.mt.split.sam *.breakpointINPUT.tsv *.cluster.tsv *.cluster.summary.tsv *.AllBreakpoints.tsv *.ConfidentBreakpoints.tsv"
+
+# --------------------------------------------------------------------- #
+# SAM -> BAM 压缩                                                        #
+# verify=true 时用 samtools view -c 比对转换前后记录数，一致才删除 SAM。 #
+# --------------------------------------------------------------------- #
+compress:
+  enabled: "true"
+  source_suffix: "_all_regions.bwa.sam"
+  target_suffix: "_all_regions.bwa.bam"
+  threads: "2"
+  verify: "true"
+
+# --------------------------------------------------------------------- #
+# 运行参数                                                               #
+# dry_run   true = 只统计不改动任何文件                                  #
+# limit     只处理前 N 个样本；0 = 全部                                  #
+# --------------------------------------------------------------------- #
+runtime:
+  dry_run: "true"
+  limit: "50"
+  jobs: "16"
+  samples_per_job: "200"
+
+lsf:
+  queue: "q6240"
+  cores: "16"
+  walltime: "12:00"
+  job_prefix: "cleanNUMT"
+  submit: "false"

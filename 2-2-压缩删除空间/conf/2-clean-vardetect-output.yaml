@@ -1,0 +1,57 @@
+# =====================================================================
+# 步骤 2：清理 1-5-Vardetection 的 output（服务器上为 1-5-Vardetect/output/）
+#
+# 保留原则：两个 *aln.fa（clustalo 多序列比对）是序列本体，
+#           配合 *_numts.bed 即可用 generateVariantTable.*.py 再生全部逐碱基 TSV。
+#           逐碱基明细表占该目录约 90% 体积，全部可再生。
+#
+# 由 pipe/2-clean-vardetect-output.sh 读取。
+# =====================================================================
+
+project:
+  name: "2-clean-vardetect-output"
+  base_dir: "/share/home/grp-wangyf/luolintao/2-2-压缩删除空间"
+
+paths:
+  input_root: "/share/home/grp-wangyf/Result_NUMT/1-5-Vardetect/output"
+  output_result: "{base_dir}/output/result/2-clean-vardetect-output"
+  temp: "{base_dir}/temp/2-clean-vardetect-output"
+  log: "{base_dir}/log"
+
+tools:
+  parallel_bin: "/share/home/grp-wangyf/luolintao/miniconda/envs/LinHui/bin/parallel"
+
+# --------------------------------------------------------------------- #
+# 需要删除的文件名通配符（在样本目录下递归匹配，含 alnHuman/ 等子目录）   #
+#                                                                        #
+# *.humanMTaln.fa.numt.tsv        逐碱基全表，可由 aln.fa + numts.bed 再生 #
+# *.numtVar.tsv                   同一次脚本调用的产物，同样可再生         #
+# *.full.tsv                      human/chimp/alt 三方逐碱基全表，可再生   #
+# *.humanchimpMTaln.fa.numt.tsv   同上一次调用产出，可再生                 #
+# *.humanMT.fasta                 = cat 参考序列 + filtered.fasta，可秒建  #
+# *.humanchimpMT.fasta            同上                                     #
+# *.fasta.cap*                    CAP3 中间产物与 stdout 日志              #
+# fastaFiles.list                 脚本用 find 自动生成                      #
+# core.[0-9]*                     CAP3 崩溃产生的核心转储，对分析无价值             #
+# --------------------------------------------------------------------- #
+delete:
+  patterns: "core.[0-9]* *.humanMTaln.fa.numt.tsv *.numtVar.tsv *.full.tsv *.humanchimpMTaln.fa.numt.tsv *_all_regions.humanMT.fasta *_all_regions.humanchimpMT.fasta *.fasta.cap *.fasta.cap.* fastaFiles.list"
+
+# --------------------------------------------------------------------- #
+# 保留清单（仅用于未知文件审计；未匹配者原样保留）                        #
+# --------------------------------------------------------------------- #
+keep:
+  patterns: "*.humanMTaln.fa *.humanchimpMTaln.fa *_numts.bed *_all_regions.filtered.fasta *.numtVarFilterPos.tsv *.numtDhumanChimp.tsv *.numtDhumanChimp.sum.tsv *.human.psl *.chimp.psl"
+
+runtime:
+  dry_run: "true"
+  limit: "50"
+  jobs: "16"
+  samples_per_job: "200"
+
+lsf:
+  queue: "q6240"
+  cores: "16"
+  walltime: "12:00"
+  job_prefix: "cleanVD"
+  submit: "false"
